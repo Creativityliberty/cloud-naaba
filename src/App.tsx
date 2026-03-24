@@ -4,6 +4,7 @@ import ProblemSection from './components/ProblemSection';
 import HiddenCosts from './components/HiddenCosts';
 import SolutionSection from './components/SolutionSection';
 import HowItWorks from './components/HowItWorks';
+import TargetAudience from './components/TargetAudience';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <HiddenCosts />
         <SolutionSection />
         <HowItWorks />
+        <TargetAudience />
       </main>
       
       {/* Subtle noise texture overlay */}
