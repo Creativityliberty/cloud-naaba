@@ -1,138 +1,173 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Plug, Scan, Rocket, Shield, LayoutDashboard, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { GitBranch, Shield, Zap, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const steps = [
   {
-    number: "01",
-    title: "Connectez votre projet",
-    description: "Votre application entre dans un cadre de déploiement structuré et prêt à être exploité.",
-    icon: <Plug className="w-6 h-6 text-violet-400" />
+    id: 1,
+    title: "Connectez votre source",
+    description: "Liez votre dépôt GitHub ou GitLab en un clic. CloudNaaba détecte automatiquement votre stack.",
+    icon: GitBranch,
+    color: "text-blue-400",
+    bg: "bg-blue-400/10",
+    preview: "git-connect"
   },
   {
-    number: "02",
-    title: "Environnement détecté automatiquement",
-    description: "CloudNaaba identifie votre stack et prépare l’infrastructure adaptée sans configuration manuelle.",
-    icon: <Scan className="w-6 h-6 text-violet-400" />
+    id: 2,
+    title: "Configurez votre cadre",
+    description: "Définissez vos variables d'environnement et vos besoins en ressources. Pas de fichiers YAML complexes.",
+    icon: Shield,
+    color: "text-violet-400",
+    bg: "bg-violet-400/10",
+    preview: "config-env"
   },
   {
-    number: "03",
-    title: "Déploiement automatisé",
-    description: "Votre application est installée, configurée et mise en ligne sans manipulation serveur complexe.",
-    icon: <Rocket className="w-6 h-6 text-violet-400" />
-  },
-  {
-    number: "04",
-    title: "Sécurité et continuité intégrées",
-    description: "Certificats, supervision et base d’exploitation sont activés par défaut dès la mise en ligne.",
-    icon: <Shield className="w-6 h-6 text-violet-400" />
-  },
-  {
-    number: "05",
-    title: "Vous gardez une vision claire",
-    description: "Suivez vos services, gérez sereinement et faites évoluer votre projet sans repartir de zéro.",
-    icon: <LayoutDashboard className="w-6 h-6 text-violet-400" />
+    id: 3,
+    title: "Déployez & Exploitez",
+    description: "CloudNaaba construit, sécurise et met en ligne votre application. La supervision commence immédiatement.",
+    icon: Zap,
+    color: "text-amber-400",
+    bg: "bg-amber-400/10",
+    preview: "deploy-live"
   }
 ];
 
 export default function HowItWorks() {
+  const [activeStep, setActiveStep] = useState(1);
+
   return (
-    <section className="py-32 relative overflow-hidden bg-[#050505]">
-      <div className="container mx-auto max-w-[1240px] px-6">
-        {/* Header Section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-24"
-        >
+    <section id="how-it-works" className="py-32 bg-[#050505] relative overflow-hidden">
+      <div className="container mx-auto max-w-[1100px] px-6 relative z-10">
+        <div className="text-center mb-20">
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-6">
-            Une mise en ligne plus simple, <span className="text-violet-400 text-glow">de bout en bout.</span>
+            De l'idée à la <span className="text-violet-400">production.</span>
           </h2>
-          <p className="text-text-secondary text-lg md:text-xl max-w-[720px] mx-auto leading-relaxed">
-            CloudNaaba structure chaque étape, du projet à la production, dans un cadre clair et automatisé.
+          <p className="text-text-secondary text-lg max-w-[600px] mx-auto">
+            Trois étapes simples pour transformer votre code en un service stable et sécurisé.
           </p>
-        </motion.div>
-
-        {/* Timeline Flow */}
-        <div className="relative">
-          {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-[45px] left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent z-0">
-            <motion.div 
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: "easeInOut", delay: 0.5 }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500 to-transparent origin-left"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 relative z-10">
-            {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="group relative"
-              >
-                {/* Step Card */}
-                <div className="relative p-7 rounded-[18px] bg-[#0D0D11] border border-white/5 hover:border-violet-main/40 transition-all duration-300 hover:-translate-y-2 flex flex-col items-center lg:items-start text-center lg:text-left h-full">
-                  
-                  {/* Soft Halo Effect */}
-                  <div className="absolute -inset-1 rounded-[18px] bg-violet-600/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 pointer-events-none" />
-
-                  {/* Step Header (Icon + Number) */}
-                  <div className="flex items-center justify-between w-full mb-6 relative z-10">
-                    <div className="w-12 h-12 rounded-xl bg-violet-main/10 flex items-center justify-center border border-violet-main/20 group-hover:bg-violet-main/20 transition-colors">
-                      {step.icon}
-                    </div>
-                    <span className="text-2xl font-bold font-mono text-white/10 group-hover:text-violet-500/30 transition-colors">
-                      {step.number}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <h3 className="text-lg font-bold mb-3 text-text-primary group-hover:text-violet-alt transition-colors">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-
-                  {/* Node (Desktop) */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden lg:flex absolute -right-4 top-[45px] -translate-y-1/2 items-center justify-center z-20">
-                      <motion.div 
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
-                        className="w-2 h-2 rounded-full bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.8)]"
-                      />
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
 
-        {/* Mini CTA */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="mt-20 text-center"
-        >
-          <button className="group flex items-center gap-2 mx-auto text-violet-400 font-medium hover:text-violet-300 transition-colors">
-            <span>Voir comment démarrer</span>
-            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-        </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left: Interactive Steps */}
+          <div className="space-y-6">
+            {steps.map((step) => (
+              <button
+                key={step.id}
+                onClick={() => setActiveStep(step.id)}
+                className={`w-full text-left p-8 rounded-2xl border transition-all duration-500 flex gap-6 ${
+                  activeStep === step.id 
+                    ? 'bg-white/[0.04] border-violet-500/30 shadow-[0_0_30px_rgba(139,92,246,0.1)]' 
+                    : 'bg-transparent border-white/5 hover:border-white/10'
+                }`}
+              >
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-500 ${
+                  activeStep === step.id ? step.bg : 'bg-white/5'
+                }`}>
+                  <step.icon className={`w-6 h-6 transition-colors duration-500 ${
+                    activeStep === step.id ? step.color : 'text-white/20'
+                  }`} />
+                </div>
+                <div>
+                  <h3 className={`text-xl font-bold mb-2 transition-colors duration-500 ${
+                    activeStep === step.id ? 'text-white' : 'text-white/40'
+                  }`}>
+                    {step.id}. {step.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed transition-colors duration-500 ${
+                    activeStep === step.id ? 'text-text-secondary' : 'text-text-secondary/30'
+                  }`}>
+                    {step.description}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Right: Visual Preview */}
+          <div className="relative aspect-square lg:aspect-auto lg:h-[500px] rounded-3xl bg-white/[0.02] border border-white/5 overflow-hidden flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.1, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="w-full h-full flex items-center justify-center p-12"
+              >
+                {activeStep === 1 && (
+                  <div className="relative w-full max-w-[300px] aspect-square flex items-center justify-center">
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-[60px]" />
+                    <div className="relative z-10 p-8 rounded-3xl bg-black border border-blue-500/30 shadow-2xl">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                          <GitBranch className="text-blue-400 w-6 h-6" />
+                        </div>
+                        <div className="h-2 w-24 bg-white/10 rounded" />
+                      </div>
+                      <div className="space-y-3">
+                        <div className="h-1.5 w-full bg-white/5 rounded" />
+                        <div className="h-1.5 w-4/5 bg-white/5 rounded" />
+                        <div className="h-1.5 w-2/3 bg-white/5 rounded" />
+                      </div>
+                      <div className="mt-8 flex justify-end">
+                        <div className="px-4 py-2 rounded-lg bg-blue-500 text-[10px] font-bold text-white">Connecté</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeStep === 2 && (
+                  <div className="relative w-full max-w-[300px] aspect-square flex items-center justify-center">
+                    <div className="absolute inset-0 bg-violet-500/20 rounded-full blur-[60px]" />
+                    <div className="relative z-10 p-8 rounded-3xl bg-black border border-violet-500/30 shadow-2xl w-full">
+                      <div className="flex items-center justify-between mb-8">
+                        <Shield className="text-violet-400 w-8 h-8" />
+                        <div className="text-[10px] font-mono text-violet-400/60 tracking-widest">SECURITY_ON</div>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="h-1.5 w-20 bg-white/10 rounded" />
+                          <div className="w-8 h-4 bg-violet-500/40 rounded-full" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="h-1.5 w-24 bg-white/10 rounded" />
+                          <div className="w-8 h-4 bg-violet-500 rounded-full" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="h-1.5 w-16 bg-white/10 rounded" />
+                          <div className="w-8 h-4 bg-violet-500 rounded-full" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeStep === 3 && (
+                  <div className="relative w-full max-w-[300px] aspect-square flex items-center justify-center">
+                    <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-[60px]" />
+                    <div className="relative z-10 p-8 rounded-3xl bg-black border border-amber-500/30 shadow-2xl text-center">
+                      <div className="w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle2 className="text-amber-400 w-8 h-8" />
+                      </div>
+                      <h4 className="text-white font-bold mb-2">Service Live</h4>
+                      <p className="text-amber-400/60 text-[10px] font-mono mb-6">https://app.cloudnaaba.io</p>
+                      <div className="flex justify-center gap-2">
+                        {[1,2,3,4,5].map(i => (
+                          <motion.div 
+                            key={i}
+                            animate={{ height: [4, 12, 4] }}
+                            transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
+                            className="w-1 bg-amber-400/40 rounded-full"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </section>
   );
