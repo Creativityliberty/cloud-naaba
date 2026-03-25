@@ -163,7 +163,7 @@ export default function HowItWorks() {
                         <div className="relative z-10 p-8 rounded-3xl bg-black border border-accent-primary/30 shadow-2xl w-full">
                           <div className="flex items-center justify-between mb-8">
                             <Shield className="text-accent-primary w-8 h-8" />
-                            <div className="text-[10px] font-mono text-accent-primary/60 tracking-widest">SECURITY_ON</div>
+                            <div className="text-[10px] font-mono text-accent-primary/60 tracking-widest">SÉCURITÉ_ACTIVE</div>
                           </div>
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -190,7 +190,7 @@ export default function HowItWorks() {
                           <div className="w-16 h-16 rounded-full bg-accent-primary/20 flex items-center justify-center mx-auto mb-6">
                             <CheckCircle2 className="text-accent-primary w-8 h-8" />
                           </div>
-                          <h4 className="text-white font-bold mb-2">Service Live</h4>
+                          <h4 className="text-white font-bold mb-2">Service en ligne</h4>
                           <p className="text-accent-primary/60 text-[10px] font-mono mb-6">https://app.cloudnaaba.io</p>
                           <div className="flex justify-center gap-2">
                             {[1,2,3,4,5].map(i => (

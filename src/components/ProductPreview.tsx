@@ -31,7 +31,7 @@ export default function ProductPreview() {
               <Cloud className="text-white w-8 h-8 md:w-10 md:h-10" />
             </div>
             <span className="text-white font-bold text-lg md:text-xl">CloudNaaba Engine</span>
-            <span className="text-violet-400/60 text-xs font-mono mt-2">v2.4.0 Active</span>
+            <span className="text-violet-400/60 text-xs font-mono mt-2">v2.4.0 Actif</span>
           </motion.div>
 
           {/* Surrounding Nodes */}
@@ -48,7 +48,7 @@ export default function ProductPreview() {
                 <GitBranch className="text-white/60 w-8 h-8" />
               </div>
               <div className="text-center">
-                <p className="text-white font-medium">Source Code</p>
+                <p className="text-white font-medium">Code Source</p>
                 <p className="text-text-secondary/60 text-xs">GitHub / GitLab</p>
               </div>
             </motion.div>
@@ -79,7 +79,7 @@ export default function ProductPreview() {
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-violet-500/5 border border-violet-500/20 flex items-center justify-center">
                 <Shield className="text-violet-400 w-6 h-6" />
               </div>
-              <p className="text-violet-400/80 text-xs font-bold uppercase tracking-widest">Security Layer</p>
+              <p className="text-violet-400/80 text-xs font-bold uppercase tracking-widest">Couche de Sécurité</p>
             </motion.div>
 
             {/* Bottom: Terminal/Logs */}
@@ -92,7 +92,7 @@ export default function ProductPreview() {
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/[0.02] border border-white/10 flex items-center justify-center">
                 <Terminal className="text-white/40 w-6 h-6" />
               </div>
-              <p className="text-text-secondary/40 text-xs font-mono">Real-time Logs</p>
+              <p className="text-text-secondary/40 text-xs font-mono">Logs en temps réel</p>
             </motion.div>
           </div>
 

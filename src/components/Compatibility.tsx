@@ -80,7 +80,7 @@ export default function Compatibility() {
             transition={{ duration: 0.4, delay: 0.4 }}
             className="p-8 rounded-2xl border border-dashed border-border-subtle flex items-center justify-center"
           >
-            <span className="text-text-secondary/20 text-sm uppercase tracking-[0.2em] font-bold">And more...</span>
+            <span className="text-text-secondary/20 text-sm uppercase tracking-[0.2em] font-bold">Et plus encore...</span>
           </motion.div>
         </div>
 

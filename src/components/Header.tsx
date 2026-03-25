@@ -5,7 +5,6 @@ import { Menu, X, ChevronRight } from 'lucide-react';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [logoError, setLogoError] = useState(false);
   const { scrollY } = useScroll();
   
   useEffect(() => {
@@ -33,22 +32,17 @@ export default function Header() {
       <div className="container mx-auto max-w-[1240px] px-6 flex items-center justify-between">
         {/* Logo Block */}
         <div className="flex items-center gap-3 shrink-0">
-          <div className="relative w-11 h-11 bg-violet-main rounded-full flex items-center justify-center border-2 border-violet-alt/40 overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.3)]">
-            {!logoError ? (
-              <img 
-                src="/logo.png" 
-                alt="CloudNaaba" 
-                className="w-full h-full object-contain p-1.5 relative z-10"
-                onError={() => setLogoError(true)}
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="text-white font-bold text-lg">CN</div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-br from-violet-main to-violet-900 opacity-40" />
+          <div className="relative w-11 h-11 bg-accent-primary rounded-full flex items-center justify-center border-2 border-accent-primary/20 overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.3)]">
+            <img 
+              src="https://cdn.phototourl.com/free/2026-03-25-7e6959d3-1a44-44f9-a676-6e8e2acf2388.png" 
+              alt="CloudNaaba" 
+              className="w-full h-full object-contain p-1 relative z-10"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary to-black/40 opacity-40" />
           </div>
-          <span className="text-xl font-bold tracking-tight font-display text-text-primary">
-            Cloud<span className="text-violet-alt">Naaba</span>
+          <span className="text-xl font-black tracking-tighter font-display text-text-primary">
+            Cloud<span className="text-accent-primary">Naaba</span>
           </span>
         </div>
 

@@ -77,7 +77,7 @@ export default function Pricing() {
             />
           </button>
           <span className={`text-sm font-bold uppercase tracking-widest transition-colors ${isYearly ? 'text-text-primary' : 'text-text-secondary'}`}>
-            Annuel <span className="text-accent-primary ml-2 text-xs font-black">SAVE 20%</span>
+            Annuel <span className="text-accent-primary ml-2 text-xs font-black">ÉCONOMISEZ 20%</span>
           </span>
         </div>
 

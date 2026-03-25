@@ -83,29 +83,29 @@ export default function GlobeVisual() {
       {/* Floating UI Cards - Advanced */}
       <FloatingCard 
         icon={<Zap className="w-3 h-3 text-green-400" />} 
-        label="Deploy status" 
-        value="Live" 
+        label="Statut déploiement" 
+        value="En ligne" 
         className="top-[10%] left-[5%]" 
         delay={0}
       />
       <FloatingCard 
         icon={<ShieldCheck className="w-3 h-3 text-blue-400" />} 
         label="HTTPS" 
-        value="Active" 
+        value="Actif" 
         className="top-[40%] -right-[5%]" 
         delay={1}
       />
       <FloatingCard 
         icon={<Cpu className="w-3 h-3 text-accent-primary" />} 
-        label="CPU Usage" 
+        label="Utilisation CPU" 
         value="12%" 
         className="bottom-[15%] left-[10%]" 
         delay={2}
       />
       <FloatingCard 
         icon={<Database className="w-3 h-3 text-orange-400" />} 
-        label="Database" 
-        value="Healthy" 
+        label="Base de données" 
+        value="Saine" 
         className="bottom-[30%] -right-[10%]" 
         delay={1.5}
       />

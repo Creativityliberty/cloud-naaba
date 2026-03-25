@@ -161,10 +161,10 @@ export default function SolutionSection() {
                 ))}
 
                 {/* Floating Indicators */}
-                <FloatingIndicator label="Deploy" value="Automated" className="top-0 -right-4" delay={0} />
-                <FloatingIndicator label="Security" value="Active" className="bottom-12 -left-8" delay={1} />
-                <FloatingIndicator label="Monitoring" value="Live" className="top-24 -left-12" delay={2} />
-                <FloatingIndicator label="Stack" value="Detected" className="bottom-0 -right-8" delay={1.5} />
+                <FloatingIndicator label="Déploiement" value="Automatisé" className="top-0 -right-4" delay={0} />
+                <FloatingIndicator label="Sécurité" value="Actif" className="bottom-12 -left-8" delay={1} />
+                <FloatingIndicator label="Supervision" value="En direct" className="top-24 -left-12" delay={2} />
+                <FloatingIndicator label="Stack" value="Détectée" className="bottom-0 -right-8" delay={1.5} />
               </div>
 
               {/* Background Glow */}
