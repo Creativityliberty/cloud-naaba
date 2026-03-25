@@ -36,7 +36,7 @@ export default function HowItWorks() {
   const [activeStep, setActiveStep] = useState(1);
 
   return (
-    <section id="how-it-works" className="py-32 bg-bg-primary relative overflow-hidden">
+    <section id="hybrid" className="py-32 bg-bg-primary relative overflow-hidden scroll-mt-24">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         <div className="text-center mb-24">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] mb-8 tracking-tight">

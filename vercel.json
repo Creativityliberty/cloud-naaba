@@ -34,18 +34,6 @@
     "domains": ["cdn.simpleicons.org", "cdn.phototourl.com", "picsum.photos"],
     "minimumCacheTTL": 60
   },
-  "crons": [
-    {
-      "path": "/api/cron",
-      "schedule": "0 0 * * *"
-    }
-  ],
-  "functions": {
-    "api/*.ts": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "github": {
     "silent": true
   },

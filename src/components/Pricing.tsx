@@ -47,7 +47,7 @@ export default function Pricing() {
   const [isYearly, setIsYearly] = useState(true);
 
   return (
-    <section id="pricing" className="py-48 bg-bg-primary relative overflow-hidden">
+    <section id="pricing" className="py-48 bg-bg-primary relative overflow-hidden scroll-mt-24">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         {/* Header */}
         <motion.div 
@@ -92,7 +92,7 @@ export default function Pricing() {
               transition={{ delay: index * 0.1 }}
               className={`relative flex flex-col p-10 premium-card transition-all duration-500 group ${
                 plan.highlight 
-                  ? 'border-accent-primary/50 scale-105 z-10 shadow-[0_0_60px_-15px_rgba(124,58,237,0.2)]' 
+                  ? 'border-accent-primary/50 lg:scale-105 z-10 shadow-[0_0_60px_-15px_rgba(124,58,237,0.2)]' 
                   : 'hover:border-white/10'
               }`}
             >

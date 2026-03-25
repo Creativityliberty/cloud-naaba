@@ -15,10 +15,10 @@ export default function Header({ onMarketplaceClick, onLogoClick }: { onMarketpl
   const navLinks = [
     { name: 'Accueil', href: '#', onClick: onLogoClick },
     { name: 'Marketplace', href: '#', onClick: onMarketplaceClick },
-    { name: 'Hybride', href: '#', badge: 'NEW' },
-    { name: 'Tarifs', href: '#' },
-    { name: 'Sécurité', href: '#' },
-    { name: 'Contact', href: '#' },
+    { name: 'Hybride', href: '#hybrid', badge: 'NEW' },
+    { name: 'Tarifs', href: '#pricing' },
+    { name: 'Sécurité', href: '#security' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (

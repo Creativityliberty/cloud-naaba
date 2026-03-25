@@ -8,14 +8,14 @@ const footerLinks = [
     links: [
       { label: "Accueil", href: "#" },
       { label: "Marketplace", href: "#" },
-      { label: "Hybride", href: "#" },
+      { label: "Hybride", href: "#hybrid" },
       { label: "Tarifs", href: "#pricing" }
     ]
   },
   {
     title: "Plateforme",
     links: [
-      { label: "Fonctionnement", href: "#how-it-works" },
+      { label: "Fonctionnement", href: "#hybrid" },
       { label: "Sécurité", href: "#security" },
       { label: "Compatibilité", href: "#compatibility" },
       { label: "FAQ", href: "#faq-section" }
@@ -41,7 +41,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-bg-primary pt-32 pb-16 relative overflow-hidden border-t border-border-subtle">
+    <footer id="contact" className="bg-bg-primary pt-32 pb-16 relative overflow-hidden border-t border-border-subtle scroll-mt-24">
       {/* Subtle top gradient fade */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-primary/5 to-transparent pointer-events-none" />
       

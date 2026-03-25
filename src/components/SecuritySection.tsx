@@ -31,7 +31,7 @@ const trustItems = [
 
 export default function SecuritySection() {
   return (
-    <section id="security" className="py-48 relative overflow-hidden bg-bg-primary">
+    <section id="security" className="py-48 relative overflow-hidden bg-bg-primary scroll-mt-24">
       {/* Subtle background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-accent-primary/5 rounded-full blur-[140px] pointer-events-none" />
 

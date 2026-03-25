@@ -125,10 +125,10 @@ export default function SolutionSection() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 0.5 + i * 0.1 }}
-                    className="absolute w-28 h-28"
+                    className="absolute w-20 h-20 md:w-28 md:h-28 [--ty:-110px] md:[--ty:-160px]"
                     style={{ 
-                      transform: `rotate(${angle}deg) translateY(-160px) rotate(-${angle}deg)` 
-                    }}
+                      transform: `rotate(${angle}deg) translateY(var(--ty)) rotate(-${angle}deg)` 
+                    } as any}
                   >
                     <motion.div 
                       animate={{ 
