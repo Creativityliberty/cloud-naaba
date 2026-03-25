@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import LogoWall from './components/LogoWall';
@@ -16,8 +17,11 @@ import FAQ from './components/FAQ';
 import Pricing from './components/Pricing';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
+import AiMarketplace from './pages/AiMarketplace';
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<'home' | 'ai'>('home');
+
   return (
     <div className="min-h-screen text-text-primary selection:bg-accent-primary/30">
       {/* Global Background System */}
@@ -26,26 +30,32 @@ export default function App() {
         <div className="bg-noise" />
       </div>
 
-      <Header />
-      <main>
-        <Hero />
-        <LogoWall />
-        <ProductPreview />
-        <ProblemSection />
-        <HiddenCosts />
-        <SolutionSection />
-        <HowItWorks />
-        <TargetAudience />
-        <Features />
-        <SecuritySection />
-        <WhyNotContinue />
-        <Compatibility />
-        <ProofSection />
-        <FAQ />
-        <Pricing />
-        <FinalCTA />
-      </main>
-      <Footer />
+      {currentPage === 'home' ? (
+        <>
+          <Header onMarketplaceClick={() => setCurrentPage('ai')} onLogoClick={() => setCurrentPage('home')} />
+          <main>
+            <Hero />
+            <LogoWall />
+            <ProductPreview />
+            <ProblemSection />
+            <HiddenCosts />
+            <SolutionSection />
+            <HowItWorks />
+            <TargetAudience />
+            <Features />
+            <SecuritySection />
+            <WhyNotContinue />
+            <Compatibility />
+            <ProofSection />
+            <FAQ />
+            <Pricing />
+            <FinalCTA />
+          </main>
+          <Footer />
+        </>
+      ) : (
+        <AiMarketplace onLogoClick={() => setCurrentPage('home')} />
+      )}
     </div>
   );
 }

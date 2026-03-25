@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll } from 'motion/react';
 import { Menu, X, ChevronRight } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ onMarketplaceClick, onLogoClick }: { onMarketplaceClick?: () => void; onLogoClick?: () => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -13,8 +13,8 @@ export default function Header() {
   }, [scrollY]);
 
   const navLinks = [
-    { name: 'Accueil', href: '#' },
-    { name: 'Marketplace', href: '#' },
+    { name: 'Accueil', href: '#', onClick: onLogoClick },
+    { name: 'Marketplace', href: '#', onClick: onMarketplaceClick },
     { name: 'Hybride', href: '#', badge: 'NEW' },
     { name: 'Tarifs', href: '#' },
     { name: 'Sécurité', href: '#' },
@@ -31,7 +31,13 @@ export default function Header() {
     >
       <div className="container mx-auto max-w-[1240px] px-6 flex items-center justify-between">
         {/* Logo Block */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div 
+          className="flex items-center gap-3 shrink-0 cursor-pointer"
+          onClick={() => {
+            if (onLogoClick) onLogoClick();
+            else window.location.href = '/';
+          }}
+        >
           <div className="relative w-11 h-11 bg-accent-primary rounded-full flex items-center justify-center border-2 border-accent-primary/20 overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.3)]">
             <img 
               src="https://cdn.phototourl.com/free/2026-03-25-7e6959d3-1a44-44f9-a676-6e8e2acf2388.png" 
@@ -52,6 +58,12 @@ export default function Header() {
             <div key={link.name} className="flex items-center gap-2 group relative">
               <a 
                 href={link.href} 
+                onClick={(e) => {
+                  if (link.onClick) {
+                    e.preventDefault();
+                    link.onClick();
+                  }
+                }}
                 className="text-[15px] font-medium text-text-secondary hover:text-text-primary transition-colors duration-150"
               >
                 {link.name}
