@@ -16,11 +16,21 @@ import {
   Search,
   Lock,
   ChevronRight,
+  ChevronDown,
+  HelpCircle,
   Plus,
   Eye,
   Layers,
   Filter,
-  ArrowUp
+  ArrowUp,
+  Copy,
+  Check,
+  Cloud,
+  Link,
+  Brain,
+  Wrench,
+  TrendingUp,
+  XCircle
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -53,9 +63,9 @@ export default function HybridInfra({
         <HowItWorksHybrid />
         <BenefitsHybrid />
         <ConnectExisting />
-        <MigrationOptions />
-        <CompatibilityGrid />
-        <WhyProgressive />
+        <MigrationEvolution />
+        <CompatibilityHybrid />
+        <WhyHybrid />
         <HybridFAQ />
         <FinalCTA />
       </main>
@@ -1327,260 +1337,775 @@ function BenefitsHybrid() {
 
 function ConnectExisting() {
   const [typed, setTyped] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
+  const [terminalStep, setTerminalStep] = useState(0);
   const fullText = "curl -sL get.cloudnaaba.io/agent | sh";
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(fullText);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
 
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
       setTyped(fullText.slice(0, i));
       i++;
-      if (i > fullText.length) clearInterval(interval);
-    }, 50);
+      if (i > fullText.length) {
+        clearInterval(interval);
+        // Start terminal simulation after typing
+        startTerminalSimulation();
+      }
+    }, 40);
     return () => clearInterval(interval);
   }, []);
 
+  const startTerminalSimulation = async () => {
+    const steps = [1, 2, 3, 4, 5, 6];
+    for (const step of steps) {
+      await new Promise(resolve => setTimeout(resolve, 600 + Math.random() * 400));
+      setTerminalStep(step);
+    }
+  };
+
+  const terminalLogs = [
+    { id: 1, text: "> Installing CloudNaaba agent...", color: "text-white/60" },
+    { id: 2, text: "> Connecting to infrastructure...", color: "text-white/60" },
+    { id: 3, text: "> Server detected (AWS)", color: "text-accent-primary" },
+    { id: 4, text: "> Server detected (Local)", color: "text-accent-primary" },
+    { id: 5, text: "> Server detected (On-Prem)", color: "text-accent-primary" },
+    { id: 6, text: "Sync complete ✓", color: "text-green-400 font-bold" },
+  ];
+
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section className="py-48 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
-          <div className="lg:col-span-6">
-            <h2 className="text-4xl md:text-5xl font-bold font-display mb-8 text-gradient">Connectez votre infra en 30 secondes.</h2>
-            <p className="text-xl text-text-secondary leading-relaxed mb-10">
-              L'agent CloudNaaba est léger, sécurisé et s'installe sur n'importe quel système Linux ou Windows.
-            </p>
-            
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-10"
+          >
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-6xl font-bold font-display leading-tight text-gradient">
+                Commencez par connecter ce que vous avez déjà.
+              </h2>
+              <p className="text-xl text-text-secondary leading-relaxed">
+                Pas besoin de tout reconstruire pour entrer dans un cadre plus propre. Avec l’agent CloudNaaba, vous pouvez connecter vos environnements existants et les faire remonter dans une interface centralisée.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                "Visibilité consolidée",
+                "Suivi plus homogène",
+                "Gestion plus structurée",
+                "Trajectoire d’évolution claire"
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-5 h-5 rounded-full bg-accent-primary/10 flex items-center justify-center">
+                    <Check className="w-3 h-3 text-accent-primary" />
+                  </div>
+                  <span className="text-text-primary font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Code Block */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-text-primary font-medium">
-                <div className="w-5 h-5 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-3 h-3 text-accent-primary" />
-                </div>
-                Installation sans redémarrage
+              <div className="flex items-center justify-between px-4">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary/60">
+                  Installation rapide
+                </span>
               </div>
-              <div className="flex items-center gap-3 text-text-primary font-medium">
-                <div className="w-5 h-5 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-3 h-3 text-accent-primary" />
-                </div>
-                Consommation CPU/RAM négligeable
-              </div>
-              <div className="flex items-center gap-3 text-text-primary font-medium">
-                <div className="w-5 h-5 rounded-full bg-accent-primary/20 flex items-center justify-center">
-                  <CheckCircle2 className="w-3 h-3 text-accent-primary" />
-                </div>
-                Communication chiffrée de bout en bout
-              </div>
-            </div>
-          </div>
-          
-          <div className="lg:col-span-6">
-            <div className="p-1 rounded-2xl bg-gradient-to-br from-white/10 to-transparent">
-              <div className="bg-black rounded-xl overflow-hidden shadow-2xl">
-                <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                    <div className="w-3 h-3 rounded-full bg-amber-500/50" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                  </div>
-                  <span className="text-[10px] font-mono text-text-secondary/40 uppercase tracking-widest">Terminal</span>
-                </div>
-                <div className="p-8 font-mono text-sm md:text-base">
-                  <div className="flex gap-3 mb-4">
-                    <span className="text-accent-primary">$</span>
-                    <span className="text-white">{typed}</span>
-                    <motion.span 
-                      animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 0.8, repeat: Infinity }}
-                      className="w-2 h-5 bg-accent-primary"
-                    />
-                  </div>
-                  
-                  <AnimatePresence>
-                    {typed === fullText && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="space-y-2"
-                      >
-                        <div className="text-text-secondary/60">Checking system compatibility... [OK]</div>
-                        <div className="text-text-secondary/60">Downloading CloudNaaba Agent v2.4... [OK]</div>
-                        <div className="text-text-secondary/60">Establishing secure tunnel... [OK]</div>
-                        <div className="text-green-400 font-bold mt-4">✓ Server connected to CloudNaaba Core Hub</div>
-                        <div className="text-text-secondary/40 text-xs mt-2">Node ID: infra-node-772-af</div>
-                      </motion.div>
+              <div className="relative group">
+                <div className="absolute -inset-px bg-gradient-to-r from-accent-primary/50 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative bg-black rounded-xl p-6 border border-white/10 flex items-center justify-between gap-4 overflow-hidden">
+                  <code className="font-mono text-sm md:text-base text-white/90">
+                    <span className="text-accent-primary mr-2">$</span>
+                    {fullText}
+                  </code>
+                  <button 
+                    onClick={copyToClipboard}
+                    className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-colors relative z-10"
+                  >
+                    {isCopied ? (
+                      <Check className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <Copy className="w-4 h-4 text-text-secondary" />
                     )}
-                  </AnimatePresence>
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
+              <button className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform">
+                Connecter l’existant
+              </button>
+              <button className="group flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold">
+                Voir la documentation
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            <div className="flex flex-wrap gap-8 pt-6 border-t border-white/5">
+              <div className="flex items-center gap-2 text-xs text-text-secondary/60 uppercase tracking-widest font-bold">
+                <Zap className="w-3 h-3 text-accent-primary" />
+                Agent léger
+              </div>
+              <div className="flex items-center gap-2 text-xs text-text-secondary/60 uppercase tracking-widest font-bold">
+                <Zap className="w-3 h-3 text-accent-primary" />
+                Installation rapide
+              </div>
+              <div className="flex items-center gap-2 text-xs text-text-secondary/60 uppercase tracking-widest font-bold">
+                <Zap className="w-3 h-3 text-accent-primary" />
+                Multi-environnements
+              </div>
+            </div>
+
+            <p className="text-sm text-text-secondary italic">
+              Cette étape n’est pas une migration. C’est le début d’une reprise en main.
+            </p>
+          </motion.div>
+
+          {/* Right Content - Terminal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Decorative Glow */}
+            <div className="absolute -inset-20 bg-accent-primary/10 blur-[100px] rounded-full" />
+            
+            <div className="relative bg-[#0D0D0D] rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+              {/* Terminal Header */}
+              <div className="px-5 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/30" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/30" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/30" />
+                </div>
+                <div className="text-[10px] font-mono text-text-secondary/40 uppercase tracking-[0.2em]">
+                  CloudNaaba v2.4 — Deployment
+                </div>
+              </div>
+
+              {/* Terminal Body */}
+              <div className="p-8 font-mono text-sm md:text-base min-h-[320px] space-y-3">
+                <div className="flex gap-3 mb-6">
+                  <span className="text-accent-primary">$</span>
+                  <span className="text-white">{typed}</span>
+                  <motion.span 
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="w-2 h-5 bg-accent-primary"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  {terminalLogs.map((log) => (
+                    <AnimatePresence key={log.id}>
+                      {terminalStep >= log.id && (
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className={log.color}
+                        >
+                          {log.text}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  ))}
+                </div>
+
+                {terminalStep === 6 && (
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="mt-8 p-4 rounded-xl bg-green-500/5 border border-green-500/20 flex items-center gap-4"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <CheckCircle2 className="w-6 h-6 text-green-400" />
+                    </div>
+                    <div>
+                      <div className="text-green-400 font-bold">Connexion établie</div>
+                      <div className="text-[10px] text-green-400/60 uppercase tracking-widest">
+                        3 serveurs synchronisés
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+
+            {/* Floating Badge */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-6 -right-6 p-6 rounded-2xl bg-bg-elevated border border-white/10 shadow-2xl z-20"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-accent-primary/10 flex items-center justify-center">
+                  <Server className="w-6 h-6 text-accent-primary" />
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-text-primary">Infrastructure Ready</div>
+                  <div className="text-[10px] text-text-secondary uppercase tracking-widest">Active Monitoring</div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 }
 
-function MigrationOptions() {
+function MigrationEvolution() {
   const options = [
-    { title: "Garder", desc: "Conservez vos serveurs actuels et profitez simplement de la couche de gestion CloudNaaba.", icon: Server },
-    { title: "Migrer", desc: "Déplacez progressivement vos services vers des infrastructures plus modernes à votre rythme.", icon: RefreshCw },
-    { title: "Restructurer", desc: "Réorganisez votre parc pour optimiser les coûts et la performance globale.", icon: Layout },
+    { 
+      title: "Conserver l’existant", 
+      desc: "Vous gardez vos serveurs actuels et améliorez simplement leur pilotage. Une approche sécurisante sans changement immédiat.", 
+      icon: Lock,
+      badge: "Safe"
+    },
+    { 
+      title: "Réorganiser progressivement", 
+      desc: "Vous structurez votre infrastructure au fur et à mesure, sans rupture. Idéal pour une évolution douce et maîtrisée.", 
+      icon: RefreshCw,
+      badge: "Évolution"
+    },
+    { 
+      title: "Migrer certaines briques", 
+      desc: "Vous déplacez uniquement ce qui devient critique ou difficile à maintenir. Un choix stratégique, jamais imposé.", 
+      icon: ArrowRight,
+      badge: "Stratégique"
+    },
   ];
 
   return (
-    <section className="py-32 bg-bg-secondary/50 relative overflow-hidden">
+    <section className="py-48 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-6 text-gradient">On ne force rien.</h2>
-          <p className="text-text-secondary text-lg max-w-[700px] mx-auto">Choisissez la stratégie qui correspond à vos objectifs métier.</p>
+        {/* Header */}
+        <div className="text-center mb-24">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-bold font-display mb-8 text-gradient max-w-4xl mx-auto leading-tight"
+          >
+            Quand l’existant devient un frein, vous pouvez évoluer.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed"
+          >
+            CloudNaaba ne vous impose pas une migration. Mais vous donne un cadre pour la rendre possible, propre et progressive.
+          </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Visual Schema */}
+        <div className="flex justify-center mb-24">
+          <div className="flex items-center gap-4 md:gap-12">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary text-xs font-bold">Keep</div>
+              <span className="text-[10px] uppercase tracking-widest text-text-secondary/40">Existant</span>
+            </div>
+            <motion.div 
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="text-accent-primary/40"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary text-xs font-bold">Improve</div>
+              <span className="text-[10px] uppercase tracking-widest text-accent-primary/60">Contrôle</span>
+            </div>
+            <motion.div 
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              className="text-accent-primary/40"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-16 h-16 rounded-full bg-accent-primary/20 border border-accent-primary/40 flex items-center justify-center text-accent-primary text-xs font-bold shadow-[0_0_20px_rgba(168,85,247,0.2)]">Transform</div>
+              <span className="text-[10px] uppercase tracking-widest text-accent-primary">Optimisé</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {options.map((o, i) => (
-            <div key={i} className="p-10 premium-card text-center group">
-              <div className="w-16 h-16 rounded-2xl bg-accent-primary/10 flex items-center justify-center mx-auto mb-8 border border-accent-primary/20 group-hover:bg-accent-primary/20 transition-all">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group relative p-10 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent-primary/30 transition-all duration-500 text-center"
+            >
+              <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary/60">{o.badge}</span>
+              </div>
+              <div className="w-16 h-16 rounded-2xl bg-accent-primary/10 flex items-center justify-center mx-auto mb-8 border border-accent-primary/20 group-hover:scale-110 transition-transform duration-500">
                 <o.icon className="w-8 h-8 text-accent-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">{o.title}</h3>
+              <h3 className="text-2xl font-bold mb-4 text-text-primary group-hover:text-accent-primary transition-colors">{o.title}</h3>
               <p className="text-text-secondary leading-relaxed">{o.desc}</p>
-            </div>
+              
+              {/* Subtle Glow */}
+              <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 blur-3xl transition-opacity -z-10" />
+            </motion.div>
           ))}
         </div>
+
+        {/* Context Explanation */}
+        <div className="max-w-4xl mx-auto text-center space-y-12 mb-24">
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale">
+            <img src="https://cdn.simpleicons.org/ibm/white" alt="IBM" className="h-6" referrerPolicy="no-referrer" />
+            <img src="https://cdn.simpleicons.org/intel/white" alt="Intel" className="h-6" referrerPolicy="no-referrer" />
+            <img src="https://cdn.simpleicons.org/oracle/white" alt="Oracle" className="h-6" referrerPolicy="no-referrer" />
+            <img src="https://cdn.simpleicons.org/cisco/white" alt="Cisco" className="h-6" referrerPolicy="no-referrer" />
+            <img src="https://cdn.simpleicons.org/dell/white" alt="Dell" className="h-6" referrerPolicy="no-referrer" />
+          </div>
+          <p className="text-lg text-text-secondary leading-relaxed">
+            Certaines entreprises veulent conserver leur infrastructure actuelle. D’autres savent qu’une partie doit évoluer. 
+            <span className="block mt-4 font-bold text-text-primary">CloudNaaba s’adapte à votre réalité, pas l’inverse.</span>
+          </p>
+        </div>
+
+        {/* CTA Section */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
+          <button className="px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform">
+            Demander de l’aide pour migrer
+          </button>
+          <button className="group flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold">
+            Continuer avec l’existant
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+
+        {/* Final Punchline */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <p className="text-xl text-text-secondary italic max-w-2xl mx-auto">
+            L’objectif n’est pas de vous imposer un changement brutal. L’objectif est de rendre la transition possible.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function CompatibilityGrid() {
-  const items = [
-    { name: "Ubuntu", icon: "https://cdn.simpleicons.org/ubuntu/E9430F" },
-    { name: "Debian", icon: "https://cdn.simpleicons.org/debian/A81D33" },
-    { name: "CentOS", icon: "https://cdn.simpleicons.org/centos/262577" },
-    { name: "Windows", icon: "https://cdn.simpleicons.org/windows/0078D4" },
-    { name: "AWS", icon: "https://cdn.simpleicons.org/amazonwebservices/232F3E" },
-    { name: "GCP", icon: "https://cdn.simpleicons.org/googlecloud/4285F4" },
-    { name: "Azure", icon: "https://cdn.simpleicons.org/microsoftazure/0078D4" },
-    { name: "OVH", icon: "https://cdn.simpleicons.org/ovh/00539E" },
-    { name: "Hetzner", icon: "https://cdn.simpleicons.org/hetzner/D50C2D" },
-    { name: "DigitalOcean", icon: "https://cdn.simpleicons.org/digitalocean/0080FF" },
-    { name: "Docker", icon: "https://cdn.simpleicons.org/docker/2496ED" },
-    { name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes/326CE5" },
+function CompatibilityHybrid() {
+  const blocks = [
+    {
+      title: "Systèmes supportés",
+      icon: Server,
+      items: [
+        { name: "Ubuntu", logo: "https://cdn.simpleicons.org/ubuntu/E9430F" },
+        { name: "Debian", logo: "https://cdn.simpleicons.org/debian/A81D33" },
+        { name: "CentOS", logo: "https://cdn.simpleicons.org/centos/262577" },
+        { name: "Windows", logo: "https://cdn.simpleicons.org/windows/0078D4" }
+      ]
+    },
+    {
+      title: "Types d’infrastructure",
+      icon: Layers,
+      items: [
+        { name: "Serveurs physiques", logo: null },
+        { name: "Machines locales", logo: null },
+        { name: "Environnements dédiés", logo: null },
+        { name: "On-premise", logo: null }
+      ]
+    },
+    {
+      title: "Cloud & fournisseurs",
+      icon: Cloud,
+      items: [
+        { name: "AWS", logo: "https://cdn.simpleicons.org/amazonwebservices/white" },
+        { name: "OVH", logo: "https://cdn.simpleicons.org/ovh/white" },
+        { name: "Google Cloud", logo: "https://cdn.simpleicons.org/googlecloud/white" },
+        { name: "Infrastructure locale", logo: null }
+      ]
+    }
   ];
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section className="py-48 relative overflow-hidden bg-bg-secondary/30">
       <div className="container mx-auto max-w-[1240px] px-6">
-        <div className="text-center mb-20">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-text-secondary/40 mb-6">Compatibilité Totale</p>
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-6 text-gradient">Fonctionne avec votre stack actuelle.</h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-          {items.map((item, i) => (
-            <div key={i} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center gap-4 hover:bg-white/[0.04] transition-all group">
-              <img src={item.icon} alt={item.name} className="w-10 h-10 grayscale group-hover:grayscale-0 transition-all" referrerPolicy="no-referrer" />
-              <span className="text-xs font-bold text-text-secondary group-hover:text-text-primary transition-colors">{item.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhyProgressive() {
-  const steps = [
-    { label: "Observe", desc: "Connectez et visualisez votre infra actuelle sans rien changer." },
-    { label: "Understand", desc: "Identifiez les goulots d'étranglement et les risques de sécurité." },
-    { label: "Improve", desc: "Optimisez les performances et sécurisez les accès critiques." },
-    { label: "Evolve", desc: "Faites évoluer votre architecture vers le futur de façon sereine." },
-  ];
-
-  return (
-    <section className="py-32 bg-bg-secondary/50 relative overflow-hidden">
-      <div className="container mx-auto max-w-[1240px] px-6">
+        {/* Header */}
         <div className="text-center mb-24">
-          <h2 className="text-4xl md:text-5xl font-bold font-display mb-6 text-gradient">Pourquoi cette approche ?</h2>
-          <p className="text-text-secondary text-lg max-w-[700px] mx-auto">Parce que la modernisation "Big Bang" est souvent un échec coûteux.</p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-bold font-display mb-8 text-gradient max-w-4xl mx-auto leading-tight"
+          >
+            Compatible avec les environnements les plus courants.
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed"
+          >
+            CloudNaaba s’adapte à des infrastructures diverses, qu’elles soient modernes ou historiques.
+          </motion.p>
         </div>
 
-        <div className="relative max-w-[1000px] mx-auto">
-          {/* Vertical Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2 hidden md:block" />
-          
-          <div className="space-y-24">
-            {steps.map((s, i) => (
-              <div key={i} className={`flex flex-col md:flex-row items-center gap-12 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-                <div className="flex-1 text-center md:text-right">
-                  {i % 2 === 0 && (
-                    <>
-                      <h3 className="text-3xl font-bold mb-4 text-accent-primary">{s.label}</h3>
-                      <p className="text-text-secondary text-lg leading-relaxed">{s.desc}</p>
-                    </>
-                  )}
+        {/* Blocks Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-24">
+          {blocks.map((block, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="space-y-8"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center">
+                  <block.icon className="w-6 h-6 text-accent-primary" />
                 </div>
-                
-                <div className="relative z-10 w-12 h-12 rounded-full bg-bg-primary border-4 border-accent-primary flex items-center justify-center font-black text-accent-primary">
-                  {i + 1}
-                </div>
-                
-                <div className="flex-1 text-center md:text-left">
-                  {i % 2 !== 0 && (
-                    <>
-                      <h3 className="text-3xl font-bold mb-4 text-accent-primary">{s.label}</h3>
-                      <p className="text-text-secondary text-lg leading-relaxed">{s.desc}</p>
-                    </>
-                  )}
-                </div>
+                <h3 className="text-xl font-bold text-text-primary">{block.title}</h3>
               </div>
+              
+              <div className="flex flex-wrap gap-3">
+                {block.items.map((item, j) => (
+                  <motion.div
+                    key={j}
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    className="px-6 py-3 rounded-xl bg-white/[0.02] border border-white/5 text-text-secondary text-sm font-medium hover:bg-white/[0.04] hover:border-accent-primary/30 transition-all cursor-default group relative overflow-hidden flex items-center gap-3"
+                  >
+                    {item.logo && (
+                      <img 
+                        src={item.logo} 
+                        alt={item.name} 
+                        className="w-4 h-4 grayscale group-hover:grayscale-0 transition-all" 
+                        referrerPolicy="no-referrer"
+                      />
+                    )}
+                    <span className="relative z-10">{item.name}</span>
+                    <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bonus UX Line */}
+        <div className="text-center mb-16">
+          <p className="text-lg text-text-secondary font-medium">
+            Vous partez de ce que vous avez, <span className="text-text-primary">pas de ce que vous devriez avoir.</span>
+          </p>
+        </div>
+
+        {/* Final Line */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="pt-12 border-t border-white/5 text-center"
+        >
+          <p className="text-text-secondary/60 text-sm uppercase tracking-widest font-bold">
+            Cette compatibilité permet une adoption progressive, sans rupture.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function WhyHybrid() {
+  const steps = [
+    { label: "Connecter", desc: "Vous connectez votre existant", icon: Link },
+    { label: "Observer", desc: "Vous voyez réellement ce qui se passe", icon: Eye },
+    { label: "Comprendre", desc: "Vous comprenez votre système", icon: Brain },
+    { label: "Améliorer", desc: "Vous corrigez ce qui pose problème", icon: Wrench },
+    { label: "Évoluer", desc: "Vous modernisez progressivement", icon: ArrowUp },
+  ];
+
+  return (
+    <section className="py-48 relative overflow-hidden bg-bg-primary">
+      <div className="container mx-auto max-w-[1240px] px-6">
+        {/* Header */}
+        <div className="text-center mb-24">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-bold font-display mb-8 text-gradient max-w-4xl mx-auto leading-tight"
+          >
+            Moderniser une infrastructure ne commence pas toujours par une migration.
+          </motion.h2>
+        </div>
+
+        {/* Contrast Block */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
+          {/* Fausse Croyance */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="p-12 rounded-3xl bg-white/[0.01] border border-white/5 opacity-60 hover:opacity-80 transition-opacity"
+          >
+            <div className="flex items-center gap-3 mb-8 text-text-secondary/60">
+              <XCircle className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase tracking-widest">Ce que beaucoup pensent</span>
+            </div>
+            <ul className="space-y-6">
+              {["Tout reconstruire", "Tout migrer", "Tout repenser", "Tout arrêter"].map((item, i) => (
+                <li key={i} className="flex items-center gap-4 text-text-secondary">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                  <span className="text-lg">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Réalité */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="p-12 rounded-3xl bg-accent-primary/5 border border-accent-primary/20 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-accent-primary/5 blur-3xl -z-10" />
+            <div className="flex items-center gap-3 mb-8 text-accent-primary">
+              <CheckCircle2 className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase tracking-widest">Ce qui fonctionne réellement</span>
+            </div>
+            <ul className="space-y-6">
+              {["Connecter", "Centraliser", "Observer", "Comprendre", "Améliorer progressivement"].map((item, i) => (
+                <li key={i} className="flex items-center gap-4 text-text-primary">
+                  <div className="w-2 h-2 rounded-full bg-accent-primary shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+                  <span className="text-xl font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+
+        {/* Timeline Flow */}
+        <div className="relative mb-32">
+          <div className="absolute top-1/2 left-0 w-full h-px bg-white/5 -translate-y-1/2 hidden md:block" />
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 relative z-10">
+            {steps.map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="text-center group"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent-primary/20 group-hover:border-accent-primary/40 transition-all duration-500">
+                  <step.icon className="w-8 h-8 text-text-secondary group-hover:text-accent-primary transition-colors" />
+                </div>
+                <h3 className="text-lg font-bold mb-2 text-text-primary">{step.label}</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
+
+        {/* Editorial Block */}
+        <div className="max-w-3xl mx-auto text-center space-y-8 mb-32">
+          <p className="text-xl text-text-secondary leading-relaxed">
+            Beaucoup d’entreprises ne modernisent pas leur infrastructure parce qu’elles pensent devoir tout reconstruire. 
+            <span className="block mt-6 text-text-primary font-medium">En réalité, la première étape utile est souvent plus simple : reprendre de la visibilité et du contrôle.</span>
+          </p>
+        </div>
+
+        {/* Final Statement */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="p-12 rounded-3xl bg-gradient-to-br from-accent-primary/10 to-transparent border border-accent-primary/20 text-center"
+        >
+          <p className="text-2xl md:text-3xl font-display font-bold text-text-primary leading-tight">
+            CloudNaaba rend cette trajectoire plus réaliste.<br />
+            <span className="text-accent-primary">Et donc réellement actionnable.</span>
+          </p>
+        </motion.div>
       </div>
     </section>
   );
 }
 
 function HybridFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openId, setOpenId] = useState<string | null>("migration");
 
   const faqs = [
-    { q: "Est-ce que l'agent ralentit mes serveurs ?", a: "Non. L'agent CloudNaaba est conçu pour être extrêmement léger. Il consomme moins de 1% de CPU et quelques Mo de RAM." },
-    { q: "Mes données sont-elles en sécurité ?", a: "Oui. L'agent n'accède pas à vos données applicatives. Il ne communique que des métadonnées système via un tunnel chiffré TLS 1.3." },
-    { q: "Puis-je déconnecter l'agent à tout moment ?", a: "Absolument. La réversibilité est totale. Si vous désinstallez l'agent, votre serveur retrouve son état initial sans aucune trace." },
-    { q: "Quels systèmes d'exploitation sont supportés ?", a: "Toutes les distributions Linux majeures (Ubuntu, Debian, CentOS, RHEL) ainsi que Windows Server 2016 et plus récents." },
+    {
+      id: "migration",
+      question: "Faut-il migrer immédiatement pour utiliser CloudNaaba ?",
+      answer: "Non. Vous pouvez commencer par connecter vos serveurs existants et centraliser leur gestion, sans migration. C'est le principe même de notre approche hybride."
+    },
+    {
+      id: "keep",
+      question: "Puis-je garder mes serveurs actuels ?",
+      answer: "Oui. L’approche CloudNaaba est justement conçue pour fonctionner avec votre infrastructure actuelle. Vous gardez votre matériel et vos contrats, nous ajoutons le pilotage."
+    },
+    {
+      id: "local",
+      question: "Est-ce compatible avec des serveurs locaux ou sur site ?",
+      answer: "Oui. Tant que l’environnement est supporté, vous pouvez connecter des machines locales, des serveurs physiques ou des environnements on-premise."
+    },
+    {
+      id: "control",
+      question: "Est-ce que je garde la main sur mon infrastructure ?",
+      answer: "Oui. CloudNaaba ajoute une couche de pilotage et de visibilité, mais ne vous retire pas le contrôle de vos systèmes. Vous restez maître de vos machines."
+    },
+    {
+      id: "later",
+      question: "Puis-je migrer plus tard si nécessaire ?",
+      answer: "Oui. Vous pouvez évoluer progressivement, en fonction de vos besoins et de vos priorités. CloudNaaba est le cadre qui rend cette évolution possible."
+    },
+    {
+      id: "complex",
+      question: "Est-ce compliqué à mettre en place ?",
+      answer: "Non. L’installation de l’agent est simple et permet de connecter rapidement vos environnements existants. Quelques minutes suffisent pour obtenir vos premiers indicateurs."
+    },
+    {
+      id: "target",
+      question: "À qui cette solution s’adresse-t-elle le mieux ?",
+      answer: "Aux entreprises qui ont déjà une infrastructure en place et qui veulent retrouver de la visibilité, de la cohérence et une trajectoire d’évolution sans tout casser."
+    }
   ];
 
+  const highlights = [
+    { id: "migration", label: "Faut-il migrer ?" },
+    { id: "keep", label: "Garder mes serveurs ?" },
+    { id: "control", label: "Garder la main ?" },
+    { id: "complex", label: "Est-ce compliqué ?" }
+  ];
+
+  const toggleId = (id: string) => {
+    setOpenId(openId === id ? null : id);
+  };
+
   return (
-    <section className="py-32 relative overflow-hidden">
-      <div className="container mx-auto max-w-[800px] px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl font-bold font-display mb-6 text-gradient">FAQ Hybride.</h2>
+    <section id="faq-hybrid" className="py-48 bg-bg-primary relative overflow-hidden">
+      <div className="container mx-auto max-w-[900px] px-6 relative z-10">
+        
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-24"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-xs font-bold uppercase tracking-[0.2em] mb-8">
+            <HelpCircle className="w-4 h-4" />
+            <span>FAQ Hybride</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1] mb-8 tracking-tight text-gradient">
+            Questions fréquentes.
+          </h2>
+          <p className="text-text-secondary text-lg md:text-xl max-w-[600px] mx-auto leading-relaxed">
+            Les points les plus importants avant de connecter votre infrastructure.
+          </p>
+        </motion.div>
+
+        {/* Highlight Chips */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16">
+          {highlights.map((chip) => (
+            <button
+              key={chip.id}
+              onClick={() => setOpenId(chip.id)}
+              className={`px-6 py-2.5 rounded-full border text-sm font-bold transition-all duration-300 tracking-tight ${
+                openId === chip.id 
+                  ? 'bg-accent-primary/10 border-accent-primary/30 text-accent-primary' 
+                  : 'bg-white/[0.03] border-border-subtle text-text-secondary hover:text-text-primary hover:border-accent-primary/30 hover:bg-accent-primary/5'
+              }`}
+            >
+              {chip.label}
+            </button>
+          ))}
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, i) => (
-            <div key={i} className="premium-card overflow-hidden">
-              <button 
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+        {/* Accordion List */}
+        <div className="mb-24">
+          {faqs.map((faq) => (
+            <motion.div
+              key={faq.id}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className={`premium-card overflow-hidden transition-all duration-500 mb-4 ${
+                openId === faq.id ? 'border-accent-primary/30 bg-accent-primary/[0.02]' : 'hover:border-white/10'
+              }`}
+            >
+              <button
+                onClick={() => toggleId(faq.id)}
+                className="w-full p-8 text-left flex items-center justify-between group"
               >
-                <span className="font-bold text-lg">{faq.q}</span>
-                <ChevronRight className={`w-5 h-5 transition-transform ${openIndex === i ? 'rotate-90' : ''}`} />
+                <span className={`text-xl font-bold transition-colors duration-300 ${
+                  openId === faq.id ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'
+                }`}>
+                  {faq.question}
+                </span>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                  openId === faq.id ? 'bg-accent-primary text-white rotate-180' : 'bg-white/5 text-text-secondary group-hover:bg-white/10'
+                }`}>
+                  <ChevronDown className="w-5 h-5" />
+                </div>
               </button>
-              <AnimatePresence>
-                {openIndex === i && (
+              
+              <AnimatePresence initial={false}>
+                {openId === faq.id && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    className="px-6 pb-6 text-text-secondary leading-relaxed"
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                   >
-                    {faq.a}
+                    <div className="px-8 pb-8 text-lg text-text-secondary leading-relaxed border-t border-white/5 pt-6">
+                      {faq.answer}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           ))}
         </div>
+
+        {/* Final Reassurance */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-center p-12 rounded-[2rem] bg-gradient-to-b from-white/[0.02] to-transparent border border-border-subtle"
+        >
+          <p className="text-text-secondary text-xl md:text-2xl leading-relaxed italic font-medium">
+            Vous pouvez commencer simplement, sans transformation brutale, <br className="hidden md:block" />
+            <span className="text-text-primary">et structurer votre infrastructure progressivement.</span>
+          </p>
+        </motion.div>
+
       </div>
     </section>
   );
@@ -1588,34 +2113,84 @@ function HybridFAQ() {
 
 function FinalCTA() {
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section className="py-48 relative overflow-hidden bg-bg-primary">
+      {/* Background Halo */}
+      <motion.div 
+        animate={{ 
+          opacity: [0.3, 0.5, 0.3],
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          duration: 10, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-primary/5 blur-[120px] rounded-full -z-10"
+      />
+
       <div className="container mx-auto max-w-[1240px] px-6">
-        <div className="relative p-16 md:p-24 rounded-[3rem] bg-accent-primary overflow-hidden text-center">
-          {/* Background Patterns */}
-          <div className="absolute inset-0 opacity-10" 
-               style={{ backgroundImage: 'radial-gradient(circle, white 2px, transparent 2px)', backgroundSize: '30px 30px' }} 
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40" />
-          
-          <div className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-bold font-display text-white mb-8 tracking-tight">
-              Gardez votre infrastructure. <br className="hidden md:block" />
-              Reprenez la main sur sa gestion.
-            </h2>
-            <p className="text-xl text-white/80 mb-12 max-w-[700px] mx-auto font-medium">
-              Commencez à centraliser vos serveurs dès aujourd'hui. L'installation prend moins de 5 minutes.
-            </p>
-            
-            <div className="flex flex-wrap justify-center items-center gap-6">
-              <button className="px-10 py-5 rounded-2xl bg-white text-accent-primary font-black text-lg shadow-2xl hover:scale-105 transition-transform">
-                Connecter l'existant
-              </button>
-              <button className="px-10 py-5 rounded-2xl bg-black/20 text-white border border-white/20 font-black text-lg hover:bg-black/30 transition-all">
-                Demander un accompagnement
-              </button>
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          {/* Title */}
+          <h2 className="text-4xl md:text-7xl font-bold font-display text-text-primary mb-8 tracking-tight leading-tight">
+            Gardez votre infrastructure. <br className="hidden md:block" />
+            <span className="text-gradient">Reprenez la main sur sa gestion.</span>
+          </h2>
+
+          {/* Subtext */}
+          <p className="text-xl text-text-secondary mb-12 max-w-2xl mx-auto leading-relaxed">
+            CloudNaaba vous permet de centraliser votre infrastructure existante, d’améliorer sa lisibilité, puis d’évoluer progressivement selon vos besoins.
+          </p>
+
+          {/* CTA Group */}
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-6 mb-16">
+            <motion.button 
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all"
+            >
+              Connecter l’existant
+            </motion.button>
+            <motion.button 
+              whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
+              className="px-10 py-5 rounded-2xl bg-white/5 text-text-primary border border-white/10 font-bold text-lg transition-all"
+            >
+              Demander un accompagnement migration
+            </motion.button>
+            <button className="text-text-secondary hover:text-text-primary font-bold text-lg transition-colors relative group">
+              Voir la documentation
+              <span className="absolute bottom-0 left-0 w-0 h-px bg-text-primary transition-all group-hover:w-full" />
+            </button>
+          </div>
+
+          {/* Trust Line */}
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm font-bold text-text-secondary/60 uppercase tracking-widest mb-12">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-accent-primary" />
+              <span>Compatible cloud, local et on-prem</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-accent-primary" />
+              <span>Installation rapide via agent</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-accent-primary" />
+              <span>Aucune migration obligatoire</span>
             </div>
           </div>
-        </div>
+
+          {/* Infra Line (Signature) */}
+          <div className="pt-12 border-t border-white/5">
+            <p className="text-xs font-bold text-text-secondary/40 uppercase tracking-[0.3em]">
+              AWS • OVH • Google Cloud • Serveurs locaux • On-prem • Environnements existants
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
