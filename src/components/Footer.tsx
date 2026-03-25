@@ -43,11 +43,13 @@ export default function Footer({
   onLogoClick, 
   onMarketplaceClick, 
   onHybridClick,
+  onPricingClick,
   onSignupClick 
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
   onHybridClick?: () => void;
+  onPricingClick?: () => void;
   onSignupClick?: () => void;
 }) {
   return (
@@ -115,7 +117,7 @@ export default function Footer({
                 <li><button onClick={onLogoClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Accueil</button></li>
                 <li><button onClick={onMarketplaceClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Marketplace</button></li>
                 <li><button onClick={onHybridClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Hybride</button></li>
-                <li><a href="#pricing" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Tarifs</a></li>
+                <li><button onClick={onPricingClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Tarifs</button></li>
               </ul>
             </div>
             <div>

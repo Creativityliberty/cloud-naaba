@@ -19,10 +19,11 @@ import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import AiMarketplace from './pages/AiMarketplace';
 import HybridInfra from './pages/HybridInfra';
+import PricingPage from './pages/PricingPage';
 import GlobalModal, { ModalType } from './components/GlobalModal';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'ai' | 'hybrid'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'ai' | 'hybrid' | 'pricing'>('home');
   const [activeModal, setActiveModal] = useState<ModalType>(null);
 
   const openModal = (type: ModalType) => setActiveModal(type);
@@ -44,6 +45,7 @@ export default function App() {
             onMarketplaceClick={() => setCurrentPage('ai')} 
             onLogoClick={() => setCurrentPage('home')} 
             onHybridClick={() => setCurrentPage('hybrid')}
+            onPricingClick={() => setCurrentPage('pricing')}
             onLoginClick={() => openModal('login')}
             onSignupClick={() => openModal('signup')}
           />
@@ -64,7 +66,7 @@ export default function App() {
             <FAQ />
             <Pricing 
               onPlanSelect={(plan) => {
-                if (plan === 'Entreprise') openModal('contact');
+                if (plan === 'Business') openModal('contact');
                 else openModal('signup');
               }}
             />
@@ -74,6 +76,7 @@ export default function App() {
             onLogoClick={() => setCurrentPage('home')} 
             onMarketplaceClick={() => setCurrentPage('ai')} 
             onHybridClick={() => setCurrentPage('hybrid')} 
+            onPricingClick={() => setCurrentPage('pricing')}
             onSignupClick={() => openModal('signup')}
           />
         </>
@@ -82,16 +85,18 @@ export default function App() {
           onLogoClick={() => setCurrentPage('home')} 
           onMarketplaceClick={() => setCurrentPage('ai')}
           onHybridClick={() => setCurrentPage('hybrid')}
+          onPricingClick={() => setCurrentPage('pricing')}
           onDeployClick={() => openModal('deploy')}
           onPublishClick={() => openModal('publish')}
           onSignupClick={() => openModal('signup')}
           onLoginClick={() => openModal('login')}
         />
-      ) : (
+      ) : currentPage === 'hybrid' ? (
         <HybridInfra 
           onLogoClick={() => setCurrentPage('home')} 
           onMarketplaceClick={() => setCurrentPage('ai')}
           onHybridClick={() => setCurrentPage('hybrid')}
+          onPricingClick={() => setCurrentPage('pricing')}
           onAgentClick={() => openModal('agent')}
           onContactClick={() => openModal('migration')}
           onSignupClick={() => openModal('signup')}
@@ -99,8 +104,17 @@ export default function App() {
           onConnectClick={() => openModal('agent')}
           onDocClick={() => openModal('demo')}
         />
-      )
-}
+      ) : (
+        <PricingPage 
+          onLogoClick={() => setCurrentPage('home')} 
+          onMarketplaceClick={() => setCurrentPage('ai')}
+          onHybridClick={() => setCurrentPage('hybrid')}
+          onSignupClick={() => openModal('signup')}
+          onLoginClick={() => openModal('login')}
+          onContactClick={() => openModal('contact')}
+          onDemoClick={() => openModal('demo')}
+        />
+      )}
     </div>
   );
 }

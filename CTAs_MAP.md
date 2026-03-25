@@ -38,9 +38,20 @@ Ce document répertorie tous les boutons d'action de l'application et leur état
 | FinalCTA: "Demander accompagnement" | Modal Migration | ✅ Connecté |
 | FinalCTA: "Voir la documentation" | Modal Demo | ✅ Connecté |
 
+## 💰 Page Tarifs (Pricing)
+| Bouton | Action | État |
+| :--- | :--- | :--- |
+| Hero: "Commencer" | Modal Signup | ✅ Connecté |
+| Hero: "Parler à l’équipe" | Modal Contact | ✅ Connecté |
+| Pricing: "Commencer" (Découverte/Pro) | Modal Signup | ✅ Connecté |
+| Pricing: "Choisir Business" | Modal Signup | ✅ Connecté |
+| Pricing: "Parler à un expert" | Modal Contact | ✅ Connecté |
+| Included: "En savoir plus" | Modal Contact | ✅ Connecté |
+
 ## 🧭 Navigation Globale
 | Bouton | Action | État |
 | :--- | :--- | :--- |
 | Header: "Marketplace IA" | Navigation | ✅ Connecté |
 | Header: "Infra Hybride" | Navigation | ✅ Connecté |
+| Header: "Tarifs" | Navigation | ✅ Connecté |
 | Footer: Liens de navigation | Navigation | ✅ Connecté |

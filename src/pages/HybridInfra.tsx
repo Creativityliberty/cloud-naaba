@@ -39,6 +39,7 @@ export default function HybridInfra({
   onLogoClick, 
   onMarketplaceClick, 
   onHybridClick,
+  onPricingClick,
   onSignupClick,
   onLoginClick,
   onAgentClick,
@@ -49,6 +50,7 @@ export default function HybridInfra({
   onLogoClick: () => void;
   onMarketplaceClick: () => void;
   onHybridClick: () => void;
+  onPricingClick?: () => void;
   onSignupClick?: () => void;
   onLoginClick?: () => void;
   onAgentClick?: () => void;
@@ -66,6 +68,7 @@ export default function HybridInfra({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
         onLoginClick={onLoginClick}
         onSignupClick={onSignupClick}
       />
@@ -92,6 +95,7 @@ export default function HybridInfra({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
         onSignupClick={onSignupClick}
       />
     </div>

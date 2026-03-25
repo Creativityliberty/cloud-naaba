@@ -20,6 +20,7 @@ export default function AiMarketplace({
   onLogoClick, 
   onMarketplaceClick, 
   onHybridClick,
+  onPricingClick,
   onDeployClick,
   onPublishClick,
   onSignupClick,
@@ -28,6 +29,7 @@ export default function AiMarketplace({
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
   onHybridClick?: () => void;
+  onPricingClick?: () => void;
   onDeployClick?: () => void;
   onPublishClick?: () => void;
   onSignupClick?: () => void;
@@ -49,6 +51,7 @@ export default function AiMarketplace({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
         onLoginClick={onLoginClick}
         onSignupClick={onSignupClick}
       />
@@ -72,6 +75,7 @@ export default function AiMarketplace({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
         onSignupClick={onSignupClick}
       />
     </div>

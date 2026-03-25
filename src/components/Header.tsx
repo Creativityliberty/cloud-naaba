@@ -6,12 +6,14 @@ export default function Header({
   onMarketplaceClick, 
   onLogoClick, 
   onHybridClick,
+  onPricingClick,
   onLoginClick,
   onSignupClick
 }: { 
   onMarketplaceClick?: () => void; 
   onLogoClick?: () => void; 
   onHybridClick?: () => void;
+  onPricingClick?: () => void;
   onLoginClick?: () => void;
   onSignupClick?: () => void;
 }) {
@@ -28,7 +30,7 @@ export default function Header({
     { name: 'Accueil', href: '#', onClick: onLogoClick },
     { name: 'Marketplace', href: '#', onClick: onMarketplaceClick },
     { name: 'Hybride', href: '#hybrid', onClick: onHybridClick, badge: 'NEW' },
-    { name: 'Tarifs', href: '#pricing' },
+    { name: 'Tarifs', href: '#pricing', onClick: onPricingClick },
     { name: 'Sécurité', href: '#security' },
     { name: 'Contact', href: '#contact' },
   ];
