@@ -56,6 +56,7 @@ Ce document répertorie tous les boutons d'action de l'application et leur état
 | Private Cloud: "Parler à un expert" | Modal Contact | ✅ Connecté |
 | Final CTA: "Commencer" | Modal Signup | ✅ Connecté |
 | Final CTA: "Parler à l'équipe" | Modal Contact | ✅ Connecté |
+| Pricing Home: "Voir les tarifs" | Page Pricing | ✅ Connecté |
 
 ## 🧭 Navigation Globale
 | Bouton | Action | État |

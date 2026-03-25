@@ -14,7 +14,7 @@ import WhyNotContinue from './components/WhyNotContinue';
 import Compatibility from './components/Compatibility';
 import ProofSection from './components/ProofSection';
 import FAQ from './components/FAQ';
-import Pricing from './components/Pricing';
+import PricingHome from './components/PricingHome';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import AiMarketplace from './pages/AiMarketplace';
@@ -64,11 +64,8 @@ export default function App() {
             <Compatibility />
             <ProofSection />
             <FAQ />
-            <Pricing 
-              onPlanSelect={(plan) => {
-                if (plan === 'Business') openModal('contact');
-                else openModal('signup');
-              }}
+            <PricingHome 
+              onPricingClick={() => setCurrentPage('pricing')}
             />
             <FinalCTA onPrimaryClick={() => openModal('signup')} onSecondaryClick={() => openModal('demo')} />
           </main>
