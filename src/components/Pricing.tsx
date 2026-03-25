@@ -43,7 +43,7 @@ const plans = [
   }
 ];
 
-export default function Pricing() {
+export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string) => void }) {
   const [isYearly, setIsYearly] = useState(true);
 
   return (
@@ -150,7 +150,9 @@ export default function Pricing() {
                 </ul>
               </div>
 
-              <button className={`w-full py-5 rounded-2xl font-bold text-lg transition-all duration-300 tracking-tight relative z-10 ${
+              <button 
+                onClick={() => onPlanSelect?.(plan.name)}
+                className={`w-full py-5 rounded-2xl font-bold text-lg transition-all duration-300 tracking-tight relative z-10 ${
                 plan.highlight 
                   ? 'bg-accent-primary text-white hover:bg-accent-primary/90 hover:shadow-[0_0_30px_rgba(124,58,237,0.4)]' 
                   : 'bg-white/5 text-text-primary hover:bg-white/10 border border-white/10'

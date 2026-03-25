@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, PlayCircle } from 'lucide-react';
 
-export default function FinalCTA() {
+export default function FinalCTA({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
   return (
     <section className="py-48 bg-bg-primary relative overflow-hidden">
       {/* Large radial glow background */}
@@ -33,6 +33,7 @@ export default function FinalCTA() {
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
                 <motion.button 
+                  onClick={onPrimaryClick}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto px-12 py-5 rounded-2xl bg-white text-black font-black text-xl hover:bg-accent-primary hover:text-white transition-all duration-300 shadow-2xl shadow-white/10 hover:shadow-accent-primary/20 tracking-tight flex items-center justify-center gap-3"
@@ -41,6 +42,7 @@ export default function FinalCTA() {
                   <ArrowRight className="w-6 h-6" />
                 </motion.button>
                 <motion.button 
+                  onClick={onSecondaryClick}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto px-12 py-5 rounded-2xl bg-white/5 text-text-primary font-bold text-xl hover:bg-white/10 border border-white/10 transition-all duration-300 tracking-tight flex items-center justify-center gap-3"

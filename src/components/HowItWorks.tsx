@@ -32,7 +32,7 @@ const steps = [
   }
 ];
 
-export default function HowItWorks() {
+export default function HowItWorks({ onActionClick }: { onActionClick?: () => void }) {
   const [activeStep, setActiveStep] = useState(1);
 
   return (
@@ -218,7 +218,10 @@ export default function HowItWorks() {
                   animate={{ opacity: 1, y: 0 }}
                   className="absolute bottom-8 left-1/2 -translate-x-1/2"
                 >
-                  <button className="btn-primary px-6 py-2 text-sm font-bold text-white flex items-center gap-2">
+                  <button 
+                    onClick={onActionClick}
+                    className="btn-primary px-6 py-2 text-sm font-bold text-white flex items-center gap-2"
+                  >
                     Voir comment démarrer
                     <ArrowRight className="w-4 h-4" />
                   </button>

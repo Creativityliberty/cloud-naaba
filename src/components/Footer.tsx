@@ -39,7 +39,17 @@ const footerLinks = [
   }
 ];
 
-export default function Footer() {
+export default function Footer({ 
+  onLogoClick, 
+  onMarketplaceClick, 
+  onHybridClick,
+  onSignupClick 
+}: { 
+  onLogoClick?: () => void;
+  onMarketplaceClick?: () => void;
+  onHybridClick?: () => void;
+  onSignupClick?: () => void;
+}) {
   return (
     <footer id="contact" className="bg-bg-primary pt-32 pb-16 relative overflow-hidden border-t border-border-subtle scroll-mt-24">
       {/* Subtle top gradient fade */}
@@ -53,7 +63,10 @@ export default function Footer() {
           
           {/* Brand Section */}
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-3 mb-8 group cursor-pointer">
+            <div 
+              onClick={onLogoClick}
+              className="flex items-center gap-3 mb-8 group cursor-pointer"
+            >
               <div className="w-10 h-10 rounded-xl bg-accent-primary flex items-center justify-center shadow-lg shadow-accent-primary/20 group-hover:scale-110 transition-transform duration-500 overflow-hidden">
                 <img 
                   src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
@@ -96,26 +109,40 @@ export default function Footer() {
 
           {/* Links Grid */}
           <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-12">
-            {footerLinks.map((column) => (
-              <div key={column.title}>
-                <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">
-                  {column.title}
-                </h4>
-                <ul className="space-y-4">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <a 
-                        href={link.href} 
-                        className="text-text-secondary hover:text-accent-primary transition-colors duration-200 text-base font-medium flex items-center gap-1 group"
-                      >
-                        {link.label}
-                        <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all -translate-y-1 translate-x-1" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <div>
+              <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Produit</h4>
+              <ul className="space-y-4">
+                <li><button onClick={onLogoClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Accueil</button></li>
+                <li><button onClick={onMarketplaceClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Marketplace</button></li>
+                <li><button onClick={onHybridClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Hybride</button></li>
+                <li><a href="#pricing" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Tarifs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Plateforme</h4>
+              <ul className="space-y-4">
+                <li><a href="#hybrid" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Fonctionnement</a></li>
+                <li><a href="#security" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Sécurité</a></li>
+                <li><a href="#compatibility" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Compatibilité</a></li>
+                <li><a href="#faq-section" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Support</h4>
+              <ul className="space-y-4">
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Contact</a></li>
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Aide</a></li>
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Légal</h4>
+              <ul className="space-y-4">
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Conditions</a></li>
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Confidentialité</a></li>
+                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Mentions légales</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -131,7 +158,10 @@ export default function Footer() {
             <a href="#" className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
               Conditions
             </a>
-            <button className="px-8 py-2.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-xs font-bold hover:bg-accent-primary hover:text-white transition-all duration-300 tracking-widest uppercase">
+            <button 
+              onClick={onSignupClick}
+              className="px-8 py-2.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-xs font-bold hover:bg-accent-primary hover:text-white transition-all duration-300 tracking-widest uppercase"
+            >
               Démarrer
             </button>
           </div>

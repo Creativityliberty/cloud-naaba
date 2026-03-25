@@ -15,7 +15,7 @@ import {
   Share2
 } from 'lucide-react';
 
-export default function AiHero() {
+export default function AiHero({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
   const [typedText, setTypedText] = useState('');
   const fullText = "Voici un résumé structuré de vos documents internes...";
   
@@ -61,11 +61,17 @@ export default function AiHero() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-5 mb-12">
-                <button className="w-full sm:w-auto btn-primary px-8 py-4 text-white font-bold flex items-center justify-center gap-2 group">
+                <button 
+                  onClick={onPrimaryClick}
+                  className="w-full sm:w-auto btn-primary px-8 py-4 text-white font-bold flex items-center justify-center gap-2 group"
+                >
                   Installer Ollama
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button className="w-full sm:w-auto px-8 py-4 rounded-xl border border-border-subtle font-bold text-text-primary hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+                <button 
+                  onClick={onSecondaryClick}
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl border border-border-subtle font-bold text-text-primary hover:bg-white/5 transition-colors flex items-center justify-center gap-2"
+                >
                   <Play className="w-4 h-4 fill-current" />
                   Voir comment ça marche
                 </button>

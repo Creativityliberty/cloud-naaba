@@ -38,11 +38,23 @@ import Footer from '../components/Footer';
 export default function HybridInfra({ 
   onLogoClick, 
   onMarketplaceClick, 
-  onHybridClick 
+  onHybridClick,
+  onSignupClick,
+  onLoginClick,
+  onAgentClick,
+  onContactClick,
+  onConnectClick,
+  onDocClick
 }: { 
   onLogoClick: () => void;
   onMarketplaceClick: () => void;
   onHybridClick: () => void;
+  onSignupClick?: () => void;
+  onLoginClick?: () => void;
+  onAgentClick?: () => void;
+  onContactClick?: () => void;
+  onConnectClick?: () => void;
+  onDocClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,28 +66,39 @@ export default function HybridInfra({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
       />
       
       <main>
-        <Hero />
+        <Hero onPrimaryClick={onAgentClick} onSecondaryClick={onContactClick} />
         <ProblemHybrid />
         <SolutionControlLayer />
-        <HowItWorksHybrid />
+        <HowItWorksHybrid onActionClick={onSignupClick} />
         <BenefitsHybrid />
-        <ConnectExisting />
-        <MigrationEvolution />
+        <ConnectExisting onActionClick={onAgentClick} />
+        <MigrationEvolution onActionClick={onContactClick} />
         <CompatibilityHybrid />
         <WhyHybrid />
         <HybridFAQ />
-        <FinalCTA />
+        <FinalCTA 
+          onConnectClick={onConnectClick} 
+          onMigrationClick={onContactClick} 
+          onDocClick={onDocClick} 
+        />
       </main>
 
-      <Footer />
+      <Footer 
+        onLogoClick={onLogoClick} 
+        onMarketplaceClick={onMarketplaceClick}
+        onHybridClick={onHybridClick}
+        onSignupClick={onSignupClick}
+      />
     </div>
   );
 }
 
-function Hero() {
+function Hero({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
   return (
     <section className="relative pt-40 pb-32 overflow-hidden">
       {/* Background Grid */}
@@ -135,14 +158,20 @@ function Hero() {
                 transition={{ delay: 0.6, duration: 0.6 }}
                 className="flex flex-wrap items-center gap-5 mb-12"
               >
-                <button className="group relative px-8 py-4 bg-accent-primary text-white font-bold rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)]">
+                <button 
+                  onClick={onPrimaryClick}
+                  className="group relative px-8 py-4 bg-accent-primary text-white font-bold rounded-xl overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)]"
+                >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                   <span className="relative flex items-center gap-2">
                     Connecter l'existant
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </button>
-                <button className="px-8 py-4 text-text-primary font-bold rounded-xl border border-white/10 hover:bg-white/5 transition-all">
+                <button 
+                  onClick={onSecondaryClick}
+                  className="px-8 py-4 text-text-primary font-bold rounded-xl border border-white/10 hover:bg-white/5 transition-all"
+                >
                   Voir comment ça marche
                 </button>
               </motion.div>
@@ -963,7 +992,7 @@ function UnifiedDashboardVisual() {
   );
 }
 
-function HowItWorksHybrid() {
+function HowItWorksHybrid({ onActionClick }: { onActionClick?: () => void }) {
   const steps = [
     {
       id: "connect",
@@ -1104,7 +1133,10 @@ function HowItWorksHybrid() {
           transition={{ delay: 0.6 }}
           className="mt-32 text-center"
         >
-          <button className="group inline-flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold">
+          <button 
+            onClick={onActionClick}
+            className="group inline-flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold"
+          >
             Voir comment connecter vos serveurs
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -1335,7 +1367,7 @@ function BenefitsHybrid() {
   );
 }
 
-function ConnectExisting() {
+function ConnectExisting({ onActionClick }: { onActionClick?: () => void }) {
   const [typed, setTyped] = useState('');
   const [isCopied, setIsCopied] = useState(false);
   const [terminalStep, setTerminalStep] = useState(0);
@@ -1443,7 +1475,10 @@ function ConnectExisting() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
-              <button className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform">
+              <button 
+                onClick={onActionClick}
+                className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform"
+              >
                 Connecter l’existant
               </button>
               <button className="group flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold">
@@ -1566,7 +1601,7 @@ function ConnectExisting() {
   );
 }
 
-function MigrationEvolution() {
+function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
   const options = [
     { 
       title: "Conserver l’existant", 
@@ -1687,7 +1722,10 @@ function MigrationEvolution() {
 
         {/* CTA Section */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
-          <button className="px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform">
+          <button 
+            onClick={onActionClick}
+            className="px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-2xl hover:scale-105 transition-transform"
+          >
             Demander de l’aide pour migrer
           </button>
           <button className="group flex items-center gap-2 text-text-secondary hover:text-accent-primary transition-colors font-bold">
@@ -2111,7 +2149,7 @@ function HybridFAQ() {
   );
 }
 
-function FinalCTA() {
+function FinalCTA({ onConnectClick, onMigrationClick, onDocClick }: { onConnectClick?: () => void; onMigrationClick?: () => void; onDocClick?: () => void }) {
   return (
     <section className="py-48 relative overflow-hidden bg-bg-primary">
       {/* Background Halo */}
@@ -2150,6 +2188,7 @@ function FinalCTA() {
           {/* CTA Group */}
           <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-6 mb-16">
             <motion.button 
+              onClick={onConnectClick}
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
               className="px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all"
@@ -2157,12 +2196,16 @@ function FinalCTA() {
               Connecter l’existant
             </motion.button>
             <motion.button 
+              onClick={onMigrationClick}
               whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
               className="px-10 py-5 rounded-2xl bg-white/5 text-text-primary border border-white/10 font-bold text-lg transition-all"
             >
               Demander un accompagnement migration
             </motion.button>
-            <button className="text-text-secondary hover:text-text-primary font-bold text-lg transition-colors relative group">
+            <button 
+              onClick={onDocClick}
+              className="text-text-secondary hover:text-text-primary font-bold text-lg transition-colors relative group"
+            >
               Voir la documentation
               <span className="absolute bottom-0 left-0 w-0 h-px bg-text-primary transition-all group-hover:w-full" />
             </button>

@@ -20,7 +20,7 @@ const benefits = [
   }
 ];
 
-export default function SolutionSection() {
+export default function SolutionSection({ onActionClick }: { onActionClick?: () => void }) {
   return (
     <section className="py-32 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
@@ -50,6 +50,15 @@ export default function SolutionSection() {
                 <p className="text-2xl font-medium text-text-primary italic leading-tight tracking-tight">
                   "Vous vous concentrez sur votre produit. CloudNaaba prend en charge ce qui ralentit votre exploitation."
                 </p>
+              </div>
+
+              <div className="mb-12">
+                <button 
+                  onClick={onActionClick}
+                  className="px-8 py-4 rounded-xl bg-accent-primary text-white font-bold hover:bg-accent-primary/80 transition-all shadow-xl hover:shadow-accent-primary/20"
+                >
+                  Découvrir la plateforme
+                </button>
               </div>
             </motion.div>
 

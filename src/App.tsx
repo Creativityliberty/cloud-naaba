@@ -19,9 +19,14 @@ import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import AiMarketplace from './pages/AiMarketplace';
 import HybridInfra from './pages/HybridInfra';
+import GlobalModal, { ModalType } from './components/GlobalModal';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'ai' | 'hybrid'>('home');
+  const [activeModal, setActiveModal] = useState<ModalType>(null);
+
+  const openModal = (type: ModalType) => setActiveModal(type);
+  const closeModal = () => setActiveModal(null);
 
   return (
     <div className="min-h-screen text-text-primary selection:bg-accent-primary/30">
@@ -31,46 +36,71 @@ export default function App() {
         <div className="bg-noise" />
       </div>
 
+      <GlobalModal type={activeModal} onClose={closeModal} />
+
       {currentPage === 'home' ? (
         <>
           <Header 
             onMarketplaceClick={() => setCurrentPage('ai')} 
             onLogoClick={() => setCurrentPage('home')} 
             onHybridClick={() => setCurrentPage('hybrid')}
+            onLoginClick={() => openModal('login')}
+            onSignupClick={() => openModal('signup')}
           />
           <main>
-            <Hero />
+            <Hero onPrimaryClick={() => openModal('signup')} onSecondaryClick={() => openModal('demo')} />
             <LogoWall />
             <ProductPreview />
             <ProblemSection />
             <HiddenCosts />
-            <SolutionSection />
-            <HowItWorks />
+            <SolutionSection onActionClick={() => setCurrentPage('hybrid')} />
+            <HowItWorks onActionClick={() => openModal('signup')} />
             <TargetAudience />
-            <Features />
+            <Features onActionClick={() => openModal('signup')} />
             <SecuritySection />
             <WhyNotContinue />
             <Compatibility />
             <ProofSection />
             <FAQ />
-            <Pricing />
-            <FinalCTA />
+            <Pricing 
+              onPlanSelect={(plan) => {
+                if (plan === 'Entreprise') openModal('contact');
+                else openModal('signup');
+              }}
+            />
+            <FinalCTA onPrimaryClick={() => openModal('signup')} onSecondaryClick={() => openModal('demo')} />
           </main>
-          <Footer />
+          <Footer 
+            onLogoClick={() => setCurrentPage('home')} 
+            onMarketplaceClick={() => setCurrentPage('ai')} 
+            onHybridClick={() => setCurrentPage('hybrid')} 
+            onSignupClick={() => openModal('signup')}
+          />
         </>
       ) : currentPage === 'ai' ? (
         <AiMarketplace 
           onLogoClick={() => setCurrentPage('home')} 
           onMarketplaceClick={() => setCurrentPage('ai')}
           onHybridClick={() => setCurrentPage('hybrid')}
+          onDeployClick={() => openModal('deploy')}
+          onPublishClick={() => openModal('publish')}
+          onSignupClick={() => openModal('signup')}
+          onLoginClick={() => openModal('login')}
         />
       ) : (
         <HybridInfra 
           onLogoClick={() => setCurrentPage('home')} 
           onMarketplaceClick={() => setCurrentPage('ai')}
           onHybridClick={() => setCurrentPage('hybrid')}
+          onAgentClick={() => openModal('agent')}
+          onContactClick={() => openModal('migration')}
+          onSignupClick={() => openModal('signup')}
+          onLoginClick={() => openModal('login')}
+          onConnectClick={() => openModal('agent')}
+          onDocClick={() => openModal('demo')}
         />
-      )}
+      )
+}
     </div>
   );
 }

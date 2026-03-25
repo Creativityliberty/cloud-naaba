@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, CheckCircle2, Play } from 'lucide-react';
 import GlobeVisual from './GlobeVisual';
 
-export default function Hero() {
+export default function Hero({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -99,17 +99,29 @@ export default function Hero() {
                 <div className="absolute -inset-1 bg-accent-primary/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-all duration-500" />
                 <div className="absolute -inset-4 bg-accent-primary/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700" />
                 
-                <button className="relative btn-primary px-8 py-4 text-white font-bold flex items-center gap-2">
+                <button 
+                  onClick={onPrimaryClick}
+                  className="relative btn-primary px-8 py-4 text-white font-bold flex items-center gap-2"
+                >
                   Commencer maintenant
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
               
-              <button className="btn-secondary px-8 py-4 text-text-primary font-bold">
+              <button 
+                onClick={() => {
+                  const pricing = document.getElementById('pricing');
+                  if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="btn-secondary px-8 py-4 text-text-primary font-bold"
+              >
                 Voir les offres
               </button>
 
-              <button className="hidden xl:flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors ml-2">
+              <button 
+                onClick={onSecondaryClick}
+                className="hidden xl:flex items-center gap-2 text-sm font-semibold text-text-secondary hover:text-text-primary transition-colors ml-2"
+              >
                 <Play className="w-4 h-4 fill-current" />
                 Demander une démo
               </button>

@@ -19,11 +19,19 @@ import AiFinalCTA from '../components/ai/AiFinalCTA';
 export default function AiMarketplace({ 
   onLogoClick, 
   onMarketplaceClick, 
-  onHybridClick 
+  onHybridClick,
+  onDeployClick,
+  onPublishClick,
+  onSignupClick,
+  onLoginClick
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
   onHybridClick?: () => void;
+  onDeployClick?: () => void;
+  onPublishClick?: () => void;
+  onSignupClick?: () => void;
+  onLoginClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,24 +49,31 @@ export default function AiMarketplace({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
       />
       <main>
-        <AiHero />
+        <AiHero onPrimaryClick={onDeployClick} onSecondaryClick={onPublishClick} />
         <AiProblem />
         <AiCosts />
         <AiSolution />
         <AiHowItWorks />
         <AiUseCases />
         <AiComparison />
-        <AiStackBuilder />
+        <AiStackBuilder onActionClick={onSignupClick} />
         <AiEcosystem />
         <AiSecurity />
         <AiTarget />
         <AiDifference />
         <AiFAQ />
-        <AiFinalCTA />
+        <AiFinalCTA onPrimaryClick={onSignupClick} onSecondaryClick={onPublishClick} />
       </main>
-      <Footer />
+      <Footer 
+        onLogoClick={onLogoClick} 
+        onMarketplaceClick={onMarketplaceClick}
+        onHybridClick={onHybridClick}
+        onSignupClick={onSignupClick}
+      />
     </div>
   );
 }

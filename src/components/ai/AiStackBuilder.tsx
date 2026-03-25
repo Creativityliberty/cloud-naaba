@@ -9,7 +9,7 @@ const stackNodes = [
   { id: 'next', label: 'Next.js', logo: 'https://cdn.simpleicons.org/nextdotjs', angle: 270 }
 ];
 
-export default function AiStackBuilder() {
+export default function AiStackBuilder({ onActionClick }: { onActionClick?: () => void }) {
   return (
     <section className="py-32 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
@@ -34,8 +34,8 @@ export default function AiStackBuilder() {
           </motion.p>
         </div>
 
-        <div className="relative h-[600px] flex items-center justify-center">
-          
+        <div className="relative h-[600px] flex items-center justify-center mb-24">
+          {/* ... existing content ... */}
           {/* Central Core (Ollama) */}
           <div className="relative z-20">
             <motion.div
@@ -81,17 +81,6 @@ export default function AiStackBuilder() {
                     whileInView={{ pathLength: 1, opacity: 1 }}
                     transition={{ duration: 1.5, delay: 0.5 + index * 0.1 }}
                   />
-                  {/* Moving Data Pulse */}
-                  <motion.circle
-                    r="3"
-                    fill="#7c3aed"
-                    initial={{ offsetDistance: "0%" }}
-                    animate={{ offsetDistance: "100%" }}
-                    transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
-                    style={{
-                      offsetPath: `path('M 50% 50% L calc(50% + ${x}px) calc(50% + ${y}px)')`
-                    }}
-                  />
                 </svg>
 
                 {/* Node */}
@@ -124,6 +113,21 @@ export default function AiStackBuilder() {
           {/* Background Glow */}
           <div className="absolute inset-0 bg-accent-primary/5 blur-[160px] rounded-full -z-10" />
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <button 
+            onClick={onActionClick}
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-accent-primary text-white font-bold hover:scale-105 transition-all shadow-lg shadow-accent-primary/20"
+          >
+            Commencer à construire
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </motion.div>
 
       </div>
     </section>

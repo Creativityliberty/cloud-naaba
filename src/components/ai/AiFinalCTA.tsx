@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Search, MessageSquare, CheckCircle2 } from 'lucide-react';
 
-export default function AiFinalCTA() {
+export default function AiFinalCTA({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
   return (
     <section className="py-48 bg-bg-primary relative overflow-hidden">
       {/* Premium Background System */}
@@ -30,6 +30,7 @@ export default function AiFinalCTA() {
             <div className="flex flex-col items-center gap-8 mb-20">
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
                 <motion.button 
+                  onClick={onPrimaryClick}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto px-12 py-6 rounded-2xl bg-white text-black font-black text-xl hover:bg-accent-primary hover:text-white transition-all duration-300 shadow-2xl shadow-white/10 hover:shadow-accent-primary/20 tracking-tight flex items-center justify-center gap-3 group"
@@ -39,6 +40,7 @@ export default function AiFinalCTA() {
                 </motion.button>
                 
                 <motion.button 
+                  onClick={onSecondaryClick}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full sm:w-auto px-12 py-6 rounded-2xl bg-white/5 text-text-primary font-bold text-xl hover:bg-white/10 border border-white/10 transition-all duration-300 tracking-tight flex items-center justify-center gap-3"
@@ -48,7 +50,10 @@ export default function AiFinalCTA() {
                 </motion.button>
               </div>
 
-              <button className="text-text-secondary hover:text-accent-primary font-bold transition-colors flex items-center gap-2 group">
+              <button 
+                onClick={onSecondaryClick}
+                className="text-text-secondary hover:text-accent-primary font-bold transition-colors flex items-center gap-2 group"
+              >
                 <MessageSquare className="w-5 h-5 opacity-60 group-hover:opacity-100" />
                 Demander une démonstration
                 <div className="w-0 h-px bg-accent-primary group-hover:w-full transition-all duration-300" />
