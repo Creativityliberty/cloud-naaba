@@ -151,10 +151,10 @@ export default function GlobeVisual() {
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
         
         particles = new THREE.Points(geometry, new THREE.PointsMaterial({ 
-          size: 0.8, 
+          size: 1.2, // Légèrement plus grand pour la clarté
           vertexColors: true, 
           transparent: true, 
-          opacity: 0.4, 
+          opacity: 0.7, // Plus opaque pour être bien visible
           depthWrite: false,
           blending: THREE.AdditiveBlending 
         }));
@@ -193,7 +193,7 @@ export default function GlobeVisual() {
         const pos = latLonToVector3(c.lat, c.lon, GLOBE_RADIUS + 1);
         
         const hub = new THREE.Mesh(
-          new THREE.SphereGeometry(1.2, 16, 16), 
+          new THREE.SphereGeometry(1.5, 16, 16), 
           new THREE.MeshBasicMaterial({ color: 0xffffff })
         );
         hub.position.copy(pos);
@@ -201,11 +201,11 @@ export default function GlobeVisual() {
         hubsGroup.add(hub);
 
         const halo = new THREE.Mesh(
-          new THREE.SphereGeometry(2.5, 16, 16), 
+          new THREE.SphereGeometry(3.5, 16, 16), 
           new THREE.MeshBasicMaterial({ 
             color: 0x8b5cf6, 
             transparent: true, 
-            opacity: 0.4, 
+            opacity: 0.6, // Halo plus intense
             blending: THREE.AdditiveBlending,
             depthWrite: false
           })
@@ -235,12 +235,12 @@ export default function GlobeVisual() {
         
         const line = new THREE.Line(
           new THREE.BufferGeometry().setFromPoints(pts), 
-          new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.15, blending: THREE.AdditiveBlending })
+          new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending })
         );
         globeGroup.add(line);
 
         const dot = new THREE.Mesh(
-          new THREE.SphereGeometry(0.6, 8, 8), 
+          new THREE.SphereGeometry(1.0, 8, 8), // Points de voyage plus gros
           new THREE.MeshBasicMaterial({ color: 0xffffff, blending: THREE.AdditiveBlending })
         );
         dot.userData = { pts, offset: Math.random(), speed: 0.001 + Math.random() * 0.001 };

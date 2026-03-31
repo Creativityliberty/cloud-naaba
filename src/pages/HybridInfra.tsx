@@ -1714,21 +1714,24 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
         </div>
 
         {/* Context Explanation & Logos */}
-        <div className="max-w-5xl mx-auto text-center space-y-16 py-16 border-y border-white/5">
-          <div className="space-y-8">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-text-secondary/40">Infrastructures concernées par l'évolution</p>
-            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-50 contrast-125 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-              <img src="https://cdn.simpleicons.org/ibm/white" alt="IBM" className="h-7 md:h-9" referrerPolicy="no-referrer" />
-              <img src="https://cdn.simpleicons.org/intel/white" alt="Intel" className="h-7 md:h-9" referrerPolicy="no-referrer" />
-              <img src="https://cdn.simpleicons.org/oracle/white" alt="Oracle" className="h-7 md:h-9" referrerPolicy="no-referrer" />
-              <img src="https://cdn.simpleicons.org/cisco/white" alt="Cisco" className="h-7 md:h-9" referrerPolicy="no-referrer" />
-              <img src="https://cdn.simpleicons.org/dell/white" alt="Dell" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+        <div className="max-w-5xl mx-auto text-center space-y-16 py-16 border-y border-white/5 relative">
+          {/* Subtle background glow for logos */}
+          <div className="absolute inset-0 bg-accent-primary/5 blur-[100px] pointer-events-none" />
+          
+          <div className="space-y-10 relative z-10">
+            <p className="text-xs font-black uppercase tracking-[0.4em] text-accent-primary/80">Infrastructures concernées par l'évolution</p>
+            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-90 transition-all duration-700">
+              <img src="https://cdn.simpleicons.org/ibm/white" alt="IBM" className="h-8 md:h-11 hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/intel/white" alt="Intel" className="h-8 md:h-11 hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/oracle/white" alt="Oracle" className="h-8 md:h-11 hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/cisco/white" alt="Cisco" className="h-8 md:h-11 hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/dell/white" alt="Dell" className="h-8 md:h-11 hover:scale-110 transition-transform" referrerPolicy="no-referrer" />
             </div>
           </div>
           
-          <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-4xl mx-auto font-medium">
+          <p className="text-xl md:text-3xl text-text-secondary leading-relaxed max-w-4xl mx-auto font-bold relative z-10">
             Certaines entreprises veulent conserver leur infrastructure actuelle. D’autres savent qu’une partie doit évoluer. 
-            <span className="block mt-4 font-bold text-text-primary">CloudNaaba s’adapte à votre réalité, pas l’inverse.</span>
+            <span className="block mt-4 text-text-primary">CloudNaaba s’adapte à votre réalité, pas l’inverse.</span>
           </p>
         </div>
 
