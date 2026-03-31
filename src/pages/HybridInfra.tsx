@@ -1649,7 +1649,7 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed"
+            className="text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed font-medium"
           >
             CloudNaaba ne vous impose pas une migration. Mais vous donne un cadre pour la rendre possible, propre et progressive.
           </motion.p>
@@ -1660,7 +1660,7 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
           <div className="flex items-center gap-4 md:gap-12">
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary text-xs font-bold">Keep</div>
-              <span className="text-[10px] uppercase tracking-widest text-text-secondary/40">Existant</span>
+              <span className="text-[10px] uppercase tracking-widest text-text-secondary/40 font-black">Existant</span>
             </div>
             <motion.div 
               animate={{ x: [0, 5, 0] }}
@@ -1671,7 +1671,7 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
             </motion.div>
             <div className="flex flex-col items-center gap-3">
               <div className="w-14 h-14 rounded-full bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center text-accent-primary text-xs font-bold">Improve</div>
-              <span className="text-[10px] uppercase tracking-widest text-accent-primary/60">Contrôle</span>
+              <span className="text-[10px] uppercase tracking-widest text-accent-primary/60 font-black">Contrôle</span>
             </div>
             <motion.div 
               animate={{ x: [0, 5, 0] }}
@@ -1682,13 +1682,13 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
             </motion.div>
             <div className="flex flex-col items-center gap-3">
               <div className="w-16 h-16 rounded-full bg-accent-primary/20 border border-accent-primary/40 flex items-center justify-center text-accent-primary text-xs font-bold shadow-[0_0_20px_rgba(168,85,247,0.2)]">Transform</div>
-              <span className="text-[10px] uppercase tracking-widest text-accent-primary">Optimisé</span>
+              <span className="text-[10px] uppercase tracking-widest text-accent-primary font-black">Optimisé</span>
             </div>
           </div>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
           {options.map((o, i) => (
             <motion.div
               key={i}
@@ -1696,16 +1696,16 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group relative p-10 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-accent-primary/30 transition-all duration-500 text-center"
+              className="group relative p-10 rounded-3xl bg-white/[0.01] border border-white/5 hover:bg-white/[0.03] hover:border-accent-primary/30 transition-all duration-500 text-center flex flex-col"
             >
               <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-white/5 border border-white/10">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-text-secondary/60">{o.badge}</span>
               </div>
-              <div className="w-16 h-16 rounded-2xl bg-accent-primary/10 flex items-center justify-center mx-auto mb-8 border border-accent-primary/20 group-hover:scale-110 transition-transform duration-500">
+              <div className="w-16 h-16 rounded-2xl bg-accent-primary/5 flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:border-accent-primary/20 group-hover:scale-110 transition-all duration-500">
                 <o.icon className="w-8 h-8 text-accent-primary" />
               </div>
               <h3 className="text-2xl font-bold mb-4 text-text-primary group-hover:text-accent-primary transition-colors">{o.title}</h3>
-              <p className="text-text-secondary leading-relaxed">{o.desc}</p>
+              <p className="text-text-secondary leading-relaxed font-medium">{o.desc}</p>
               
               {/* Subtle Glow */}
               <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 blur-3xl transition-opacity -z-10" />
@@ -1713,20 +1713,25 @@ function MigrationEvolution({ onActionClick }: { onActionClick?: () => void }) {
           ))}
         </div>
 
-        {/* Context Explanation */}
-        <div className="max-w-4xl mx-auto text-center space-y-12 mb-24">
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-40 grayscale">
-            <img src="https://cdn.simpleicons.org/ibm/white" alt="IBM" className="h-6" referrerPolicy="no-referrer" />
-            <img src="https://cdn.simpleicons.org/intel/white" alt="Intel" className="h-6" referrerPolicy="no-referrer" />
-            <img src="https://cdn.simpleicons.org/oracle/white" alt="Oracle" className="h-6" referrerPolicy="no-referrer" />
-            <img src="https://cdn.simpleicons.org/cisco/white" alt="Cisco" className="h-6" referrerPolicy="no-referrer" />
-            <img src="https://cdn.simpleicons.org/dell/white" alt="Dell" className="h-6" referrerPolicy="no-referrer" />
+        {/* Context Explanation & Logos */}
+        <div className="max-w-5xl mx-auto text-center space-y-16 py-16 border-y border-white/5">
+          <div className="space-y-8">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-text-secondary/40">Infrastructures concernées par l'évolution</p>
+            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-50 contrast-125 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+              <img src="https://cdn.simpleicons.org/ibm/white" alt="IBM" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/intel/white" alt="Intel" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/oracle/white" alt="Oracle" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/cisco/white" alt="Cisco" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+              <img src="https://cdn.simpleicons.org/dell/white" alt="Dell" className="h-7 md:h-9" referrerPolicy="no-referrer" />
+            </div>
           </div>
-          <p className="text-lg text-text-secondary leading-relaxed">
+          
+          <p className="text-xl md:text-2xl text-text-secondary leading-relaxed max-w-4xl mx-auto font-medium">
             Certaines entreprises veulent conserver leur infrastructure actuelle. D’autres savent qu’une partie doit évoluer. 
             <span className="block mt-4 font-bold text-text-primary">CloudNaaba s’adapte à votre réalité, pas l’inverse.</span>
           </p>
         </div>
+
 
         {/* CTA Section */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24">
