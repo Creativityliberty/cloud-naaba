@@ -24,6 +24,7 @@ import PricingPage from './pages/PricingPage';
 import SecurityPage from './pages/SecurityPage';
 import ContactPage from './pages/ContactPage';
 import GlobalModal, { ModalType } from './components/GlobalModal';
+import { Chatbot, ChatbotTrigger } from './components/Chatbot';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ function ScrollToTop() {
 
 export default function App() {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
+  const [chatbotOpen, setChatbotOpen] = useState(false);
   const navigate = useNavigate();
 
   const openModal = (type: ModalType) => setActiveModal(type);
@@ -54,6 +56,8 @@ export default function App() {
 
       <ScrollToTop />
       <GlobalModal type={activeModal} onClose={closeModal} />
+      <Chatbot isOpen={chatbotOpen} onClose={() => setChatbotOpen(false)} />
+      <ChatbotTrigger onClick={() => setChatbotOpen(o => !o)} isOpen={chatbotOpen} />
 
       <Routes>
         <Route path="/" element={
