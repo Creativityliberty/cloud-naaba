@@ -32,13 +32,14 @@ export default function PricingHero({ onPrimaryClick, onSecondaryClick }: Pricin
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-primary/5 border border-accent-primary/10 mb-8"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border border-accent-primary/20 mb-8"
           >
-            <span className="text-accent-primary text-sm font-medium tracking-wide">
-              Tarification simple et lisible
+            <div className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
+            <span className="text-[11px] font-bold uppercase tracking-widest text-accent-primary">
+              Tarification transparente • Sans surprise
             </span>
           </motion.div>
 
@@ -46,10 +47,10 @@ export default function PricingHero({ onPrimaryClick, onSecondaryClick }: Pricin
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-text-primary mb-8 tracking-tighter leading-[1.1]"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="text-5xl md:text-7xl font-bold font-display leading-[1.05] tracking-tight mb-8 text-gradient"
           >
-            Des prix simples pour lancer, exploiter et faire évoluer vos applications <span className="text-accent-primary">sans surprise.</span>
+            Des prix simples pour lancer, exploiter et faire évoluer vos applications.
           </motion.h1>
 
           {/* Subheadline */}

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Cpu, Database, Layout, ArrowRight, CheckCircle2 } from 'lucide-react';
 
-export default function AiSolution() {
+export default function AiSolution({ onActionClick }: { onActionClick?: () => void }) {
   return (
     <section className="py-32 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
@@ -36,7 +36,10 @@ export default function AiSolution() {
                 <SolutionItem text="API sécurisée pour vos applications" />
               </div>
 
-              <button className="btn-primary px-8 py-4 text-white font-bold flex items-center gap-2 group">
+              <button 
+                onClick={onActionClick}
+                className="btn-primary px-8 py-4 text-white font-bold flex items-center gap-2 group"
+              >
                 Découvrir le fonctionnement
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>

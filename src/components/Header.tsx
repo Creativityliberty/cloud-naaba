@@ -7,6 +7,8 @@ export default function Header({
   onLogoClick, 
   onHybridClick,
   onPricingClick,
+  onSecurityClick,
+  onContactClick,
   onLoginClick,
   onSignupClick
 }: { 
@@ -14,6 +16,8 @@ export default function Header({
   onLogoClick?: () => void; 
   onHybridClick?: () => void;
   onPricingClick?: () => void;
+  onSecurityClick?: () => void;
+  onContactClick?: () => void;
   onLoginClick?: () => void;
   onSignupClick?: () => void;
 }) {
@@ -27,12 +31,12 @@ export default function Header({
   }, [scrollY]);
 
   const navLinks = [
-    { name: 'Accueil', href: '#', onClick: onLogoClick },
-    { name: 'Marketplace', href: '#', onClick: onMarketplaceClick },
-    { name: 'Hybride', href: '#hybrid', onClick: onHybridClick, badge: 'NEW' },
-    { name: 'Tarifs', href: '#pricing', onClick: onPricingClick },
-    { name: 'Sécurité', href: '#security' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Accueil', href: '/', onClick: onLogoClick },
+    { name: 'Marketplace', href: '/marketplace', onClick: onMarketplaceClick },
+    { name: 'Hybride', href: '/infrastructure-hybride', onClick: onHybridClick, badge: 'NEW' },
+    { name: 'Tarifs', href: '/tarifs', onClick: onPricingClick },
+    { name: 'Sécurité', href: '/securite', onClick: onSecurityClick },
+    { name: 'Contact', href: '/contact', onClick: onContactClick },
   ];
 
   return (
@@ -45,65 +49,69 @@ export default function Header({
           : 'top-0 w-full h-[80px] bg-transparent border-transparent'
       }`}
     >
-      <div className={`container mx-auto flex items-center justify-between transition-all duration-500 ${
+      <div className={`container mx-auto flex items-center justify-between lg:grid lg:grid-cols-3 transition-all duration-500 ${
         isScrolled ? 'px-8' : 'px-6'
       }`}>
         {/* Logo Block */}
-        <div 
-          className="flex items-center gap-3 shrink-0 cursor-pointer group"
-          onClick={() => {
-            if (onLogoClick) onLogoClick();
-            else window.location.href = '/';
-          }}
-        >
-          <div className={`relative transition-all duration-500 bg-accent-primary rounded-xl flex items-center justify-center border-2 border-accent-primary/20 overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.3)] ${
-            isScrolled ? 'w-9 h-9' : 'w-11 h-11'
-          }`}>
-            <img 
-              src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
-              alt="CloudNaaba" 
-              className="w-full h-full object-contain p-2 relative z-10"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-primary to-black/40 opacity-40" />
+        <div className="flex justify-start">
+          <div 
+            className="flex items-center gap-3 shrink-0 cursor-pointer group"
+            onClick={() => {
+              if (onLogoClick) onLogoClick();
+              else window.location.href = '/';
+            }}
+          >
+            <div className={`relative transition-all duration-500 bg-accent-primary rounded-xl flex items-center justify-center border-2 border-accent-primary/20 overflow-hidden shadow-[0_0_15px_rgba(124,58,237,0.3)] ${
+              isScrolled ? 'w-9 h-9' : 'w-11 h-11'
+            }`}>
+              <img 
+                src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
+                alt="CloudNaaba" 
+                className="w-full h-full object-contain p-2 relative z-10"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent-primary to-black/40 opacity-40" />
+            </div>
+            <span className={`font-black tracking-tighter font-display text-text-primary transition-all duration-500 ${
+              isScrolled ? 'text-lg' : 'text-xl'
+            }`}>
+              Cloud<span className="text-accent-primary">Naaba</span>
+            </span>
           </div>
-          <span className={`font-black tracking-tighter font-display text-text-primary transition-all duration-500 ${
-            isScrolled ? 'text-lg' : 'text-xl'
-          }`}>
-            Cloud<span className="text-accent-primary">Naaba</span>
-          </span>
         </div>
 
         {/* Navigation Center */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <div key={link.name} className="flex items-center gap-2 group relative">
-              <a 
-                href={link.href} 
-                onClick={(e) => {
-                  if (link.onClick) {
-                    e.preventDefault();
-                    link.onClick();
-                  }
-                }}
-                className={`font-medium text-text-secondary hover:text-text-primary transition-all duration-300 ${
-                  isScrolled ? 'text-[13px]' : 'text-[15px]'
-                }`}
-              >
-                {link.name}
-              </a>
-              {link.badge && (
-                <span className="px-1.5 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-[9px] font-bold">
-                  {link.badge}
-                </span>
-              )}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-primary transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
-            </div>
-          ))}
-        </nav>
+        <div className="hidden lg:flex justify-center">
+          <nav className="flex items-center gap-6 xl:gap-8">
+            {navLinks.map((link) => (
+              <div key={link.name} className="flex items-center gap-2 group relative">
+                <a 
+                  href={link.href} 
+                  onClick={(e) => {
+                    if (link.onClick) {
+                      e.preventDefault();
+                      link.onClick();
+                    }
+                  }}
+                  className={`font-medium text-text-secondary hover:text-text-primary transition-all duration-300 ${
+                    isScrolled ? 'text-[13px]' : 'text-[15px]'
+                  }`}
+                >
+                  {link.name}
+                </a>
+                {link.badge && (
+                  <span className="px-1.5 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-[9px] font-bold">
+                    {link.badge}
+                  </span>
+                )}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-primary transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
+              </div>
+            ))}
+          </nav>
+        </div>
 
         {/* Actions Right */}
-        <div className="flex items-center gap-4 md:gap-6">
+        <div className="flex items-center justify-end gap-5 lg:gap-8">
           <button 
             onClick={onLoginClick}
             className={`hidden sm:block font-medium text-text-secondary hover:text-text-primary transition-all relative group ${
@@ -123,7 +131,7 @@ export default function Header({
           {/* Burger Menu */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-text-primary p-1 hover:text-accent-primary transition-colors"
+            className="lg:hidden text-text-primary p-1 ml-2 hover:text-accent-primary transition-colors"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

@@ -29,7 +29,7 @@ const trustItems = [
   }
 ];
 
-export default function SecuritySection() {
+export default function SecuritySection({ onLearnMoreClick }: { onLearnMoreClick?: () => void }) {
   return (
     <section id="security" className="py-48 relative overflow-hidden bg-bg-primary scroll-mt-24">
       {/* Subtle background glow */}
@@ -73,7 +73,7 @@ export default function SecuritySection() {
         {/* Premium Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {trustItems.map((item, index) => (
-            <SecurityCard key={index} item={item} index={index} />
+            <SecurityCard key={index} item={item} index={index} onClick={onLearnMoreClick} />
           ))}
         </div>
 
@@ -91,7 +91,7 @@ export default function SecuritySection() {
           <div className="flex flex-wrap items-center justify-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
             <img src="https://cdn.simpleicons.org/cloudflare/FFFFFF" alt="Cloudflare" className="h-6 md:h-8 w-auto" referrerPolicy="no-referrer" />
             <img src="https://cdn.simpleicons.org/snyk/FFFFFF" alt="Snyk" className="h-6 md:h-8 w-auto" referrerPolicy="no-referrer" />
-            <img src="https://cdn.simpleicons.org/crowdstrike/FFFFFF" alt="CrowdStrike" className="h-6 md:h-8 w-auto" referrerPolicy="no-referrer" />
+            <img src="https://icongr.am/simple/datadog.svg?color=FFFFFF" alt="Datadog" className="h-6 md:h-8 w-auto" referrerPolicy="no-referrer" />
             <img src="https://cdn.simpleicons.org/paloaltonetworks/FFFFFF" alt="Palo Alto" className="h-6 md:h-8 w-auto" referrerPolicy="no-referrer" />
           </div>
         </motion.div>
@@ -113,14 +113,15 @@ export default function SecuritySection() {
   );
 }
 
-const SecurityCard: React.FC<{ item: any; index: number }> = ({ item, index }) => {
+const SecurityCard: React.FC<{ item: any; index: number; onClick?: () => void }> = ({ item, index, onClick }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex flex-col p-10 premium-card h-full overflow-hidden bg-bg-elevated/30"
+      onClick={onClick}
+      className={`group relative flex flex-col p-10 premium-card h-full overflow-hidden bg-bg-elevated/30 ${onClick ? 'cursor-pointer' : ''}`}
     >
       {/* Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />

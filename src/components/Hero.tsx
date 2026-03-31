@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, CheckCircle2, Play } from 'lucide-react';
 import GlobeVisual from './GlobeVisual';
 
-export default function Hero({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void }) {
+export default function Hero({ onPrimaryClick, onSecondaryClick, onPricingClick }: { onPrimaryClick?: () => void; onSecondaryClick?: () => void; onPricingClick?: () => void }) {
   const [mousePos, setMousePos] = React.useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -109,10 +109,7 @@ export default function Hero({ onPrimaryClick, onSecondaryClick }: { onPrimaryCl
               </div>
               
               <button 
-                onClick={() => {
-                  const pricing = document.getElementById('pricing');
-                  if (pricing) pricing.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={onPricingClick}
                 className="btn-secondary px-8 py-4 text-text-primary font-bold"
               >
                 Voir les offres

@@ -112,9 +112,9 @@ export default function GlobeVisual() {
           <div className="mt-2 pt-2 border-t border-white/5">
             <p className="text-[8px] text-text-secondary/60 mb-2 uppercase tracking-tighter">Compatible avec les standards</p>
             <div className="flex gap-2">
-              <img src="https://cdn.simpleicons.org/amazonwebservices/232F3E" className="w-3 h-3 opacity-60" alt="AWS" referrerPolicy="no-referrer" />
+              <img src="https://icongr.am/simple/amazonaws.svg?color=232F3E" className="w-3 h-3 opacity-60" alt="AWS" referrerPolicy="no-referrer" />
               <img src="https://cdn.simpleicons.org/googlecloud/4285F4" className="w-3 h-3 opacity-60" alt="GCP" referrerPolicy="no-referrer" />
-              <img src="https://cdn.simpleicons.org/microsoftazure/0078D4" className="w-3 h-3 opacity-60" alt="Azure" referrerPolicy="no-referrer" />
+              <img src="https://icongr.am/simple/microsoftazure.svg?color=0078D4" className="w-3 h-3 opacity-60" alt="Azure" referrerPolicy="no-referrer" />
               <img src="https://cdn.simpleicons.org/digitalocean/0080FF" className="w-3 h-3 opacity-60" alt="DO" referrerPolicy="no-referrer" />
             </div>
           </div>

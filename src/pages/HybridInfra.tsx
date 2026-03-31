@@ -45,12 +45,14 @@ export default function HybridInfra({
   onAgentClick,
   onContactClick,
   onConnectClick,
-  onDocClick
+  onDocClick,
+  onSecurityClick
 }: { 
   onLogoClick: () => void;
   onMarketplaceClick: () => void;
   onHybridClick: () => void;
   onPricingClick?: () => void;
+  onSecurityClick?: () => void;
   onSignupClick?: () => void;
   onLoginClick?: () => void;
   onAgentClick?: () => void;
@@ -69,6 +71,7 @@ export default function HybridInfra({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onLoginClick={onLoginClick}
         onSignupClick={onSignupClick}
       />
@@ -96,6 +99,7 @@ export default function HybridInfra({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onSignupClick={onSignupClick}
       />
     </div>
@@ -211,7 +215,7 @@ function Hero({ onPrimaryClick, onSecondaryClick }: { onPrimaryClick?: () => voi
 
 function InfraMapVisual() {
   const nodes = [
-    { id: 'aws', label: 'AWS', icon: 'https://cdn.simpleicons.org/amazonwebservices/FFFFFF', pos: { top: '10%', left: '15%' } },
+    { id: 'aws', label: 'AWS', icon: 'https://icongr.am/simple/amazonaws.svg?color=FFFFFF', pos: { top: '10%', left: '15%' } },
     { id: 'ovh', label: 'OVH', icon: 'https://cdn.simpleicons.org/ovh/FFFFFF', pos: { top: '5%', left: '50%' } },
     { id: 'gcp', label: 'GCP', icon: 'https://cdn.simpleicons.org/googlecloud/FFFFFF', pos: { top: '10%', right: '15%' } },
     { id: 'local', label: 'Local Server', icon: 'https://cdn.simpleicons.org/linux/FFFFFF', pos: { bottom: '15%', left: '10%' } },
@@ -1780,7 +1784,7 @@ function CompatibilityHybrid() {
       title: "Cloud & fournisseurs",
       icon: Cloud,
       items: [
-        { name: "AWS", logo: "https://cdn.simpleicons.org/amazonwebservices/white" },
+        { name: "AWS", logo: "https://icongr.am/simple/amazonaws.svg?color=ffffff" },
         { name: "OVH", logo: "https://cdn.simpleicons.org/ovh/white" },
         { name: "Google Cloud", logo: "https://cdn.simpleicons.org/googlecloud/white" },
         { name: "Infrastructure locale", logo: null }

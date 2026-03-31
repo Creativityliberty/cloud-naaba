@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 const logos = [
-  { name: 'AWS', url: 'https://cdn.simpleicons.org/amazonwebservices/FFFFFF' },
+  { name: 'AWS', url: 'https://icongr.am/simple/amazonaws.svg?color=FFFFFF' },
   { name: 'Google Cloud', url: 'https://cdn.simpleicons.org/googlecloud/FFFFFF' },
-  { name: 'Azure', url: 'https://cdn.simpleicons.org/microsoftazure/FFFFFF' },
+  { name: 'Azure', url: 'https://icongr.am/simple/microsoftazure.svg?color=FFFFFF' },
   { name: 'DigitalOcean', url: 'https://cdn.simpleicons.org/digitalocean/FFFFFF' },
   { name: 'Vercel', url: 'https://cdn.simpleicons.org/vercel/FFFFFF' },
   { name: 'Hetzner', url: 'https://cdn.simpleicons.org/hetzner/FFFFFF' },

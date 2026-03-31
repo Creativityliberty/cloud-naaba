@@ -16,6 +16,8 @@ interface PricingPageProps {
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
   onHybridClick?: () => void;
+  onPricingClick?: () => void;
+  onSecurityClick?: () => void;
   onSignupClick?: () => void;
   onLoginClick?: () => void;
   onContactClick?: () => void;
@@ -26,6 +28,8 @@ export default function PricingPage({
   onLogoClick,
   onMarketplaceClick,
   onHybridClick,
+  onPricingClick,
+  onSecurityClick,
   onSignupClick,
   onLoginClick,
   onContactClick,
@@ -47,6 +51,8 @@ export default function PricingPage({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onLoginClick={onLoginClick}
         onSignupClick={onSignupClick}
       />
@@ -101,6 +107,8 @@ export default function PricingPage({
         onLogoClick={onLogoClick} 
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
+        onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onSignupClick={onSignupClick}
       />
     </div>

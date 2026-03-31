@@ -50,14 +50,22 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Nos formules</span>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.42 }}
-            className="text-4xl md:text-5xl font-bold text-text-primary mb-6 tracking-tight"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-4xl md:text-6xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
           >
-            Choisissez votre <span className="text-accent-primary">formule Cloud</span>
+            Choisissez votre formule Cloud.
           </motion.h2>
         </div>
 

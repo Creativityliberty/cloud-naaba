@@ -70,9 +70,9 @@ export default function ProductPreview() {
             >
               <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/[0.02] border border-white/10 flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.05)] group-hover:border-accent-primary/30 transition-all">
                 <div className="grid grid-cols-3 gap-1 p-2 md:p-3">
-                  <img src="https://cdn.simpleicons.org/amazonwebservices/232F3E" alt="AWS" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+                  <img src="https://icongr.am/simple/amazonaws.svg?color=232F3E" alt="AWS" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                   <img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="GCP" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
-                  <img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+                  <img src="https://icongr.am/simple/microsoftazure.svg?color=0078D4" alt="Azure" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                   <img src="https://cdn.simpleicons.org/digitalocean/0080FF" alt="DO" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                   <img src="https://cdn.simpleicons.org/vercel/FFFFFF" alt="Vercel" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                   <img src="https://cdn.simpleicons.org/hetzner/D50C2D" alt="Hetzner" className="w-3 h-3 md:w-4 md:h-4 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
@@ -95,7 +95,7 @@ export default function ProductPreview() {
                 <div className="flex gap-1.5 md:gap-2 p-2">
                   <img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare" className="w-4 h-4 md:w-5 md:h-5 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                   <img src="https://cdn.simpleicons.org/snyk/4C4A73" alt="Snyk" className="w-4 h-4 md:w-5 md:h-5 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
-                  <img src="https://cdn.simpleicons.org/crowdstrike/FF0000" alt="CrowdStrike" className="w-4 h-4 md:w-5 md:h-5 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+                  <img src="https://icongr.am/simple/datadog.svg?color=FF0000" alt="Datadog" className="w-4 h-4 md:w-5 md:h-5 opacity-40 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                 </div>
               </div>
               <p className="text-violet-400/80 text-[9px] md:text-xs font-bold uppercase tracking-widest">Sécurité</p>

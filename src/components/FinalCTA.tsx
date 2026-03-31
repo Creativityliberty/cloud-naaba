@@ -74,7 +74,7 @@ export default function FinalCTA({ onPrimaryClick, onSecondaryClick }: { onPrima
                 <img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab" className="h-6" referrerPolicy="no-referrer" />
                 <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" className="h-6" referrerPolicy="no-referrer" />
                 <img src="https://cdn.simpleicons.org/redis/DC382D" alt="Redis" className="h-6" referrerPolicy="no-referrer" />
-                <img src="https://cdn.simpleicons.org/next-dot-js/FFFFFF" alt="Next.js" className="h-6" referrerPolicy="no-referrer" />
+                <img src="https://cdn.simpleicons.org/nextdotjs/FFFFFF" alt="Next.js" className="h-6" referrerPolicy="no-referrer" />
               </div>
             </div>
           </motion.div>

@@ -24,7 +24,8 @@ export default function AiMarketplace({
   onDeployClick,
   onPublishClick,
   onSignupClick,
-  onLoginClick
+  onLoginClick,
+  onSecurityClick
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
@@ -34,6 +35,7 @@ export default function AiMarketplace({
   onPublishClick?: () => void;
   onSignupClick?: () => void;
   onLoginClick?: () => void;
+  onSecurityClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -52,6 +54,7 @@ export default function AiMarketplace({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onLoginClick={onLoginClick}
         onSignupClick={onSignupClick}
       />
@@ -59,8 +62,8 @@ export default function AiMarketplace({
         <AiHero onPrimaryClick={onDeployClick} onSecondaryClick={onPublishClick} />
         <AiProblem />
         <AiCosts />
-        <AiSolution />
-        <AiHowItWorks />
+        <AiSolution onActionClick={onSignupClick} />
+        <AiHowItWorks onActionClick={onSignupClick} />
         <AiUseCases />
         <AiComparison />
         <AiStackBuilder onActionClick={onSignupClick} />
@@ -76,6 +79,7 @@ export default function AiMarketplace({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
+        onSecurityClick={onSecurityClick}
         onSignupClick={onSignupClick}
       />
     </div>

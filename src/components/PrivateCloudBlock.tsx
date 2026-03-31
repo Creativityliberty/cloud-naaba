@@ -20,14 +20,22 @@ export default function PrivateCloudBlock({ onContactClick }: { onContactClick?:
 
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         <div className="text-center mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-8"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Sur-mesure</span>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+            className="text-4xl md:text-6xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
           >
-            Besoins élevés en sécurité ou en architecture ?
+            Exigences élevées ? <br /> Pensez Cloud Privé.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 30 }}
@@ -61,8 +69,8 @@ export default function PrivateCloudBlock({ onContactClick }: { onContactClick?:
                     Cloud privé & sur-mesure
                   </div>
                   
-                  <h3 className="text-2xl md:text-3xl font-medium text-white mb-4 leading-snug">
-                    Infrastructure dédiée, isolée des environnements mutualisés.
+                  <h3 className="text-2xl md:text-3xl font-bold font-display text-white mb-4 leading-snug">
+                    Infrastructure dédiée et isolée.
                   </h3>
 
                   <p className="text-text-secondary/80 leading-relaxed font-medium mb-10 text-lg">

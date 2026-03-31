@@ -43,14 +43,22 @@ export default function IncludedPricing() {
 
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Common Core</span>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.42 }}
-            className="text-3xl md:text-4xl font-bold text-text-primary mb-4 tracking-tight"
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
           >
-            Tout ce dont vous avez besoin, <span className="text-accent-primary">inclus dès le départ</span>
+            Inclus dans toutes nos offres.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -91,18 +99,6 @@ export default function IncludedPricing() {
           ))}
         </div>
 
-        {/* Visual reinforcement */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="mt-12 text-center"
-        >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-text-secondary tracking-widest uppercase">
-            Inclus dans tous les plans CloudNaaba
-          </span>
-        </motion.div>
 
         {/* Transition to pricing plans */}
         <motion.div 

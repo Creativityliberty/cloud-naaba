@@ -133,7 +133,7 @@ const steps = [
   }
 ];
 
-export default function AiHowItWorks() {
+export default function AiHowItWorks({ onActionClick }: { onActionClick?: () => void }) {
   return (
     <section className="py-48 relative overflow-hidden bg-bg-primary">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
@@ -229,7 +229,10 @@ export default function AiHowItWorks() {
           transition={{ delay: 0.6 }}
           className="mt-24 text-center"
         >
-          <button className="inline-flex items-center gap-2 text-sm font-bold text-accent-primary hover:text-white transition-colors group">
+          <button 
+            onClick={onActionClick}
+            className="inline-flex items-center gap-2 text-sm font-bold text-accent-primary hover:text-white transition-colors group"
+          >
             Voir comment démarrer
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>

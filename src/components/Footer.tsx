@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Twitter, Linkedin, Github, ArrowUpRight } from 'lucide-react';
+import { Twitter, Linkedin, Github, ArrowRight } from 'lucide-react';
 
 const footerLinks = [
   {
@@ -39,17 +39,52 @@ const footerLinks = [
   }
 ];
 
+const FooterLink = ({ onClick, href, children }: { onClick?: () => void, href?: string, children: React.ReactNode }) => {
+  const content = (
+    <>
+      <span className="flex items-center justify-center overflow-hidden w-0 opacity-0 group-hover:w-5 group-hover:opacity-100 transition-all duration-300">
+        <ArrowRight className="w-4 h-4 text-accent-primary shrink-0" />
+      </span>
+      <span className="group-hover:translate-x-0.5 transition-transform duration-300">
+        {children}
+      </span>
+    </>
+  );
+  const className = "group flex items-center text-text-secondary hover:text-accent-primary transition-colors text-base font-medium cursor-pointer";
+
+  return (
+    <li>
+      <a 
+        href={href || "#"}
+        onClick={(e) => {
+          if (onClick) {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        className={className}
+      >
+        {content}
+      </a>
+    </li>
+  );
+};
+
 export default function Footer({ 
   onLogoClick, 
   onMarketplaceClick, 
   onHybridClick,
   onPricingClick,
+  onSecurityClick,
+  onContactClick,
   onSignupClick 
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
   onHybridClick?: () => void;
   onPricingClick?: () => void;
+  onSecurityClick?: () => void;
+  onContactClick?: () => void;
   onSignupClick?: () => void;
 }) {
   return (
@@ -114,35 +149,35 @@ export default function Footer({
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Produit</h4>
               <ul className="space-y-4">
-                <li><button onClick={onLogoClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Accueil</button></li>
-                <li><button onClick={onMarketplaceClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Marketplace</button></li>
-                <li><button onClick={onHybridClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Hybride</button></li>
-                <li><button onClick={onPricingClick} className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Tarifs</button></li>
+                <FooterLink onClick={onLogoClick} href="/">Accueil</FooterLink>
+                <FooterLink onClick={onMarketplaceClick} href="/marketplace">Marketplace</FooterLink>
+                <FooterLink onClick={onHybridClick} href="/infrastructure-hybride">Hybride</FooterLink>
+                <FooterLink onClick={onPricingClick} href="/tarifs">Tarifs</FooterLink>
               </ul>
             </div>
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Plateforme</h4>
               <ul className="space-y-4">
-                <li><a href="#hybrid" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Fonctionnement</a></li>
-                <li><a href="#security" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Sécurité</a></li>
-                <li><a href="#compatibility" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Compatibilité</a></li>
-                <li><a href="#faq-section" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">FAQ</a></li>
+                <FooterLink href="/infrastructure-hybride">Fonctionnement</FooterLink>
+                <FooterLink onClick={onSecurityClick} href="/securite">Sécurité</FooterLink>
+                <FooterLink href="#compatibility">Compatibilité</FooterLink>
+                <FooterLink href="#faq-section">FAQ</FooterLink>
               </ul>
             </div>
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Support</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Contact</a></li>
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Aide</a></li>
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Support</a></li>
+                <FooterLink onClick={onContactClick} href="/contact">Contact</FooterLink>
+                <FooterLink href="#aide">Aide</FooterLink>
+                <FooterLink href="#support">Support</FooterLink>
               </ul>
             </div>
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Légal</h4>
               <ul className="space-y-4">
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Conditions</a></li>
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Confidentialité</a></li>
-                <li><a href="#" className="text-text-secondary hover:text-accent-primary transition-colors text-base font-medium">Mentions légales</a></li>
+                <FooterLink href="#">Conditions</FooterLink>
+                <FooterLink href="#">Confidentialité</FooterLink>
+                <FooterLink href="#">Mentions légales</FooterLink>
               </ul>
             </div>
           </div>

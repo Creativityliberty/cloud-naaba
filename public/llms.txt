@@ -1,0 +1,11 @@
+# CloudNaaba
+
+> CloudNaaba est une plateforme d'infrastructure hybride et un marketplace de solutions orientées développement (BaaS/PaaS privé) et intelligence artificielle locale sans complexité de gestion serveur.
+
+## Accueil et Navigation Principale
+- [Accueil](/) : La page de présentation principale de CloudNaaba, sa proposition de valeur et sa simplicité de déploiement d'outils tech et d'IA.
+- [CloudNaaba IA](/marketplace) : La place de marché IA de CloudNaaba qui permet le déploiement d'environnements (comme Ollama) sur des clusters de données de confiance.
+- [Infrastructure Hybride](/infrastructure-hybride) : Détails sur l'infrastructure souveraine, transparente et hybride proposée par CloudNaaba.
+- [Tarifs](/tarifs) : Grilles tarifaires des offres CloudNaaba, claires et sans frais cachés (Egress gratuit, etc).
+- [Sécurité](/securite) : L'engagement et l'infrastructure de sécurité, incluant conformité, chiffrement souverain et partenariats technologiques de CloudNaaba.
+- [Contact / Support](/contact) : Entrez en relation avec les experts CloudNaaba pour discuter infrastructure, déploiement IA ou migrations personnalisées.

@@ -22,8 +22,17 @@ export default function PricingFinalCTA({
           transition={{ duration: 0.5 }}
           className="max-w-[720px] mx-auto text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6 tracking-tight leading-tight">
-            Commencez avec la formule adaptée à votre réalité actuelle.
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-8"
+          >
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Prêt à lancer ?</span>
+          </motion.div>
+          
+          <h2 className="text-4xl md:text-6xl font-bold font-display tracking-tight leading-[1.1] text-gradient mb-8">
+            Démarrer proprement. <br /> Évoluer sans rupture.
           </h2>
           
           <p className="text-text-secondary text-lg md:text-xl mb-12 font-medium leading-relaxed">
