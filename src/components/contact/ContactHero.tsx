@@ -10,7 +10,6 @@ interface ContactHeroProps {
 export default function ContactHero({ onScrollToForm, onScrollToLive }: ContactHeroProps) {
   return (
     <section className="relative min-h-[80vh] flex items-center pt-32 pb-20 justify-center">
-      {/* Subtle Noise / Radial glow for specific premium touch */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-accent-primary/10 rounded-full blur-[140px] pointer-events-none opacity-50" />
 
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10 text-center flex flex-col items-center">

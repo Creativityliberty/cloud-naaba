@@ -39,18 +39,12 @@ export default function ContactPage({
   };
 
   const handleScrollToLive = () => {
-    // Scroll a bit above for community context or redirect.
-    // Assuming we want to scroll to community (Section 5)
-    // For now we can open the discord URL or scroll to form.
     window.open('https://discord.com', '_blank');
   };
 
   const handleRouteSelect = (type: string) => {
-    // Here we can set the select element value by reference or state,
-    // but for simplicity, we just scroll to form.
     handleScrollToForm();
     
-    // Quick timeout to try to pre-select the dropdown if it is rendered
     setTimeout(() => {
       const selectEl = document.querySelector('select') as HTMLSelectElement;
       if (selectEl) {
@@ -65,7 +59,6 @@ export default function ContactPage({
   return (
     <div className="min-h-screen text-text-primary bg-bg-primary font-body selection:bg-accent-primary/30">
       
-      {/* Global Background Particles Concept from Neuralyn */}
       <div className="bg-layered fixed inset-0 z-0 pointer-events-none opacity-50">
         <div className="bg-radial-glow opacity-30" />
         <div className="bg-noise opacity-50" />
@@ -82,31 +75,23 @@ export default function ContactPage({
       />
       
       <main className="relative z-10 w-full">
-        {/* Section 1: Hero */}
         <ContactHero 
           onScrollToForm={handleScrollToForm} 
           onScrollToLive={handleScrollToLive} 
         />
         
-        {/* Section 2: Routing / Comment pouvons-nous vous aider ? */}
         <ContactRouting onRouteSelect={handleRouteSelect} />
 
-        {/* Section 3: Human Proof / The Team */}
         <ContactHumanProof />
 
-        {/* Section 4: Use Cases */}
         <ContactUseCases />
 
-        {/* Section 5: Community & Live Support */}
         <ContactCommunity />
 
-        {/* Sections 6, 7 & 8: Form & Urgency & Coordonnées */}
         <ContactFormSection />
 
-        {/* Section 10: FAQ */}
         <ContactFAQ />
 
-        {/* Section 11: Final CTA */}
         <ContactFinalCTA 
           onScrollToForm={handleScrollToForm}
           onScrollToLive={handleScrollToLive}

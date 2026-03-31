@@ -175,26 +175,36 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[420px] h-[75vh] sm:h-[600px] max-h-[700px] z-50 flex flex-col rounded-3xl overflow-hidden border border-white/10 shadow-[0_32px_80px_rgba(0,0,0,0.6)]"
-            style={{ background: 'linear-gradient(160deg, rgba(10,10,15,0.98) 0%, rgba(5,5,8,0.99) 100%)' }}
+            className="fixed bottom-0 sm:bottom-6 right-0 sm:right-6 w-full sm:w-[380px] h-[100dvh] sm:h-[600px] sm:max-h-[85vh] z-50 flex flex-col sm:rounded-3xl shadow-[0_32px_80px_rgba(0,0,0,0.6)] border-white/10 overflow-hidden"
+            style={{ 
+              background: 'linear-gradient(160deg, rgba(10,10,15,0.98) 0%, rgba(5,5,8,0.99) 100%)',
+              backdropFilter: 'blur(20px)'
+            }}
           >
             {/* Header */}
-            <div className="shrink-0 flex items-center justify-between px-6 py-5 border-b border-white/10 bg-black/20 backdrop-blur-xl">
+            <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-white/10 bg-black/40">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-2xl bg-accent-primary flex items-center justify-center shadow-lg shadow-accent-primary/30">
-                    <Bot className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 rounded-2xl bg-accent-primary/20 flex items-center justify-center border border-accent-primary/30 overflow-hidden">
+                    <img 
+                      src="/images/bot/naaba_assist_avatar.png" 
+                      alt="Naaba Assist" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-black rounded-full" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-[#0A0A0F] rounded-full" />
                 </div>
                 <div>
-                  <p className="text-sm font-black text-text-primary tracking-tight">Naaba Assist.</p>
-                  <p className="text-[10px] font-bold text-green-400 uppercase tracking-widest">En ligne</p>
+                  <p className="text-xs font-black text-text-primary uppercase tracking-widest">Naaba Assist.</p>
+                  <div className="flex items-center gap-1.5 ">
+                    <span className="w-1 h-1 rounded-full bg-green-400 animate-pulse" />
+                    <p className="text-[10px] font-bold text-green-400/80 uppercase tracking-[0.15em]">En ligne</p>
+                  </div>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/10 text-text-secondary hover:text-text-primary transition-all"
+                className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-white/10 text-text-secondary hover:text-text-primary transition-all active:scale-90"
                 aria-label="Fermer"
               >
                 <X className="w-5 h-5" />
@@ -202,27 +212,30 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-6 space-y-5" style={{ scrollbarWidth: 'none' }}>
+            <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-6" style={{ scrollbarWidth: 'none' }}>
               {messages.map((m, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
                   className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {m.role === 'model' && (
-                    <div className="w-7 h-7 rounded-xl bg-accent-primary/20 border border-accent-primary/30 flex items-center justify-center shrink-0 mr-2 mt-1">
-                      <Bot className="w-3.5 h-3.5 text-accent-primary" />
+                    <div className="w-8 h-8 rounded-lg bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center shrink-0 mr-2.5 mt-1 overflow-hidden">
+                      <img 
+                        src="/images/bot/naaba_assist_avatar.png" 
+                        alt="Avatar" 
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   )}
-                  <div className={`max-w-[85%] px-5 py-4 rounded-2xl ${
+                  <div className={`max-w-[85%] px-4 py-3.5 rounded-2xl shadow-sm ${
                     m.role === 'user'
-                      ? 'bg-accent-primary text-white rounded-tr-none'
+                      ? 'bg-accent-primary text-white rounded-tr-none font-bold text-sm'
                       : 'bg-white/5 border border-white/10 rounded-tl-none'
                   }`}>
                     {m.role === 'user'
-                      ? <p className="text-sm font-bold">{m.text}</p>
+                      ? <p>{m.text}</p>
                       : <RichText content={m.text} onNavigate={(path) => { navigate(path); onClose(); }} />
                     }
                   </div>
@@ -232,8 +245,8 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Quick Actions */}
-            <div className="shrink-0 px-5 pb-3 pt-1">
-              <div className="flex gap-2 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+            <div className="shrink-0 px-4 pb-4 pt-2">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
                 {quickActions.map((a, i) => (
                   <QuickReply key={i} icon={a.icon} text={a.text} onClick={() => handleSend(a.query)} />
                 ))}
@@ -241,8 +254,8 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Input */}
-            <div className="shrink-0 px-5 pb-5 pt-3 border-t border-white/10">
-              <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 focus-within:border-accent-primary/40 transition-colors">
+            <div className="shrink-0 px-4 pb-6 pt-3 border-t border-white/5 bg-black/20">
+              <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3.5 focus-within:border-accent-primary/50 transition-all duration-300">
                 <input
                   ref={inputRef}
                   type="text"
@@ -250,15 +263,15 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSend()}
                   placeholder="Posez votre question…"
-                  className="flex-1 bg-transparent outline-none text-sm text-text-primary placeholder:text-text-secondary/40 font-medium"
+                  className="flex-1 bg-transparent outline-none text-sm text-text-primary placeholder:text-text-secondary/30 font-medium"
                 />
                 <button
                   onClick={() => handleSend()}
                   disabled={!input.trim() || loading}
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all ${
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all ${
                     input.trim() && !loading
-                      ? 'bg-accent-primary text-white hover:bg-accent-primary/80'
-                      : 'bg-white/5 text-text-secondary/40 cursor-not-allowed'
+                      ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20 active:scale-90 hover:brightness-110'
+                      : 'bg-white/5 text-text-secondary/20 cursor-not-allowed'
                   }`}
                 >
                   <Send className="w-4 h-4" />

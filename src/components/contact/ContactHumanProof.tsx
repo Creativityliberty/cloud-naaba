@@ -91,7 +91,7 @@ export default function ContactHumanProof() {
                   {avatars.map((av, idx) => (
                     <div 
                       key={idx} 
-                      className={`w-12 h-12 rounded-full border-4 border-[#070707] flex items-center justify-center text-white font-bold relative z-${40 - idx * 10} shadow-xl overflow-hidden`}
+                      className={`w-12 h-12 rounded-full border-4 border-[#070707] flex items-center justify-center text-white font-bold relative z-[${40 - idx * 10}] shadow-xl overflow-hidden`}
                     >
                       <div className={`absolute inset-0 opacity-80 ${av.color}`} />
                       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
