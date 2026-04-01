@@ -23,8 +23,6 @@ export default function AiMarketplace({
   onPricingClick,
   onDeployClick,
   onPublishClick,
-  onSignupClick,
-  onLoginClick,
   onSecurityClick
 }: { 
   onLogoClick?: () => void;
@@ -33,8 +31,6 @@ export default function AiMarketplace({
   onPricingClick?: () => void;
   onDeployClick?: () => void;
   onPublishClick?: () => void;
-  onSignupClick?: () => void;
-  onLoginClick?: () => void;
   onSecurityClick?: () => void;
 }) {
   useEffect(() => {
@@ -55,24 +51,22 @@ export default function AiMarketplace({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
       />
       <main>
         <AiHero onPrimaryClick={onDeployClick} onSecondaryClick={onPublishClick} />
         <AiProblem />
         <AiCosts />
-        <AiSolution onActionClick={onSignupClick} />
-        <AiHowItWorks onActionClick={onSignupClick} />
+        <AiSolution onActionClick={() => window.location.href = '/contact'} />
+        <AiHowItWorks onActionClick={() => window.location.href = '/contact'} />
         <AiUseCases />
         <AiComparison />
-        <AiStackBuilder onActionClick={onSignupClick} />
+        <AiStackBuilder onActionClick={() => window.location.href = '/contact'} />
         <AiEcosystem />
         <AiSecurity />
         <AiTarget />
         <AiDifference />
         <AiFAQ />
-        <AiFinalCTA onPrimaryClick={onSignupClick} onSecondaryClick={onPublishClick} />
+        <AiFinalCTA onPrimaryClick={() => window.location.href = '/contact'} onSecondaryClick={onPublishClick} />
       </main>
       <Footer 
         onLogoClick={onLogoClick} 
@@ -80,7 +74,6 @@ export default function AiMarketplace({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onSignupClick={onSignupClick}
       />
     </div>
   );

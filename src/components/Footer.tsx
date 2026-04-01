@@ -76,8 +76,7 @@ export default function Footer({
   onHybridClick,
   onPricingClick,
   onSecurityClick,
-  onContactClick,
-  onSignupClick 
+  onContactClick 
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
@@ -85,7 +84,6 @@ export default function Footer({
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
   onContactClick?: () => void;
-  onSignupClick?: () => void;
 }) {
   return (
     <footer id="contact" className="bg-bg-primary pt-32 pb-16 relative overflow-hidden border-t border-border-subtle scroll-mt-24">
@@ -195,12 +193,6 @@ export default function Footer({
             <a href="#" className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
               Conditions
             </a>
-            <button 
-              onClick={onSignupClick}
-              className="px-8 py-2.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-xs font-bold hover:bg-accent-primary hover:text-white transition-all duration-300 tracking-widest uppercase"
-            >
-              Démarrer
-            </button>
           </div>
         </div>
       </div>

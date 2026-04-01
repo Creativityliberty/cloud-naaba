@@ -8,9 +8,7 @@ export default function Header({
   onHybridClick,
   onPricingClick,
   onSecurityClick,
-  onContactClick,
-  onLoginClick,
-  onSignupClick
+  onContactClick
 }: { 
   onMarketplaceClick?: () => void; 
   onLogoClick?: () => void; 
@@ -18,8 +16,6 @@ export default function Header({
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
   onContactClick?: () => void;
-  onLoginClick?: () => void;
-  onSignupClick?: () => void;
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -118,22 +114,7 @@ export default function Header({
         </div>
 
         {/* Actions Right */}
-        <div className="flex items-center justify-end gap-4 lg:gap-6 xl:gap-8">
-          <button 
-            onClick={onLoginClick}
-            className={`hidden sm:block font-medium text-text-secondary hover:text-text-primary transition-all relative group ${
-            isScrolled ? 'text-[13px]' : 'text-[13px] xl:text-[15px]'
-          }`}>
-            Se connecter
-            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-text-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
-          </button>
-          <button 
-            onClick={onSignupClick}
-            className={`bg-accent-primary hover:bg-accent-primary/80 text-white font-bold transition-all shadow-[0_0_20px_rgba(124,58,237,0.2)] hover:shadow-[0_0_25px_rgba(124,58,237,0.4)] ${
-            isScrolled ? 'px-4 py-2 rounded-full text-[13px]' : 'px-5 py-2.5 rounded-[10px] text-[15px]'
-          }`}>
-            Commencer
-          </button>
+        <div className="flex items-center justify-end">
           
           {/* Burger Menu */}
           <button 
@@ -179,26 +160,6 @@ export default function Header({
                 </a>
               );
             })}
-            <div className="mt-4 flex flex-col gap-3">
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onLoginClick) onLoginClick();
-                }}
-                className="w-full py-4 rounded-xl border border-white/10 font-bold text-text-primary hover:bg-white/5 transition-colors"
-              >
-                Se connecter
-              </button>
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  if (onSignupClick) onSignupClick();
-                }}
-                className="w-full py-4 rounded-xl bg-accent-primary font-bold text-white shadow-[0_0_20px_rgba(124,58,237,0.3)]"
-              >
-                Commencer maintenant
-              </button>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -18,8 +18,6 @@ interface PricingPageProps {
   onHybridClick?: () => void;
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
-  onSignupClick?: () => void;
-  onLoginClick?: () => void;
   onContactClick?: () => void;
   onDemoClick?: () => void;
 }
@@ -30,8 +28,6 @@ export default function PricingPage({
   onHybridClick,
   onPricingClick,
   onSecurityClick,
-  onSignupClick,
-  onLoginClick,
   onContactClick,
   onDemoClick
 }: PricingPageProps) {
@@ -53,34 +49,26 @@ export default function PricingPage({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
       />
       
       <main>
         <PricingHero 
-          onPrimaryClick={onSignupClick} 
+          onPrimaryClick={onContactClick} 
           onSecondaryClick={onContactClick} 
         />
         
         <IncludedPricing />
 
         <Pricing 
-          onPlanSelect={(plan) => {
-            if (plan === 'Business') onContactClick?.();
-            else onSignupClick?.();
-          }} 
+          onPlanSelect={() => onContactClick?.()} 
         />
         
         <DecisionHelper 
-          onPlanSelect={(plan) => {
-            if (plan === 'Business') onContactClick?.();
-            else onSignupClick?.();
-          }} 
+          onPlanSelect={() => onContactClick?.()} 
         />
 
         <PricingConfigurator 
-          onActionClick={(config) => onSignupClick?.()} 
+          onActionClick={() => onContactClick?.()} 
         />
 
         <HybridPricingBlock 
@@ -98,7 +86,7 @@ export default function PricingPage({
         <FAQ />
 
         <PricingFinalCTA 
-          onSignupClick={onSignupClick}
+          onSignupClick={onContactClick}
           onContactClick={onContactClick}
         />
       </main>
@@ -109,7 +97,6 @@ export default function PricingPage({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onSignupClick={onSignupClick}
       />
     </div>
   );

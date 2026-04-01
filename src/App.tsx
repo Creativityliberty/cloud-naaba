@@ -68,12 +68,10 @@ export default function App() {
               onPricingClick={() => navigateTo('/tarifs')}
               onSecurityClick={() => navigateTo('/securite')}
               onContactClick={() => navigateTo('/contact')}
-              onLoginClick={() => openModal('login')}
-              onSignupClick={() => openModal('signup')}
             />
             <main>
               <Hero 
-                onPrimaryClick={() => openModal('signup')} 
+                onPrimaryClick={() => navigateTo('/contact')} 
                 onSecondaryClick={() => openModal('demo')} 
                 onPricingClick={() => navigateTo('/tarifs')}
               />
@@ -81,16 +79,16 @@ export default function App() {
               <ProductPreview />
               <ProblemSection />
               <HiddenCosts />
-              <SolutionSection onActionClick={() => openModal('signup')} />
-              <HowItWorks onActionClick={() => openModal('signup')} />
+              <SolutionSection onActionClick={() => navigateTo('/contact')} />
+              <HowItWorks onActionClick={() => navigateTo('/contact')} />
               <TargetAudience />
-              <Features onActionClick={() => openModal('signup')} />
+              <Features onActionClick={() => navigateTo('/contact')} />
               <SecuritySection onLearnMoreClick={() => navigateTo('/securite')} />
               <WhyNotContinue />
               <Compatibility />
               <ProofSection />
               <FAQ />
-              <FinalCTA onPrimaryClick={() => openModal('signup')} onSecondaryClick={() => openModal('demo')} />
+              <FinalCTA onPrimaryClick={() => navigateTo('/contact')} onSecondaryClick={() => openModal('demo')} />
             </main>
             <Footer 
               onLogoClick={() => navigateTo('/')} 
@@ -99,7 +97,6 @@ export default function App() {
               onPricingClick={() => navigateTo('/tarifs')}
               onSecurityClick={() => navigateTo('/securite')}
               onContactClick={() => navigateTo('/contact')}
-              onSignupClick={() => openModal('signup')}
             />
           </>
         } />
@@ -111,8 +108,6 @@ export default function App() {
             onPricingClick={() => navigateTo('/tarifs')}
             onDeployClick={() => openModal('deploy')}
             onPublishClick={() => openModal('publish')}
-            onSignupClick={() => openModal('signup')}
-            onLoginClick={() => openModal('login')}
             onSecurityClick={() => navigateTo('/securite')}
           />
         } />
@@ -124,12 +119,9 @@ export default function App() {
             onPricingClick={() => navigateTo('/tarifs')}
             onAgentClick={() => openModal('agent')}
             onContactClick={() => openModal('migration')}
-            onSignupClick={() => openModal('signup')}
-            onLoginClick={() => openModal('login')}
             onConnectClick={() => openModal('agent')}
             onDocClick={() => openModal('demo')}
             onSecurityClick={() => navigateTo('/securite')}
-            // We use standard named prop here because it clashes. Assuming it doesn't clash.
           />
         } />
         <Route path="/tarifs" element={
@@ -138,8 +130,6 @@ export default function App() {
             onMarketplaceClick={() => navigateTo('/marketplace')}
             onHybridClick={() => navigateTo('/infrastructure-hybride')}
             onSecurityClick={() => navigateTo('/securite')}
-            onSignupClick={() => openModal('signup')}
-            onLoginClick={() => openModal('login')}
             onContactClick={() => openModal('contact')}
             onDemoClick={() => openModal('demo')}
           />
@@ -150,8 +140,6 @@ export default function App() {
             onMarketplaceClick={() => navigateTo('/marketplace')}
             onHybridClick={() => navigateTo('/infrastructure-hybride')}
             onPricingClick={() => navigateTo('/tarifs')}
-            onSignupClick={() => openModal('signup')}
-            onLoginClick={() => openModal('login')}
             onExpertClick={() => openModal('contact')}
             onProtectionsClick={() => {
               // Same as before
@@ -165,8 +153,6 @@ export default function App() {
             onHybridClick={() => navigateTo('/infrastructure-hybride')}
             onPricingClick={() => navigateTo('/tarifs')}
             onSecurityClick={() => navigateTo('/securite')}
-            onSignupClick={() => openModal('signup')}
-            onLoginClick={() => openModal('login')}
           />
         } />
       </Routes>

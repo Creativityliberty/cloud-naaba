@@ -19,8 +19,6 @@ export default function SecurityPage({
   onMarketplaceClick, 
   onHybridClick,
   onPricingClick,
-  onSignupClick,
-  onLoginClick,
   onExpertClick,
   onProtectionsClick
 }: { 
@@ -28,8 +26,6 @@ export default function SecurityPage({
   onMarketplaceClick: () => void;
   onHybridClick: () => void;
   onPricingClick: () => void;
-  onSignupClick: () => void;
-  onLoginClick: () => void;
   onExpertClick: () => void;
   onProtectionsClick: () => void;
 }) {
@@ -44,8 +40,6 @@ export default function SecurityPage({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
       />
       
       <main>
@@ -72,7 +66,6 @@ export default function SecurityPage({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
-        onSignupClick={onSignupClick}
       />
     </div>
   );

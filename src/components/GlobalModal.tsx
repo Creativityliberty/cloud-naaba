@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, CheckCircle2, Mail, Lock, User, Terminal, Globe, Brain } from 'lucide-react';
 
-export type ModalType = 'login' | 'signup' | 'contact' | 'demo' | 'agent' | 'migration' | 'publish' | 'deploy' | null;
+export type ModalType = 'contact' | 'demo' | 'agent' | 'migration' | 'publish' | 'deploy' | null;
 
 interface GlobalModalProps {
   type: ModalType;
@@ -14,29 +14,6 @@ export default function GlobalModal({ type, onClose }: GlobalModalProps) {
 
   const getContent = () => {
     switch (type) {
-      case 'login':
-        return {
-          title: "Connexion.",
-          subtitle: "Accédez à votre console CloudNaaba.",
-          icon: Lock,
-          fields: [
-            { label: "Email", type: "email", placeholder: "votre@email.com", icon: Mail },
-            { label: "Mot de passe", type: "password", placeholder: "••••••••", icon: Lock }
-          ],
-          button: "Se connecter"
-        };
-      case 'signup':
-        return {
-          title: "Créer un compte.",
-          subtitle: "Commencez à piloter votre infrastructure dès maintenant.",
-          icon: User,
-          fields: [
-            { label: "Nom complet", type: "text", placeholder: "Jean Dupont", icon: User },
-            { label: "Email professionnel", type: "email", placeholder: "votre@entreprise.com", icon: Mail },
-            { label: "Mot de passe", type: "password", placeholder: "••••••••", icon: Lock }
-          ],
-          button: "Démarrer gratuitement"
-        };
       case 'contact':
       case 'migration':
         return {

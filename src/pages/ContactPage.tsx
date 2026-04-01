@@ -17,8 +17,6 @@ interface ContactPageProps {
   onHybridClick: () => void;
   onPricingClick: () => void;
   onSecurityClick: () => void;
-  onSignupClick: () => void;
-  onLoginClick: () => void;
 }
 
 export default function ContactPage({
@@ -26,9 +24,7 @@ export default function ContactPage({
   onMarketplaceClick,
   onHybridClick,
   onPricingClick,
-  onSecurityClick,
-  onSignupClick,
-  onLoginClick
+  onSecurityClick
 }: ContactPageProps) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -70,8 +66,6 @@ export default function ContactPage({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
       />
       
       <main className="relative z-10 w-full">
@@ -104,7 +98,6 @@ export default function ContactPage({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
-        onSignupClick={onSignupClick}
       />
     </div>
   );
