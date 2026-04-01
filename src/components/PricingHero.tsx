@@ -13,11 +13,6 @@ const trustChips = [
   { text: "Support 24/7", icon: Globe }
 ];
 
-const miniPreviews = [
-  { name: "Starter", price: "1 000 F CFA", period: "/ mois", description: "Pour débuter" },
-  { name: "Standard", price: "7 500 F CFA", period: "/ mois", highlighted: true, description: "Plus populaire" },
-  { name: "Premium", price: "25 000 F CFA", period: "/ mois", description: "Apps critiques" }
-];
 
 export default function PricingHero({ onPrimaryClick, onSecondaryClick }: PricingHeroProps) {
   return (
@@ -90,38 +85,6 @@ export default function PricingHero({ onPrimaryClick, onSecondaryClick }: Pricin
             </button>
           </motion.div>
 
-          {/* Value Strip Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
-          >
-            {miniPreviews.map((preview, i) => (
-              <div
-                key={i}
-                className={`group relative p-8 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${
-                  preview.highlighted 
-                    ? 'bg-accent-primary/5 border-accent-primary/30 shadow-2xl shadow-accent-primary/10' 
-                    : 'bg-white/[0.02] border-white/[0.08] hover:border-white/20'
-                }`}
-              >
-                <div className="relative z-10">
-                   <div className="text-text-secondary text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-                     {preview.name}
-                   </div>
-                   <div className="flex items-baseline justify-center gap-1 mb-2">
-                     <span className="text-3xl font-black text-text-primary">{preview.price}</span>
-                     <span className="text-text-secondary text-xs uppercase font-bold">{preview.period}</span>
-                   </div>
-                   <div className="text-text-secondary/50 text-xs font-bold uppercase tracking-widest">{preview.description}</div>
-                </div>
-                {preview.highlighted && (
-                   <div className="absolute inset-0 bg-accent-primary/5 blur-3xl rounded-full opacity-50 pointer-events-none" />
-                )}
-              </div>
-            ))}
-          </motion.div>
         </div>
       </div>
     </section>

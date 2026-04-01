@@ -40,7 +40,7 @@ export default function Header({
   const navLinks = [
     { label: 'Accueil', onClick: onLogoClick, path: '/' },
     { label: 'Marketplace AI', onClick: onMarketplaceClick, path: '/marketplace' },
-    { label: 'Infrastructure Hybride', onClick: onHybridClick, path: '/infrastructure-hybride', badge: 'NEW' },
+    { label: 'Hybride', onClick: onHybridClick, path: '/infrastructure-hybride', badge: 'NEW' },
     { label: 'Sécurité', onClick: onSecurityClick, path: '/securite' },
     { label: 'Tarifs', onClick: onPricingClick, path: '/tarifs' },
     { label: 'Contact', onClick: onContactClick, path: '/contact' },
@@ -52,43 +52,43 @@ export default function Header({
       animate={{ y: 0 }}
       className={`fixed z-50 transition-all duration-700 left-0 right-0 flex justify-center ${
         isScrolled 
-          ? 'top-6 px-4 md:px-0 h-[68px]' 
-          : 'top-0 w-full h-[100px]'
+          ? 'top-4 md:top-6 px-4 h-[68px]' 
+          : 'top-0 w-full h-[80px] md:h-[100px]'
       }`}
     >
       <div 
         className={`relative flex items-center justify-between transition-all duration-700 w-full ${
           isScrolled 
-            ? 'max-w-[1200px] px-8 bg-black/40 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]' 
-            : 'max-w-[1240px] px-6 bg-transparent border-transparent'
+            ? 'max-w-[1280px] px-4 md:px-8 bg-black/60 backdrop-blur-2xl rounded-3xl md:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]' 
+            : 'max-w-[1400px] px-6 bg-transparent border-transparent'
         }`}
       >
         {/* Brand/Logo */}
         <button 
           onClick={onLogoClick}
-          className="flex items-center gap-3 group relative shrink-0"
+          className="flex items-center gap-2 md:gap-3 group relative shrink-0"
         >
-          <div className={`rounded-2xl transition-all duration-500 bg-accent-primary flex items-center justify-center border-2 border-accent-primary/20 shadow-[0_0_20px_rgba(124,58,237,0.3)] ${
-            isScrolled ? 'w-9 h-9' : 'w-11 h-11'
+          <div className={`rounded-xl md:rounded-2xl transition-all duration-500 bg-accent-primary flex items-center justify-center border-2 border-accent-primary/20 shadow-[0_0_20px_rgba(124,58,237,0.3)] ${
+            isScrolled ? 'w-8 h-8 md:w-9 h-9' : 'w-10 h-10 md:w-11 h-11'
           }`}>
-            <Cloud className="text-white w-6 h-6" />
+            <Cloud className="text-white w-5 h-5 md:w-6 h-6" />
           </div>
-          <span className={`font-black tracking-tighter text-text-primary transition-all duration-500 hover:text-accent-primary ${
-            isScrolled ? 'text-lg' : 'text-2xl'
+          <span className={`font-black tracking-tighter text-text-primary transition-all duration-500 hover:text-accent-primary hidden xs:block ${
+            isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'
           }`}>
             Cloud<span className="text-accent-primary group-hover:text-text-primary transition-colors">Naaba</span>
           </span>
         </button>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-2 xl:gap-6 ml-8">
+        {/* Desktop Nav Links - Breakpoint adjusted to 'xl' for more space */}
+        <nav className="hidden xl:flex items-center gap-1 2xl:gap-4 mx-4">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
               <button
                 key={link.label}
                 onClick={link.onClick}
-                className={`relative px-4 py-2 group text-[11px] xl:text-[13px] font-black uppercase tracking-[0.2em] transition-all duration-300 ${
+                className={`relative px-3 2xl:px-4 py-2 group text-[11px] 2xl:text-[13px] font-black uppercase tracking-[0.15em] 2xl:tracking-[0.2em] transition-all duration-300 ${
                   isActive ? 'text-accent-primary' : 'text-text-secondary hover:text-text-primary'
                 }`}
               >
@@ -116,16 +116,18 @@ export default function Header({
         </nav>
 
         {/* Desktop Auth Actions */}
-        <div className="hidden lg:flex items-center gap-4 ml-auto">
+        <div className="hidden xl:flex items-center gap-3 2xl:gap-4 ml-auto shrink-0">
           <button 
             onClick={onLoginClick}
-            className="px-5 py-2 text-[11px] font-black uppercase tracking-[0.2em] text-text-secondary hover:text-accent-primary transition-all"
+            className="px-4 py-2 text-[11px] font-black uppercase tracking-[0.2em] text-text-secondary hover:text-accent-primary transition-all"
           >
             Se connecter
           </button>
           <button 
             onClick={onSignupClick}
-            className="relative h-11 px-7 rounded-full bg-accent-primary text-white text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-accent-primary/20 hover:scale-105 active:scale-95 transition-all overflow-hidden group/btn"
+            className={`relative rounded-full bg-accent-primary text-white text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-accent-primary/20 hover:scale-105 active:scale-95 transition-all overflow-hidden group/btn ${
+              isScrolled ? 'h-10 px-6' : 'h-11 px-7'
+            }`}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
             <span className="relative z-10">Commencer</span>
@@ -133,12 +135,23 @@ export default function Header({
         </div>
 
         {/* Mobile Toggle */}
-        <button 
-          className="lg:hidden p-3 rounded-2xl bg-white/[0.05] text-text-primary border border-white/10 hover:bg-white/10 transition-all"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="xl:hidden flex items-center gap-4">
+           {/* Direct CTA on mobile (Optional but helpful) */}
+           <button 
+             onClick={onSignupClick}
+             className={`rounded-full bg-accent-primary text-white text-[10px] font-black uppercase tracking-widest transition-all ${
+               isScrolled ? 'h-9 px-4' : 'h-10 px-5'
+             }`}
+           >
+             Commencer
+           </button>
+           <button 
+            className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-white/[0.05] text-text-primary border border-white/10 hover:bg-white/10 transition-all"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5 md:w-6 h-6" /> : <Menu className="w-5 h-5 md:w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Sidebar/Menu */}
@@ -150,22 +163,28 @@ export default function Header({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md z-40 lg:hidden"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 xl:hidden"
             />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 bottom-0 w-[300px] bg-bg-elevated/95 backdrop-blur-2xl z-50 lg:hidden p-8 border-l border-white/10 shadow-2xl"
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed right-0 top-0 bottom-0 w-full sm:w-[350px] bg-bg-elevated/98 backdrop-blur-3xl z-50 xl:hidden p-8 border-l border-white/10 shadow-2xl flex flex-col"
             >
-               <div className="flex justify-end mb-12">
-                 <button onClick={() => setMobileMenuOpen(false)} className="p-3 rounded-2xl bg-white/5 text-text-secondary hover:text-white">
+               <div className="flex justify-between items-center mb-12">
+                 <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-accent-primary flex items-center justify-center">
+                      <Cloud className="text-white w-5 h-5" />
+                    </div>
+                    <span className="font-black text-lg text-text-primary">CloudNaaba</span>
+                 </div>
+                 <button onClick={() => setMobileMenuOpen(false)} className="p-3 rounded-2xl bg-white/5 text-text-secondary hover:text-white border border-white/5">
                    <X className="w-6 h-6" />
                  </button>
                </div>
 
-               <div className="flex flex-col gap-8">
+               <div className="flex-1 flex flex-col gap-6 overflow-y-auto">
                  {navLinks.map((link) => {
                    const isActive = location.pathname === link.path;
                    return (
@@ -175,11 +194,18 @@ export default function Header({
                          link.onClick?.();
                          setMobileMenuOpen(false);
                        }}
-                       className={`text-left text-xl font-bold flex items-center justify-between group ${
+                       className={`text-left text-lg font-bold flex items-center justify-between py-2 group ${
                          isActive ? 'text-accent-primary' : 'text-text-secondary hover:text-text-primary'
                        }`}
                      >
-                       {link.label}
+                       <span className="flex items-center gap-3">
+                         {link.label}
+                         {link.badge && (
+                            <span className="px-1.5 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-[8px] font-bold">
+                              {link.badge}
+                            </span>
+                         )}
+                       </span>
                        <ChevronRight className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${isActive ? 'text-accent-primary' : 'text-white/20'}`} />
                      </button>
                    );
@@ -192,18 +218,21 @@ export default function Header({
                      onLoginClick?.();
                      setMobileMenuOpen(false);
                    }}
-                   className="text-left text-xl font-bold text-text-secondary hover:text-accent-primary transition-colors"
+                   className="text-left text-xl font-bold text-text-secondary hover:text-accent-primary transition-colors py-2"
                  >
                    Se connecter
                  </button>
+               </div>
+
+               <div className="pt-8 mt-auto">
                  <button 
                     onClick={() => {
                       onSignupClick?.();
                       setMobileMenuOpen(false);
                     }}
-                    className="w-full py-5 rounded-3xl bg-accent-primary text-white font-black text-lg uppercase tracking-widest shadow-xl shadow-accent-primary/20"
+                    className="w-full py-5 rounded-3xl bg-accent-primary text-white font-black text-lg uppercase tracking-widest shadow-xl shadow-accent-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
                   >
-                    Commencer
+                    Commencer l'aventure
                   </button>
                </div>
             </motion.div>
