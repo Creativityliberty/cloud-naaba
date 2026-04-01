@@ -1,263 +1,219 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Cpu, Database, Zap, ArrowRight, Euro, Coins, HardDrive } from 'lucide-react';
+import { Cpu, MemoryStick as Memory, HardDrive, Zap, Info, Globe, CreditCard, Calendar } from 'lucide-react';
 
-export default function PricingConfigurator({ onActionClick }: { onActionClick?: (config: any) => void }) {
-  const [currency, setCurrency] = useState<'CFA' | 'EUR'>('CFA');
-  const [cpu, setCpu] = useState(1);
-  const [ram, setRam] = useState(2);
-  const [storage, setStorage] = useState(20);
-  const [displayPrice, setDisplayPrice] = useState(0);
+type Currency = 'CFA' | 'EUR' | 'USD';
+type Period = 'hourly' | 'monthly' | 'yearly';
 
-  // Conversion rate (1 EUR = 655.957 CFA)
-  const EUR_TO_CFA = 655.957;
+const CONVERSION_RATES = {
+  EUR: 1,
+  CFA: 655.957,
+  USD: 1.08
+};
 
-  // Pricing Logic (Monthly Base)
-  const basePriceCFA = 2500;
-  const cpuPricePerUnitCFA = 3000;
-  const ramPricePerUnitCFA = 1500;
-  const storagePricePerUnitCFA = 50;
+const PERIOD_MULTIPLIERS = {
+  hourly: 1 / 720,
+  monthly: 1,
+  yearly: 12 * 0.9 // 10% discount for yearly
+};
 
-  const totalMonthlyCFA = useMemo(() => {
-    return basePriceCFA + (cpu * cpuPricePerUnitCFA) + (ram * ramPricePerUnitCFA) + (storage * storagePricePerUnitCFA);
+export default function PricingConfigurator() {
+  const [cpu, setCpu] = useState(2);
+  const [ram, setRam] = useState(4);
+  const [storage, setStorage] = useState(50);
+  const [currency, setCurrency] = useState<Currency>('CFA');
+  const [period, setPeriod] = useState<Period>('monthly');
+
+  // Base monthly cost in EUR
+  const cpuPriceEUR = 4.5; // per vCPU
+  const ramPriceEUR = 2.0; // per GB
+  const storagePriceEUR = 0.12; // per GB NVMe
+
+  const totalMonthlyEUR = useMemo(() => {
+    return (cpu * cpuPriceEUR) + (ram * ramPriceEUR) + (storage * storagePriceEUR);
   }, [cpu, ram, storage]);
 
-  const priceToDisplay = useMemo(() => {
-    if (currency === 'EUR') return totalMonthlyCFA / EUR_TO_CFA;
-    return totalMonthlyCFA;
-  }, [totalMonthlyCFA, currency]);
-
-  // Smooth price animation
-  useEffect(() => {
-    const start = displayPrice;
-    const end = priceToDisplay;
-    const duration = 500;
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing function
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      
-      const current = start + (end - start) * easeOutQuart;
-      setDisplayPrice(current);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [priceToDisplay]);
-
-  const formatPrice = (price: number) => {
-    if (currency === 'EUR') {
-      return new Intl.NumberFormat('fr-FR', { 
-        style: 'currency', 
-        currency: 'EUR',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2 
-      }).format(price);
+  const formatPrice = (priceEUR: number) => {
+    const converted = priceEUR * CONVERSION_RATES[currency] * PERIOD_MULTIPLIERS[period];
+    
+    if (currency === 'CFA') {
+      return new Intl.NumberFormat('fr-FR').format(Math.round(converted)) + ' F CFA';
     }
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
-      currency: 'XOF',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price).replace('XOF', 'F CFA');
+      currency: currency,
+    }).format(converted);
+  };
+
+  const getPeriodLabel = () => {
+    switch(period) {
+      case 'hourly': return '/ heure';
+      case 'monthly': return '/ mois';
+      case 'yearly': return '/ an';
+    }
   };
 
   return (
-    <section className="py-32 relative overflow-hidden bg-bg-primary/50">
+    <section className="py-24 relative overflow-hidden">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
-        
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div className="max-w-2xl">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
-            >
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Calculateur Automatique</span>
-            </motion.div>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
-            >
-              Configurez votre offre <span className="text-accent-primary">Freestyle.</span>
-            </motion.h2>
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 text-gradient font-display">Configurateur Freestyle</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto font-medium">
+              Ajustez vos ressources au millimètre près. Payez uniquement ce que vous consommez, sans engagement.
+            </p>
           </div>
 
-          {/* Currency Switcher */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl"
-          >
-            <button 
-              onClick={() => setCurrency('CFA')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-xs font-bold uppercase tracking-widest ${
-                currency === 'CFA' ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              <Coins className="w-4 h-4" />
-              CFA
-            </button>
-            <button 
-              onClick={() => setCurrency('EUR')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-xs font-bold uppercase tracking-widest ${
-                currency === 'EUR' ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
-              }`}
-            >
-              <Euro className="w-4 h-4" />
-              EUR
-            </button>
-          </motion.div>
-        </div>
-
-        {/* Calculator UI */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
-        >
-          {/* Controls Side */}
-          <div className="lg:col-span-8 p-10 rounded-3xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm space-y-12">
-            
-            {/* CPU Control */}
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
-                    <Cpu className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold text-text-primary">Processeurs</h4>
-                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">Puissance de calcul</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-3xl font-black text-accent-primary">{cpu}</span>
-                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">vCPU</span>
-                </div>
-              </div>
-              <input
-                type="range" min="0.5" max="32" step="0.5" value={cpu}
-                onChange={(e) => setCpu(parseFloat(e.target.value))}
-                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
-              />
-            </div>
-
-            {/* RAM Control */}
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
-                    <Database className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold text-text-primary">Mémoire Vive</h4>
-                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">RAM Dédiée</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-3xl font-black text-accent-primary">{ram}</span>
-                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">Go</span>
-                </div>
-              </div>
-              <input
-                type="range" min="0.5" max="128" step="0.5" value={ram}
-                onChange={(e) => setRam(parseFloat(e.target.value))}
-                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
-              />
-            </div>
-
-            {/* Storage Control */}
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
-                    <HardDrive className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold text-text-primary">Stockage NVMe</h4>
-                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">SSD Haute Performance</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-3xl font-black text-accent-primary">{storage}</span>
-                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">Go</span>
-                </div>
-              </div>
-              <input
-                type="range" min="10" max="1000" step="10" value={storage}
-                onChange={(e) => setStorage(parseInt(e.target.value))}
-                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
-              />
-            </div>
-          </div>
-
-          {/* Result Side */}
-          <div className="lg:col-span-4 flex flex-col p-10 rounded-3xl bg-accent-primary text-white shadow-2xl shadow-accent-primary/20 relative overflow-hidden group">
-            {/* Animated background decoration */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/20 blur-[50px] rounded-full translate-y-1/2 -translate-x-1/2" />
-
-            <div className="relative z-10 flex flex-col h-full">
-              <div className="mb-auto">
-                <Zap className="w-10 h-10 mb-6 opacity-80" />
-                <h3 className="text-2xl font-bold mb-2">Votre Estimation</h3>
-                <p className="text-white/70 text-sm font-medium">Facturation mensuelle basée sur vos ressources exactes.</p>
-              </div>
-
-              <div className="my-12">
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-3">Estimation mensuelle</div>
-                <motion.div 
-                  key={displayPrice}
-                  className="text-5xl font-black tracking-tighter"
-                >
-                  {formatPrice(displayPrice)}
-                </motion.div>
-                <div className="text-xs font-bold uppercase tracking-widest text-white/40 mt-3 italic">
-                  Approximativement {currency === 'CFA' ? (totalMonthlyCFA / (30 * 24)).toFixed(2) + ' F / heure' : (totalMonthlyCFA / (EUR_TO_CFA * 30 * 24)).toFixed(2) + ' € / heure'}
-                </div>
-              </div>
-
-              <button 
-                onClick={() => onActionClick?.({ cpu, ram, storage, currency, totalMonthlyCFA })}
-                className="w-full py-5 rounded-2xl bg-white text-accent-primary font-black text-xl shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
-              >
-                Commander
-                <ArrowRight className="w-6 h-6" />
-              </button>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Controls */}
+            <div className="lg:col-span-7 premium-card p-8 md:p-10 space-y-12">
               
-              <p className="mt-8 text-[10px] font-bold text-white/40 uppercase tracking-widest text-center">
-                Zéro frais cachés • Sans engagement
-              </p>
-            </div>
-          </div>
-        </motion.div>
+              {/* Currency & Period Pickers */}
+              <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-white/5">
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
+                    <Globe className="w-3 h-3" /> Devise d'affichage
+                  </label>
+                  <div className="flex p-1 rounded-xl bg-white/5 border border-white/10">
+                    {(['CFA', 'EUR', 'USD'] as Currency[]).map((cur) => (
+                      <button
+                        key={cur}
+                        onClick={() => setCurrency(cur)}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                          currency === cur ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
+                        }`}
+                      >
+                        {cur}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-        {/* Summary Chips */}
-        <div className="mt-12 flex flex-wrap justify-center gap-8">
-          <div className="flex items-center gap-3">
-             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Disponibilité immédiate</span>
-          </div>
-          <div className="flex items-center gap-3">
-             <div className="w-2 h-2 rounded-full bg-accent-primary" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Infrastructure Souveraine</span>
-          </div>
-          <div className="flex items-center gap-3">
-             <div className="w-2 h-2 rounded-full bg-blue-500" />
-             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Support Expert 24/7</span>
+                <div className="space-y-4">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-text-secondary flex items-center gap-2">
+                    <Calendar className="w-3 h-3" /> Cycle de facturation
+                  </label>
+                  <div className="flex p-1 rounded-xl bg-white/5 border border-white/10">
+                    {(['hourly', 'monthly', 'yearly'] as Period[]).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => setPeriod(p)}
+                        className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                          period === p ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
+                        }`}
+                      >
+                        {p === 'hourly' ? 'Heure' : p === 'monthly' ? 'Mois' : 'An'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Resource Sliders */}
+              <div className="space-y-10">
+                {/* CPU */}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-orange-500/10 text-orange-500 border border-orange-500/20">
+                        <Cpu className="w-5 h-5" />
+                      </div>
+                      <span className="font-bold text-text-primary">Processeurs (vCPU)</span>
+                    </div>
+                    <span className="text-2xl font-black text-accent-primary">{cpu}</span>
+                  </div>
+                  <input
+                    type="range" min="0.5" max="64" step="0.5"
+                    value={cpu} onChange={(e) => setCpu(Number(e.target.value))}
+                    className="w-full h-2 bg-white/5 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+                  />
+                </div>
+
+                {/* RAM */}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                        <Memory className="w-5 h-5" />
+                      </div>
+                      <span className="font-bold text-text-primary">Mémoire vive (RAM GB)</span>
+                    </div>
+                    <span className="text-2xl font-black text-accent-primary">{ram} GB</span>
+                  </div>
+                  <input
+                    type="range" min="0.5" max="128" step="0.5"
+                    value={ram} onChange={(e) => setRam(Number(e.target.value))}
+                    className="w-full h-2 bg-white/5 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+                  />
+                </div>
+
+                {/* Storage */}
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                        <HardDrive className="w-5 h-5" />
+                      </div>
+                      <span className="font-bold text-text-primary">Stockage NVMe (GB)</span>
+                    </div>
+                    <span className="text-2xl font-black text-accent-primary">{storage} GB</span>
+                  </div>
+                  <input
+                    type="range" min="10" max="2000" step="10"
+                    value={storage} onChange={(e) => setStorage(Number(e.target.value))}
+                    className="w-full h-2 bg-white/5 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Price Preview */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              <div className="premium-card p-10 bg-accent-primary/[0.03] border-accent-primary/20 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
+                  <Zap className="w-32 h-32 text-accent-primary" />
+                </div>
+                
+                <div className="relative z-10 text-center space-y-6">
+                  <h3 className="text-text-secondary text-sm font-black uppercase tracking-[0.2em]">Total Estimé</h3>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`${currency}-${period}-${totalMonthlyEUR}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="text-5xl font-black text-text-primary"
+                    >
+                      {formatPrice(totalMonthlyEUR)} <span className="text-lg text-text-secondary font-bold opacity-60">{getPeriodLabel()}</span>
+                    </motion.div>
+                  </AnimatePresence>
+                  
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 inline-flex items-center gap-3 text-xs text-text-secondary font-medium">
+                    <Zap className="w-4 h-4 text-accent-primary" />
+                    Facturation à l'usage réel
+                  </div>
+                </div>
+
+                <div className="mt-12 space-y-4">
+                  <button className="w-full py-5 rounded-2xl bg-accent-primary text-white font-black text-lg shadow-xl shadow-accent-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    <CreditCard className="w-6 h-6" />
+                    Déployer cette config
+                  </button>
+                  <p className="text-[10px] text-center text-text-secondary font-bold uppercase tracking-widest opacity-50">
+                    Activation instantanée • Annulation à tout moment
+                  </p>
+                </div>
+              </div>
+
+              <div className="premium-card p-6 bg-white/[0.02] border-white/5 flex items-start gap-4">
+                <div className="pt-1">
+                  <Info className="w-5 h-5 text-accent-primary" />
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed font-medium">
+                  Les ressources peuvent être ajustées <span className="text-text-primary font-bold">à chaud</span> sans redémarrage. Vos données sont persistées sur du stockage NVMe haute performance.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
