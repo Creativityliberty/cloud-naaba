@@ -77,6 +77,9 @@ export default function Footer({
   onPricingClick,
   onSecurityClick,
   onContactClick,
+  onConditionsClick,
+  onPrivacyClick,
+  onLegalNoticeClick,
   onLoginClick,
   onSignupClick
 }: { 
@@ -86,6 +89,9 @@ export default function Footer({
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
   onContactClick?: () => void;
+  onConditionsClick?: () => void;
+  onPrivacyClick?: () => void;
+  onLegalNoticeClick?: () => void;
   onLoginClick?: () => void;
   onSignupClick?: () => void;
 }) {
@@ -179,9 +185,9 @@ export default function Footer({
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Légal</h4>
               <ul className="space-y-4">
-                <FooterLink href="#">Conditions</FooterLink>
-                <FooterLink href="#">Confidentialité</FooterLink>
-                <FooterLink href="#">Mentions légales</FooterLink>
+                <FooterLink onClick={onConditionsClick} href="/conditions">Conditions</FooterLink>
+                <FooterLink onClick={onPrivacyClick} href="/confidentialite">Confidentialité</FooterLink>
+                <FooterLink onClick={onLegalNoticeClick} href="/mentions-legales">Mentions légales</FooterLink>
               </ul>
             </div>
           </div>
@@ -193,12 +199,12 @@ export default function Footer({
             © {new Date().getFullYear()} CloudNaaba. Tous droits réservés.
           </div>
           <div className="flex items-center gap-10">
-            <a href="#" className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
+            <button onClick={onPrivacyClick} className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
               Confidentialité
-            </a>
-            <a href="#" className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
+            </button>
+            <button onClick={onConditionsClick} className="text-text-secondary/40 hover:text-text-primary transition-colors text-sm font-medium">
               Conditions
-            </a>
+            </button>
           </div>
         </div>
       </div>

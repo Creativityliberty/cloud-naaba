@@ -22,6 +22,9 @@ import HybridInfra from './pages/HybridInfra';
 import PricingPage from './pages/PricingPage';
 import SecurityPage from './pages/SecurityPage';
 import ContactPage from './pages/ContactPage';
+import TermsPage from './pages/legal/TermsPage';
+import PrivacyPage from './pages/legal/PrivacyPage';
+import LegalNoticePage from './pages/legal/LegalNoticePage';
 import GlobalModal, { ModalType } from './components/GlobalModal';
 import { Chatbot, ChatbotTrigger } from './components/Chatbot';
 
@@ -130,6 +133,9 @@ export default function App() {
         <Route path="/contact" element={
           <ContactPage />
         } />
+        <Route path="/conditions" element={<TermsPage />} />
+        <Route path="/confidentialite" element={<PrivacyPage />} />
+        <Route path="/mentions-legales" element={<LegalNoticePage />} />
       </Routes>
 
       <Footer 
@@ -139,6 +145,9 @@ export default function App() {
         onPricingClick={() => navigateTo('/tarifs')}
         onSecurityClick={() => navigateTo('/securite')}
         onContactClick={() => navigateTo('/contact')}
+        onConditionsClick={() => navigateTo('/conditions')}
+        onPrivacyClick={() => navigateTo('/confidentialite')}
+        onLegalNoticeClick={() => navigateTo('/mentions-legales')}
         onLoginClick={handleAuth}
         onSignupClick={handleAuth}
       />
