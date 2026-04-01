@@ -1,183 +1,265 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Cpu, Database, Zap, ArrowRight } from 'lucide-react';
+import { Cpu, Database, Zap, ArrowRight, Euro, Coins, HardDrive } from 'lucide-react';
 
 export default function PricingConfigurator({ onActionClick }: { onActionClick?: (config: any) => void }) {
-  const [cpu, setCpu] = useState(2);
-  const [ram, setRam] = useState(4);
+  const [currency, setCurrency] = useState<'CFA' | 'EUR'>('CFA');
+  const [cpu, setCpu] = useState(1);
+  const [ram, setRam] = useState(2);
+  const [storage, setStorage] = useState(20);
   const [displayPrice, setDisplayPrice] = useState(0);
 
-  // Pricing Logic
-  const basePrice = 2000;
-  const cpuPricePerUnit = 2500;
-  const ramPricePerUnit = 1000;
+  // Conversion rate (1 EUR = 655.957 CFA)
+  const EUR_TO_CFA = 655.957;
 
-  const totalPrice = useMemo(() => {
-    return basePrice + (cpu * cpuPricePerUnit) + (ram * ramPricePerUnit);
-  }, [cpu, ram]);
+  // Pricing Logic (Monthly Base)
+  const basePriceCFA = 2500;
+  const cpuPricePerUnitCFA = 3000;
+  const ramPricePerUnitCFA = 1500;
+  const storagePricePerUnitCFA = 50;
 
-  const cpuCost = cpu * cpuPricePerUnit;
-  const ramCost = ram * ramPricePerUnit;
+  const totalMonthlyCFA = useMemo(() => {
+    return basePriceCFA + (cpu * cpuPricePerUnitCFA) + (ram * ramPricePerUnitCFA) + (storage * storagePricePerUnitCFA);
+  }, [cpu, ram, storage]);
+
+  const priceToDisplay = useMemo(() => {
+    if (currency === 'EUR') return totalMonthlyCFA / EUR_TO_CFA;
+    return totalMonthlyCFA;
+  }, [totalMonthlyCFA, currency]);
 
   // Smooth price animation
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDisplayPrice(totalPrice);
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [totalPrice]);
+    const start = displayPrice;
+    const end = priceToDisplay;
+    const duration = 500;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      
+      const current = start + (end - start) * easeOutQuart;
+      setDisplayPrice(current);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [priceToDisplay]);
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR').format(price);
+    if (currency === 'EUR') {
+      return new Intl.NumberFormat('fr-FR', { 
+        style: 'currency', 
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2 
+      }).format(price);
+    }
+    return new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'XOF',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(price).replace('XOF', 'F CFA');
   };
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-32 relative overflow-hidden bg-bg-primary/50">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
-        <div className="text-center mb-16">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div className="max-w-2xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
+            >
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Calculateur Automatique</span>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
+            >
+              Configurez votre offre <span className="text-accent-primary">Freestyle.</span>
+            </motion.h2>
+          </div>
+
+          {/* Currency Switcher */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl"
           >
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent-primary">Configurateur</span>
+            <button 
+              onClick={() => setCurrency('CFA')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-xs font-bold uppercase tracking-widest ${
+                currency === 'CFA' ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <Coins className="w-4 h-4" />
+              CFA
+            </button>
+            <button 
+              onClick={() => setCurrency('EUR')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-xs font-bold uppercase tracking-widest ${
+                currency === 'EUR' ? 'bg-accent-primary text-white shadow-lg shadow-accent-primary/20' : 'text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <Euro className="w-4 h-4" />
+              EUR
+            </button>
           </motion.div>
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold font-display tracking-tight leading-[1.1] text-gradient"
-          >
-            Adaptez les ressources selon votre besoin.
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.42, delay: 0.1 }}
-            className="text-text-secondary text-lg max-w-2xl mx-auto font-medium mt-6"
-          >
-            Si votre projet nécessite un dimensionnement spécifique, ajustez les ressources et obtenez une estimation claire en temps réel.
-          </motion.p>
         </div>
 
+        {/* Calculator UI */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto p-8 md:p-12 rounded-[24px] bg-white/[0.03] border border-white/[0.08] relative overflow-hidden"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
         >
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-primary/5 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Sliders Side */}
-            <div className="space-y-12">
-              {/* CPU Slider */}
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent-primary/10 flex items-center justify-center text-accent-primary">
-                      <Cpu className="w-5 h-5" />
-                    </div>
-                    <span className="text-lg font-bold text-text-primary">Processeur</span>
+          {/* Controls Side */}
+          <div className="lg:col-span-8 p-10 rounded-3xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm space-y-12">
+            
+            {/* CPU Control */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
+                    <Cpu className="w-6 h-6" />
                   </div>
-                  <span className="text-2xl font-black text-accent-primary">{cpu} vCPU</span>
+                  <div>
+                    <h4 className="text-lg font-bold text-text-primary">Processeurs</h4>
+                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">Puissance de calcul</p>
+                  </div>
                 </div>
-                <div className="relative pt-2">
-                  <input
-                    type="range"
-                    min="0.5"
-                    max="16"
-                    step="0.5"
-                    value={cpu}
-                    onChange={(e) => setCpu(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
-                  />
-                  <div className="flex justify-between mt-4 text-[10px] font-bold text-text-secondary uppercase tracking-widest opacity-40">
-                    <span>0.5 vCPU</span>
-                    <span>16 vCPU</span>
-                  </div>
+                <div className="text-right">
+                  <span className="text-3xl font-black text-accent-primary">{cpu}</span>
+                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">vCPU</span>
                 </div>
               </div>
-
-              {/* RAM Slider */}
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-accent-primary/10 flex items-center justify-center text-accent-primary">
-                      <Database className="w-5 h-5" />
-                    </div>
-                    <span className="text-lg font-bold text-text-primary">Mémoire</span>
-                  </div>
-                  <span className="text-2xl font-black text-accent-primary">{ram} Go RAM</span>
-                </div>
-                <div className="relative pt-2">
-                  <input
-                    type="range"
-                    min="1"
-                    max="64"
-                    step="1"
-                    value={ram}
-                    onChange={(e) => setRam(parseInt(e.target.value))}
-                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
-                  />
-                  <div className="flex justify-between mt-4 text-[10px] font-bold text-text-secondary uppercase tracking-widest opacity-40">
-                    <span>1 Go</span>
-                    <span>64 Go</span>
-                  </div>
-                </div>
-              </div>
+              <input
+                type="range" min="0.5" max="32" step="0.5" value={cpu}
+                onChange={(e) => setCpu(parseFloat(e.target.value))}
+                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+              />
             </div>
 
-            {/* Price Result Side */}
-            <div className="flex flex-col items-center text-center p-8 rounded-2xl bg-white/[0.02] border border-white/[0.05] relative">
-              <div className="absolute top-4 right-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-[10px] font-black text-accent-primary uppercase tracking-widest">
-                  <Zap className="w-3 h-3" />
-                  Estimation en temps réel
-                </span>
-              </div>
-
-              <div className="mt-8 mb-4">
-                <motion.div 
-                  key={displayPrice}
-                  initial={{ opacity: 0.8, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-5xl md:text-6xl font-black text-text-primary tracking-tighter"
-                >
-                  {formatPrice(displayPrice)} F CFA
-                </motion.div>
-                <div className="text-text-secondary font-bold uppercase tracking-widest text-sm mt-2">
-                  / mois
+            {/* RAM Control */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
+                    <Database className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-text-primary">Mémoire Vive</h4>
+                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">RAM Dédiée</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-3xl font-black text-accent-primary">{ram}</span>
+                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">Go</span>
                 </div>
               </div>
+              <input
+                type="range" min="0.5" max="128" step="0.5" value={ram}
+                onChange={(e) => setRam(parseFloat(e.target.value))}
+                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+              />
+            </div>
 
-              <div className="space-y-2 mb-10">
-                <p className="text-text-secondary/60 text-xs font-medium">
-                  Coût processeur : {formatPrice(cpuCost)} F
-                </p>
-                <p className="text-text-secondary/60 text-xs font-medium">
-                  Coût mémoire : {formatPrice(ramCost)} F
-                </p>
+            {/* Storage Control */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20">
+                    <HardDrive className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-text-primary">Stockage NVMe</h4>
+                    <p className="text-xs text-text-secondary/60 uppercase tracking-widest font-bold">SSD Haute Performance</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="text-3xl font-black text-accent-primary">{storage}</span>
+                  <span className="text-xs font-bold text-text-secondary ml-2 uppercase">Go</span>
+                </div>
+              </div>
+              <input
+                type="range" min="10" max="1000" step="10" value={storage}
+                onChange={(e) => setStorage(parseInt(e.target.value))}
+                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-accent-primary"
+              />
+            </div>
+          </div>
+
+          {/* Result Side */}
+          <div className="lg:col-span-4 flex flex-col p-10 rounded-3xl bg-accent-primary text-white shadow-2xl shadow-accent-primary/20 relative overflow-hidden group">
+            {/* Animated background decoration */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-black/20 blur-[50px] rounded-full translate-y-1/2 -translate-x-1/2" />
+
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="mb-auto">
+                <Zap className="w-10 h-10 mb-6 opacity-80" />
+                <h3 className="text-2xl font-bold mb-2">Votre Estimation</h3>
+                <p className="text-white/70 text-sm font-medium">Facturation mensuelle basée sur vos ressources exactes.</p>
+              </div>
+
+              <div className="my-12">
+                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50 mb-3">Estimation mensuelle</div>
+                <motion.div 
+                  key={displayPrice}
+                  className="text-5xl font-black tracking-tighter"
+                >
+                  {formatPrice(displayPrice)}
+                </motion.div>
+                <div className="text-xs font-bold uppercase tracking-widest text-white/40 mt-3 italic">
+                  Approximativement {currency === 'CFA' ? (totalMonthlyCFA / (30 * 24)).toFixed(2) + ' F / heure' : (totalMonthlyCFA / (EUR_TO_CFA * 30 * 24)).toFixed(2) + ' € / heure'}
+                </div>
               </div>
 
               <button 
-                onClick={() => onActionClick?.({ cpu, ram, totalPrice })}
-                className="w-full py-5 rounded-xl bg-accent-primary text-white font-bold text-lg hover:bg-accent-primary/90 hover:shadow-lg hover:shadow-accent-primary/20 transition-all duration-300 flex items-center justify-center gap-3 group"
+                onClick={() => onActionClick?.({ cpu, ram, storage, currency, totalMonthlyCFA })}
+                className="w-full py-5 rounded-2xl bg-white text-accent-primary font-black text-xl shadow-xl hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
               >
-                Choisir cette configuration
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Commander
+                <ArrowRight className="w-6 h-6" />
               </button>
-
-              <p className="mt-6 text-text-secondary/40 text-[10px] font-medium uppercase tracking-widest">
-                Estimation indicative basée sur les ressources sélectionnées.
+              
+              <p className="mt-8 text-[10px] font-bold text-white/40 uppercase tracking-widest text-center">
+                Zéro frais cachés • Sans engagement
               </p>
             </div>
           </div>
         </motion.div>
+
+        {/* Summary Chips */}
+        <div className="mt-12 flex flex-wrap justify-center gap-8">
+          <div className="flex items-center gap-3">
+             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Disponibilité immédiate</span>
+          </div>
+          <div className="flex items-center gap-3">
+             <div className="w-2 h-2 rounded-full bg-accent-primary" />
+             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Infrastructure Souveraine</span>
+          </div>
+          <div className="flex items-center gap-3">
+             <div className="w-2 h-2 rounded-full bg-blue-500" />
+             <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Support Expert 24/7</span>
+          </div>
+        </div>
       </div>
     </section>
   );

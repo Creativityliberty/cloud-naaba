@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Check, ArrowRight, MessageSquare } from 'lucide-react';
+import { Check, ArrowRight, MessageSquare, Zap, Shield, Globe } from 'lucide-react';
 
 interface PricingHeroProps {
   onPrimaryClick?: () => void;
@@ -8,137 +8,117 @@ interface PricingHeroProps {
 }
 
 const trustChips = [
-  "Sans engagement longue durée",
-  "Tarification lisible",
-  "Ajustable selon vos besoins"
+  { text: "Sans engagement", icon: Zap },
+  { text: "Souveraineté Totale", icon: Shield },
+  { text: "Support 24/7", icon: Globe }
 ];
 
 const miniPreviews = [
-  { name: "Découverte", price: "4 000 F CFA", period: "/ mois" },
-  { name: "Pro", price: "7 500 F CFA", period: "/ mois", highlighted: true },
-  { name: "Business", price: "25 000 F CFA", period: "/ mois" }
+  { name: "Starter", price: "1 000 F CFA", period: "/ mois", description: "Pour débuter" },
+  { name: "Standard", price: "7 500 F CFA", period: "/ mois", highlighted: true, description: "Plus populaire" },
+  { name: "Premium", price: "25 000 F CFA", period: "/ mois", description: "Apps critiques" }
 ];
 
 export default function PricingHero({ onPrimaryClick, onSecondaryClick }: PricingHeroProps) {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
-      {/* Background elements */}
+    <section className="relative pt-[180px] pb-32 overflow-hidden bg-bg-primary">
+      {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent-primary/10 rounded-full blur-[120px] opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-primary/5 rounded-full blur-[140px] opacity-30" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
+        <div className="max-w-5xl mx-auto text-center">
+          
+          {/* Headline Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border border-accent-primary/20 mb-8"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-8"
           >
-            <div className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-widest text-accent-primary">
-              Tarification transparente • Sans surprise
+            <Zap className="w-4 h-4 text-accent-primary animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-primary">
+              Tarification Transparente • Cloud Souverain
             </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold font-display leading-[1.05] tracking-tight mb-8 text-gradient"
+            className="text-5xl md:text-7xl lg:text-8xl font-black font-display leading-[0.95] tracking-tight mb-10 text-gradient"
           >
-            Des prix simples pour lancer, exploiter et faire évoluer vos applications.
+            L'excellence cloud, <br />au prix juste.
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Narrative Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-text-secondary mb-6 max-w-2xl mx-auto font-medium"
+            className="text-xl md:text-2xl text-text-secondary mb-12 max-w-3xl mx-auto font-medium leading-relaxed"
           >
-            Choisissez une formule adaptée à votre niveau de besoin, puis ajustez-la à mesure que votre activité grandit.
+            Déployez vos infrastructures sur une plateforme stable, performante et sans surcoût caché. Une offre qui s'adapte à votre croissance, du prototype à l'entreprise.
           </motion.p>
 
-          {/* Value Line */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-lg text-text-primary/80 mb-12 font-semibold"
-          >
-            Pas de frais cachés. Pas d’engagement longue durée. Une tarification lisible, pensée pour les projets sérieux.
-          </motion.p>
-
-          {/* CTA Group */}
+          {/* CTA Grouping */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-20"
           >
             <button
               onClick={onPrimaryClick}
-              className="group relative px-8 py-4 rounded-2xl bg-accent-primary text-white font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(124,58,237,0.3)] overflow-hidden"
+              className="group relative px-10 py-5 rounded-2xl bg-accent-primary text-white font-black text-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(124,58,237,0.4)] overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              <span className="relative flex items-center gap-2">
-                Commencer
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-all duration-700" />
+              <span className="relative flex items-center gap-3">
+                Commencez maintenant
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </span>
             </button>
             <button
               onClick={onSecondaryClick}
-              className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-text-primary font-bold text-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+              className="px-10 py-5 rounded-2xl bg-white/[0.03] border border-white/10 text-text-primary font-black text-xl hover:bg-white/10 transition-all duration-300 flex items-center gap-3 group"
             >
-              <MessageSquare className="w-5 h-5" />
-              Parler à l’équipe
+              <MessageSquare className="w-6 h-6 text-accent-primary" />
+              Contactez-nous
             </button>
           </motion.div>
 
-          {/* Trust Strip */}
+          {/* Value Strip Cards */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-6 mb-20"
-          >
-            {trustChips.map((chip, i) => (
-              <div key={i} className="flex items-center gap-2 text-text-secondary/60 text-sm font-medium">
-                <div className="w-5 h-5 rounded-full bg-accent-primary/10 flex items-center justify-center">
-                  <Check className="w-3 h-3 text-accent-primary" />
-                </div>
-                {chip}
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Mini Price Preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
           >
             {miniPreviews.map((preview, i) => (
               <div
                 key={i}
-                className={`p-6 rounded-2xl border transition-all duration-300 hover:scale-105 ${
+                className={`group relative p-8 rounded-3xl border transition-all duration-500 hover:-translate-y-2 ${
                   preview.highlighted 
-                    ? 'bg-accent-primary/5 border-accent-primary/20 shadow-lg shadow-accent-primary/5' 
-                    : 'bg-white/5 border-white/10'
+                    ? 'bg-accent-primary/5 border-accent-primary/30 shadow-2xl shadow-accent-primary/10' 
+                    : 'bg-white/[0.02] border-white/[0.08] hover:border-white/20'
                 }`}
               >
-                <div className="text-text-secondary text-xs font-bold uppercase tracking-widest mb-2">
-                  {preview.name}
+                <div className="relative z-10">
+                   <div className="text-text-secondary text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                     {preview.name}
+                   </div>
+                   <div className="flex items-baseline justify-center gap-1 mb-2">
+                     <span className="text-3xl font-black text-text-primary">{preview.price}</span>
+                     <span className="text-text-secondary text-xs uppercase font-bold">{preview.period}</span>
+                   </div>
+                   <div className="text-text-secondary/50 text-xs font-bold uppercase tracking-widest">{preview.description}</div>
                 </div>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-2xl font-black text-text-primary">{preview.price}</span>
-                  <span className="text-text-secondary text-sm font-medium">{preview.period}</span>
-                </div>
+                {preview.highlighted && (
+                   <div className="absolute inset-0 bg-accent-primary/5 blur-3xl rounded-full opacity-50 pointer-events-none" />
+                )}
               </div>
             ))}
           </motion.div>
