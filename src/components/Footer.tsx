@@ -76,7 +76,9 @@ export default function Footer({
   onHybridClick,
   onPricingClick,
   onSecurityClick,
-  onContactClick 
+  onContactClick,
+  onLoginClick,
+  onSignupClick
 }: { 
   onLogoClick?: () => void;
   onMarketplaceClick?: () => void;
@@ -84,6 +86,8 @@ export default function Footer({
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
   onContactClick?: () => void;
+  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }) {
   return (
     <footer id="contact" className="bg-bg-primary pt-32 pb-16 relative overflow-hidden border-t border-border-subtle scroll-mt-24">
@@ -151,6 +155,8 @@ export default function Footer({
                 <FooterLink onClick={onMarketplaceClick} href="/marketplace">Marketplace</FooterLink>
                 <FooterLink onClick={onHybridClick} href="/infrastructure-hybride">Hybride</FooterLink>
                 <FooterLink onClick={onPricingClick} href="/tarifs">Tarifs</FooterLink>
+                <FooterLink onClick={onLoginClick} href="#">Se connecter</FooterLink>
+                <FooterLink onClick={onSignupClick} href="#">S'inscrire</FooterLink>
               </ul>
             </div>
             <div>

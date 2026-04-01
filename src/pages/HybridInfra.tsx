@@ -44,17 +44,21 @@ export default function HybridInfra({
   onContactClick,
   onConnectClick,
   onDocClick,
-  onSecurityClick
+  onSecurityClick,
+  onLoginClick,
+  onSignupClick
 }: { 
-  onLogoClick: () => void;
-  onMarketplaceClick: () => void;
-  onHybridClick: () => void;
+  onLogoClick?: () => void;
+  onMarketplaceClick?: () => void;
+  onHybridClick?: () => void;
   onPricingClick?: () => void;
   onSecurityClick?: () => void;
   onAgentClick?: () => void;
   onContactClick?: () => void;
   onConnectClick?: () => void;
   onDocClick?: () => void;
+  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -68,6 +72,8 @@ export default function HybridInfra({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
       />
       
       <main>

@@ -25,6 +25,8 @@ import ContactPage from './pages/ContactPage';
 import GlobalModal, { ModalType } from './components/GlobalModal';
 import { Chatbot, ChatbotTrigger } from './components/Chatbot';
 
+import { KEYCLOAK_AUTH_URL } from './config/auth';
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -43,6 +45,10 @@ export default function App() {
 
   const navigateTo = (path: string) => {
     navigate(path);
+  };
+
+  const handleAuth = () => {
+    window.location.href = KEYCLOAK_AUTH_URL;
   };
 
   return (
@@ -68,10 +74,12 @@ export default function App() {
               onPricingClick={() => navigateTo('/tarifs')}
               onSecurityClick={() => navigateTo('/securite')}
               onContactClick={() => navigateTo('/contact')}
+              onLoginClick={handleAuth}
+              onSignupClick={handleAuth}
             />
             <main>
               <Hero 
-                onPrimaryClick={() => navigateTo('/contact')} 
+                onPrimaryClick={handleAuth} 
                 onSecondaryClick={() => openModal('demo')} 
                 onPricingClick={() => navigateTo('/tarifs')}
               />
@@ -79,16 +87,16 @@ export default function App() {
               <ProductPreview />
               <ProblemSection />
               <HiddenCosts />
-              <SolutionSection onActionClick={() => navigateTo('/contact')} />
-              <HowItWorks onActionClick={() => navigateTo('/contact')} />
+              <SolutionSection onActionClick={handleAuth} />
+              <HowItWorks onActionClick={handleAuth} />
               <TargetAudience />
-              <Features onActionClick={() => navigateTo('/contact')} />
+              <Features onActionClick={handleAuth} />
               <SecuritySection onLearnMoreClick={() => navigateTo('/securite')} />
               <WhyNotContinue />
               <Compatibility />
               <ProofSection />
               <FAQ />
-              <FinalCTA onPrimaryClick={() => navigateTo('/contact')} onSecondaryClick={() => openModal('demo')} />
+              <FinalCTA onPrimaryClick={handleAuth} onSecondaryClick={() => openModal('demo')} />
             </main>
             <Footer 
               onLogoClick={() => navigateTo('/')} 
@@ -97,6 +105,7 @@ export default function App() {
               onPricingClick={() => navigateTo('/tarifs')}
               onSecurityClick={() => navigateTo('/securite')}
               onContactClick={() => navigateTo('/contact')}
+              onSignupClick={handleAuth}
             />
           </>
         } />
@@ -109,6 +118,8 @@ export default function App() {
             onDeployClick={() => openModal('deploy')}
             onPublishClick={() => openModal('publish')}
             onSecurityClick={() => navigateTo('/securite')}
+            onLoginClick={handleAuth}
+            onSignupClick={handleAuth}
           />
         } />
         <Route path="/infrastructure-hybride" element={
@@ -122,6 +133,8 @@ export default function App() {
             onConnectClick={() => openModal('agent')}
             onDocClick={() => openModal('demo')}
             onSecurityClick={() => navigateTo('/securite')}
+            onLoginClick={handleAuth}
+            onSignupClick={handleAuth}
           />
         } />
         <Route path="/tarifs" element={
@@ -132,6 +145,8 @@ export default function App() {
             onSecurityClick={() => navigateTo('/securite')}
             onContactClick={() => openModal('contact')}
             onDemoClick={() => openModal('demo')}
+            onLoginClick={handleAuth}
+            onSignupClick={handleAuth}
           />
         } />
         <Route path="/securite" element={
@@ -144,6 +159,8 @@ export default function App() {
             onProtectionsClick={() => {
               // Same as before
             }}
+            onLoginClick={handleAuth}
+            onSignupClick={handleAuth}
           />
         } />
         <Route path="/contact" element={
@@ -153,6 +170,8 @@ export default function App() {
             onHybridClick={() => navigateTo('/infrastructure-hybride')}
             onPricingClick={() => navigateTo('/tarifs')}
             onSecurityClick={() => navigateTo('/securite')}
+            onLoginClick={handleAuth}
+            onSignupClick={handleAuth}
           />
         } />
       </Routes>

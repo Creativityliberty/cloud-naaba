@@ -20,7 +20,9 @@ export default function SecurityPage({
   onHybridClick,
   onPricingClick,
   onExpertClick,
-  onProtectionsClick
+  onProtectionsClick,
+  onLoginClick,
+  onSignupClick
 }: { 
   onLogoClick: () => void; 
   onMarketplaceClick: () => void;
@@ -28,6 +30,8 @@ export default function SecurityPage({
   onPricingClick: () => void;
   onExpertClick: () => void;
   onProtectionsClick: () => void;
+  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,6 +44,8 @@ export default function SecurityPage({
         onMarketplaceClick={onMarketplaceClick}
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
       />
       
       <main>

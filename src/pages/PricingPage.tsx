@@ -20,6 +20,8 @@ interface PricingPageProps {
   onSecurityClick?: () => void;
   onContactClick?: () => void;
   onDemoClick?: () => void;
+  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }
 
 export default function PricingPage({
@@ -29,7 +31,9 @@ export default function PricingPage({
   onPricingClick,
   onSecurityClick,
   onContactClick,
-  onDemoClick
+  onDemoClick,
+  onLoginClick,
+  onSignupClick
 }: PricingPageProps) {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,11 +53,13 @@ export default function PricingPage({
         onHybridClick={onHybridClick}
         onPricingClick={onPricingClick}
         onSecurityClick={onSecurityClick}
+        onLoginClick={onLoginClick}
+        onSignupClick={onSignupClick}
       />
       
       <main>
         <PricingHero 
-          onPrimaryClick={onContactClick} 
+          onPrimaryClick={onSignupClick} 
           onSecondaryClick={onContactClick} 
         />
         
