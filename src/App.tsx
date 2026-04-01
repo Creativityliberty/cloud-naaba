@@ -15,7 +15,6 @@ import WhyNotContinue from './components/WhyNotContinue';
 import Compatibility from './components/Compatibility';
 import ProofSection from './components/ProofSection';
 import FAQ from './components/FAQ';
-import PricingHome from './components/PricingHome';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import AiMarketplace from './pages/AiMarketplace';
@@ -91,9 +90,6 @@ export default function App() {
               <Compatibility />
               <ProofSection />
               <FAQ />
-              <PricingHome 
-                onPricingClick={() => navigateTo('/tarifs')}
-              />
               <FinalCTA onPrimaryClick={() => openModal('signup')} onSecondaryClick={() => openModal('demo')} />
             </main>
             <Footer 

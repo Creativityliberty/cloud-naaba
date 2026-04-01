@@ -83,30 +83,37 @@ export default function Header({
         {/* Navigation Center */}
         <div className="hidden lg:flex justify-center">
           <nav className="flex items-center gap-4 xl:gap-8">
-            {navLinks.map((link) => (
-              <div key={link.name} className="flex items-center gap-2 group relative">
-                <a 
-                  href={link.href} 
-                  onClick={(e) => {
-                    if (link.onClick) {
-                      e.preventDefault();
-                      link.onClick();
-                    }
-                  }}
-                  className={`font-medium text-text-secondary hover:text-text-primary transition-all duration-300 ${
-                    isScrolled ? 'text-[13px]' : 'text-[13px] xl:text-[15px]'
-                  }`}
-                >
-                  {link.name}
-                </a>
-                {link.badge && (
-                  <span className="px-1.5 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-[9px] font-bold">
-                    {link.badge}
-                  </span>
-                )}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-primary transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
-              </div>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = window.location.pathname === link.href;
+              return (
+                <div key={link.name} className="flex items-center gap-2 group relative">
+                  <a 
+                    href={link.href} 
+                    onClick={(e) => {
+                      if (link.onClick) {
+                        e.preventDefault();
+                        link.onClick();
+                      }
+                    }}
+                    className={`font-medium transition-all duration-300 ${
+                      isActive ? 'text-accent-primary' : 'text-text-secondary hover:text-text-primary'
+                    } ${
+                      isScrolled ? 'text-[13px]' : 'text-[13px] xl:text-[15px]'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                  {link.badge && (
+                    <span className="px-1.5 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary text-[9px] font-bold">
+                      {link.badge}
+                    </span>
+                  )}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-accent-primary transition-all duration-300 ${
+                    isActive ? 'w-full opacity-100' : 'w-0 group-hover:w-full opacity-0 group-hover:opacity-100'
+                  }`} />
+                </div>
+              );
+            })}
           </nav>
         </div>
 
@@ -149,24 +156,29 @@ export default function Header({
               isScrolled ? 'top-24' : 'top-24'
             }`}
           >
-            {navLinks.map((link) => (
-              <a 
-                key={link.name}
-                href={link.href}
-                className="text-xl font-bold flex items-center justify-between border-b border-white/5 pb-4 text-text-primary hover:text-accent-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="flex items-center gap-3">
-                  {link.name}
-                  {link.badge && (
-                    <span className="text-[10px] bg-accent-primary/20 text-accent-primary px-2 py-0.5 rounded-full uppercase tracking-widest">
-                      {link.badge}
-                    </span>
-                  )}
-                </span>
-                <ChevronRight className="w-5 h-5 text-accent-primary" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = window.location.pathname === link.href;
+              return (
+                <a 
+                  key={link.name}
+                  href={link.href}
+                  className={`text-xl font-bold flex items-center justify-between border-b border-white/5 pb-4 transition-colors ${
+                    isActive ? 'text-accent-primary' : 'text-text-primary hover:text-accent-primary'
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-3">
+                    {link.name}
+                    {link.badge && (
+                      <span className="text-[10px] bg-accent-primary/20 text-accent-primary px-2 py-0.5 rounded-full uppercase tracking-widest">
+                        {link.badge}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronRight className={`w-5 h-5 ${isActive ? 'text-accent-primary' : 'text-accent-secondary'}`} />
+                </a>
+              );
+            })}
             <div className="mt-4 flex flex-col gap-3">
               <button 
                 onClick={() => {
