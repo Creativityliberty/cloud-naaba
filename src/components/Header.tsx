@@ -49,7 +49,7 @@ export default function Header({
           : 'top-0 w-full h-[80px] bg-transparent border-transparent'
       }`}
     >
-      <div className={`container mx-auto flex items-center justify-between lg:grid lg:grid-cols-3 transition-all duration-500 ${
+      <div className={`container mx-auto flex items-center justify-between transition-all duration-500 ${
         isScrolled ? 'px-8' : 'px-6'
       }`}>
         {/* Logo Block */}
@@ -82,7 +82,7 @@ export default function Header({
 
         {/* Navigation Center */}
         <div className="hidden lg:flex justify-center">
-          <nav className="flex items-center gap-6 xl:gap-8">
+          <nav className="flex items-center gap-4 xl:gap-8">
             {navLinks.map((link) => (
               <div key={link.name} className="flex items-center gap-2 group relative">
                 <a 
@@ -94,7 +94,7 @@ export default function Header({
                     }
                   }}
                   className={`font-medium text-text-secondary hover:text-text-primary transition-all duration-300 ${
-                    isScrolled ? 'text-[13px]' : 'text-[15px]'
+                    isScrolled ? 'text-[13px]' : 'text-[13px] xl:text-[15px]'
                   }`}
                 >
                   {link.name}
@@ -111,11 +111,11 @@ export default function Header({
         </div>
 
         {/* Actions Right */}
-        <div className="flex items-center justify-end gap-5 lg:gap-8">
+        <div className="flex items-center justify-end gap-4 lg:gap-6 xl:gap-8">
           <button 
             onClick={onLoginClick}
             className={`hidden sm:block font-medium text-text-secondary hover:text-text-primary transition-all relative group ${
-            isScrolled ? 'text-[13px]' : 'text-[15px]'
+            isScrolled ? 'text-[13px]' : 'text-[13px] xl:text-[15px]'
           }`}>
             Se connecter
             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-text-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
