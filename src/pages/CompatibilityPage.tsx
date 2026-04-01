@@ -158,6 +158,39 @@ export default function CompatibilityPage() {
           ))}
         </div>
 
+        {/* "And much more" section */}
+        <motion.div 
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="mt-24 p-1 rounded-[3rem] bg-gradient-to-r from-accent-primary/40 via-accent-primary/10 to-transparent relative group"
+        >
+          <div className="bg-bg-primary rounded-[2.9rem] p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10">
+             <div className="max-w-xl">
+                <div className="text-accent-primary font-black uppercase tracking-[0.3em] text-[10px] mb-4">Écosystème Illimité</div>
+                <h3 className="text-3xl md:text-5xl font-black font-display tracking-tight text-text-primary mb-6">
+                   Et bien plus encore...
+                </h3>
+                <p className="text-lg text-text-secondary leading-relaxed font-medium">
+                   Notre support technique ne s'arrête pas à cette liste. Avec plus de 100 applications prêtes à l'emploi et une compatibilité universelle, nous couvrons tous vos besoins.
+                </p>
+             </div>
+             
+             <button 
+                onClick={() => window.location.href = '/marketplace'}
+                className="group/btn flex items-center gap-4 px-10 py-5 rounded-2xl bg-white/5 border border-white/10 hover:border-accent-primary transition-all shadow-xl hover:-translate-y-1 active:scale-95 shrink-0"
+             >
+                <div className="text-left">
+                   <div className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Voir la liste complète</div>
+                   <div className="text-lg font-black text-text-primary">Visiter la AI Marketplace</div>
+                </div>
+                <div className="w-12 h-12 rounded-xl bg-accent-primary/20 flex items-center justify-center group-hover/btn:bg-accent-primary transition-all">
+                   <Boxes className="w-6 h-6 text-accent-primary group-hover/btn:text-white" />
+                </div>
+             </button>
+          </div>
+        </motion.div>
+
         {/* Checker CTA */}
         <motion.div 
            initial={{ opacity: 0, y: 30 }}
