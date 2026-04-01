@@ -48,7 +48,7 @@ export default function App() {
   };
 
   const handleAuth = () => {
-    window.location.href = KEYCLOAK_AUTH_URL;
+    window.open(KEYCLOAK_AUTH_URL, '_blank');
   };
 
   return (
