@@ -182,7 +182,7 @@ export default function CompatibilityPage() {
              >
                 <div className="text-left">
                    <div className="text-[10px] font-black uppercase tracking-widest text-text-secondary/60">Voir la liste complète</div>
-                   <div className="text-lg font-black text-text-primary">Visiter la AI Marketplace</div>
+                   <div className="text-lg font-black text-text-primary">Visiter la Marketplace</div>
                 </div>
                 <div className="w-12 h-12 rounded-xl bg-accent-primary/20 flex items-center justify-center group-hover/btn:bg-accent-primary transition-all">
                    <Boxes className="w-6 h-6 text-accent-primary group-hover/btn:text-white" />
