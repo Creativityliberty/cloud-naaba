@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import PricingHero from '../components/PricingHero';
 import Pricing from '../components/Pricing';
 import IncludedPricing from '../components/IncludedPricing';
@@ -13,50 +11,24 @@ import FAQ from '../components/FAQ';
 import PricingFinalCTA from '../components/PricingFinalCTA';
 
 interface PricingPageProps {
-  onLogoClick?: () => void;
-  onMarketplaceClick?: () => void;
-  onHybridClick?: () => void;
-  onPricingClick?: () => void;
-  onSecurityClick?: () => void;
   onContactClick?: () => void;
   onDemoClick?: () => void;
-  onLoginClick?: () => void;
   onSignupClick?: () => void;
+  onHybridClick?: () => void;
 }
 
 export default function PricingPage({
-  onLogoClick,
-  onMarketplaceClick,
-  onHybridClick,
-  onPricingClick,
-  onSecurityClick,
   onContactClick,
   onDemoClick,
-  onLoginClick,
-  onSignupClick
+  onSignupClick,
+  onHybridClick
 }: PricingPageProps) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen text-text-primary selection:bg-accent-primary/30">
-      {/* Global Background System */}
-      <div className="bg-layered">
-        <div className="bg-radial-glow" />
-        <div className="bg-noise" />
-      </div>
-
-      <Header 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
-      />
-      
+    <>
       <main>
         <PricingHero 
           onPrimaryClick={onSignupClick} 
@@ -96,14 +68,6 @@ export default function PricingPage({
           onContactClick={onContactClick}
         />
       </main>
-
-      <Footer 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-      />
-    </div>
+    </>
   );
 }

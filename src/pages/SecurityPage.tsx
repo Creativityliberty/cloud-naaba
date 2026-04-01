@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import SecurityHero from '../components/security/SecurityHero';
 import WhySecurityMatters from '../components/security/WhySecurityMatters';
 import SecurityRisks from '../components/security/SecurityRisks';
@@ -13,41 +11,23 @@ import BusinessImpact from '../components/security/BusinessImpact';
 import TargetAudience from '../components/security/TargetAudience';
 import AdvancedSecurity from '../components/security/AdvancedSecurity';
 import SecurityFinalCTA from '../components/security/SecurityFinalCTA';
+import { useNavigate } from 'react-router-dom';
 
 export default function SecurityPage({ 
-  onLogoClick, 
-  onMarketplaceClick, 
-  onHybridClick,
-  onPricingClick,
   onExpertClick,
   onProtectionsClick,
-  onLoginClick,
-  onSignupClick
 }: { 
-  onLogoClick: () => void; 
-  onMarketplaceClick: () => void;
-  onHybridClick: () => void;
-  onPricingClick: () => void;
   onExpertClick: () => void;
   onProtectionsClick: () => void;
-  onLoginClick?: () => void;
-  onSignupClick?: () => void;
 }) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen text-text-primary">
-      <Header 
-        onLogoClick={onLogoClick}
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
-      />
-      
+    <>
       <main>
         <SecurityHero 
           onProtectionsClick={onProtectionsClick}
@@ -64,15 +44,8 @@ export default function SecurityPage({
         <BusinessImpact />
         <TargetAudience />
         <AdvancedSecurity onExpertClick={onExpertClick} />
-        <SecurityFinalCTA onPricingClick={onPricingClick} onExpertClick={onExpertClick} />
+        <SecurityFinalCTA onPricingClick={() => navigate('/tarifs')} onExpertClick={onExpertClick} />
       </main>
-
-      <Footer 
-        onLogoClick={onLogoClick}
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-      />
-    </div>
+    </>
   );
 }

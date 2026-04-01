@@ -64,117 +64,84 @@ export default function App() {
       <Chatbot isOpen={chatbotOpen} onClose={() => setChatbotOpen(false)} />
       <ChatbotTrigger onClick={() => setChatbotOpen(o => !o)} isOpen={chatbotOpen} />
 
+      <Header 
+        onMarketplaceClick={() => navigateTo('/marketplace')} 
+        onLogoClick={() => navigateTo('/')} 
+        onHybridClick={() => navigateTo('/infrastructure-hybride')}
+        onPricingClick={() => navigateTo('/tarifs')}
+        onSecurityClick={() => navigateTo('/securite')}
+        onContactClick={() => navigateTo('/contact')}
+        onLoginClick={handleAuth}
+        onSignupClick={handleAuth}
+      />
+
       <Routes>
         <Route path="/" element={
-          <>
-            <Header 
-              onMarketplaceClick={() => navigateTo('/marketplace')} 
-              onLogoClick={() => navigateTo('/')} 
-              onHybridClick={() => navigateTo('/infrastructure-hybride')}
+          <main>
+            <Hero 
+              onPrimaryClick={handleAuth} 
+              onSecondaryClick={() => openModal('demo')} 
               onPricingClick={() => navigateTo('/tarifs')}
-              onSecurityClick={() => navigateTo('/securite')}
-              onContactClick={() => navigateTo('/contact')}
-              onLoginClick={handleAuth}
-              onSignupClick={handleAuth}
             />
-            <main>
-              <Hero 
-                onPrimaryClick={handleAuth} 
-                onSecondaryClick={() => openModal('demo')} 
-                onPricingClick={() => navigateTo('/tarifs')}
-              />
-              <LogoWall />
-              <ProductPreview />
-              <ProblemSection />
-              <HiddenCosts />
-              <SolutionSection onActionClick={handleAuth} />
-              <HowItWorks onActionClick={handleAuth} />
-              <TargetAudience />
-              <Features onActionClick={handleAuth} />
-              <SecuritySection onLearnMoreClick={() => navigateTo('/securite')} />
-              <WhyNotContinue />
-              <Compatibility />
-              <ProofSection />
-              <FAQ />
-              <FinalCTA onPrimaryClick={handleAuth} onSecondaryClick={() => openModal('demo')} />
-            </main>
-            <Footer 
-              onLogoClick={() => navigateTo('/')} 
-              onMarketplaceClick={() => navigateTo('/marketplace')} 
-              onHybridClick={() => navigateTo('/infrastructure-hybride')} 
-              onPricingClick={() => navigateTo('/tarifs')}
-              onSecurityClick={() => navigateTo('/securite')}
-              onContactClick={() => navigateTo('/contact')}
-              onSignupClick={handleAuth}
-            />
-          </>
+            <LogoWall />
+            <ProductPreview />
+            <ProblemSection />
+            <HiddenCosts />
+            <SolutionSection onActionClick={handleAuth} />
+            <HowItWorks onActionClick={handleAuth} />
+            <TargetAudience />
+            <Features onActionClick={handleAuth} />
+            <SecuritySection onLearnMoreClick={() => navigateTo('/securite')} />
+            <WhyNotContinue />
+            <Compatibility />
+            <ProofSection />
+            <FAQ />
+            <FinalCTA onPrimaryClick={handleAuth} onSecondaryClick={() => openModal('demo')} />
+          </main>
         } />
         <Route path="/marketplace" element={
           <AiMarketplace 
-            onLogoClick={() => navigateTo('/')} 
-            onMarketplaceClick={() => navigateTo('/marketplace')}
-            onHybridClick={() => navigateTo('/infrastructure-hybride')}
-            onPricingClick={() => navigateTo('/tarifs')}
             onDeployClick={() => openModal('deploy')}
             onPublishClick={() => openModal('publish')}
-            onSecurityClick={() => navigateTo('/securite')}
-            onLoginClick={handleAuth}
-            onSignupClick={handleAuth}
+            onContactClick={() => navigateTo('/contact')}
           />
         } />
         <Route path="/infrastructure-hybride" element={
           <HybridInfra 
-            onLogoClick={() => navigateTo('/')} 
-            onMarketplaceClick={() => navigateTo('/marketplace')}
-            onHybridClick={() => navigateTo('/infrastructure-hybride')}
-            onPricingClick={() => navigateTo('/tarifs')}
             onAgentClick={() => openModal('agent')}
             onContactClick={() => openModal('migration')}
             onConnectClick={() => openModal('agent')}
             onDocClick={() => openModal('demo')}
-            onSecurityClick={() => navigateTo('/securite')}
-            onLoginClick={handleAuth}
-            onSignupClick={handleAuth}
           />
         } />
         <Route path="/tarifs" element={
           <PricingPage 
-            onLogoClick={() => navigateTo('/')} 
-            onMarketplaceClick={() => navigateTo('/marketplace')}
-            onHybridClick={() => navigateTo('/infrastructure-hybride')}
-            onSecurityClick={() => navigateTo('/securite')}
             onContactClick={() => openModal('contact')}
             onDemoClick={() => openModal('demo')}
-            onLoginClick={handleAuth}
             onSignupClick={handleAuth}
           />
         } />
         <Route path="/securite" element={
           <SecurityPage 
-            onLogoClick={() => navigateTo('/')} 
-            onMarketplaceClick={() => navigateTo('/marketplace')}
-            onHybridClick={() => navigateTo('/infrastructure-hybride')}
-            onPricingClick={() => navigateTo('/tarifs')}
             onExpertClick={() => openModal('contact')}
-            onProtectionsClick={() => {
-              // Same as before
-            }}
-            onLoginClick={handleAuth}
-            onSignupClick={handleAuth}
+            onProtectionsClick={() => {}}
           />
         } />
         <Route path="/contact" element={
-          <ContactPage 
-            onLogoClick={() => navigateTo('/')} 
-            onMarketplaceClick={() => navigateTo('/marketplace')}
-            onHybridClick={() => navigateTo('/infrastructure-hybride')}
-            onPricingClick={() => navigateTo('/tarifs')}
-            onSecurityClick={() => navigateTo('/securite')}
-            onLoginClick={handleAuth}
-            onSignupClick={handleAuth}
-          />
+          <ContactPage />
         } />
       </Routes>
+
+      <Footer 
+        onLogoClick={() => navigateTo('/')} 
+        onMarketplaceClick={() => navigateTo('/marketplace')} 
+        onHybridClick={() => navigateTo('/infrastructure-hybride')} 
+        onPricingClick={() => navigateTo('/tarifs')}
+        onSecurityClick={() => navigateTo('/securite')}
+        onContactClick={() => navigateTo('/contact')}
+        onLoginClick={handleAuth}
+        onSignupClick={handleAuth}
+      />
     </div>
   );
 }

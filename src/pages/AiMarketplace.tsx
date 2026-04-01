@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import AiHero from '../components/ai/AiHero';
 import AiProblem from '../components/ai/AiProblem';
 import AiCosts from '../components/ai/AiCosts';
@@ -17,70 +15,36 @@ import AiFAQ from '../components/ai/AiFAQ';
 import AiFinalCTA from '../components/ai/AiFinalCTA';
 
 export default function AiMarketplace({ 
-  onLogoClick, 
-  onMarketplaceClick, 
-  onHybridClick,
-  onPricingClick,
-  onDeployClick,
+  onDeployClick, 
   onPublishClick,
-  onSecurityClick,
-  onLoginClick,
-  onSignupClick
+  onContactClick
 }: { 
-  onLogoClick?: () => void;
-  onMarketplaceClick?: () => void;
-  onHybridClick?: () => void;
-  onPricingClick?: () => void;
   onDeployClick?: () => void;
   onPublishClick?: () => void;
-  onSecurityClick?: () => void;
-  onLoginClick?: () => void;
-  onSignupClick?: () => void;
+  onContactClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen text-text-primary selection:bg-accent-primary/30">
-      {/* Global Background System */}
-      <div className="bg-layered">
-        <div className="bg-radial-glow" />
-        <div className="bg-noise" />
-      </div>
-
-      <Header 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
-      />
+    <>
       <main>
         <AiHero onPrimaryClick={onDeployClick} onSecondaryClick={onPublishClick} />
         <AiProblem />
         <AiCosts />
-        <AiSolution onActionClick={() => window.location.href = '/contact'} />
-        <AiHowItWorks onActionClick={() => window.location.href = '/contact'} />
+        <AiSolution onActionClick={onContactClick} />
+        <AiHowItWorks onActionClick={onContactClick} />
         <AiUseCases />
         <AiComparison />
-        <AiStackBuilder onActionClick={() => window.location.href = '/contact'} />
+        <AiStackBuilder onActionClick={onContactClick} />
         <AiEcosystem />
         <AiSecurity />
         <AiTarget />
         <AiDifference />
         <AiFAQ />
-        <AiFinalCTA onPrimaryClick={() => window.location.href = '/contact'} onSecondaryClick={onPublishClick} />
+        <AiFinalCTA onPrimaryClick={onContactClick} onSecondaryClick={onPublishClick} />
       </main>
-      <Footer 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-      />
-    </div>
+    </>
   );
 }

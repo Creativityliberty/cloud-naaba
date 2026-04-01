@@ -32,55 +32,29 @@ import {
   TrendingUp,
   XCircle
 } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 export default function HybridInfra({ 
-  onLogoClick, 
-  onMarketplaceClick, 
-  onHybridClick,
-  onPricingClick,
   onAgentClick,
   onContactClick,
   onConnectClick,
   onDocClick,
-  onSecurityClick,
-  onLoginClick,
-  onSignupClick
 }: { 
-  onLogoClick?: () => void;
-  onMarketplaceClick?: () => void;
-  onHybridClick?: () => void;
-  onPricingClick?: () => void;
-  onSecurityClick?: () => void;
   onAgentClick?: () => void;
   onContactClick?: () => void;
   onConnectClick?: () => void;
   onDocClick?: () => void;
-  onLoginClick?: () => void;
-  onSignupClick?: () => void;
 }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary selection:bg-accent-primary/30">
-      <Header 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-        onLoginClick={onLoginClick}
-        onSignupClick={onSignupClick}
-      />
-      
+    <div className="bg-bg-primary">
       <main>
         <Hero onPrimaryClick={onAgentClick} onSecondaryClick={onContactClick} />
         <ProblemHybrid />
         <SolutionControlLayer />
-        <HowItWorksHybrid onActionClick={() => window.location.href = '/contact'} />
+        <HowItWorksHybrid onActionClick={onContactClick} />
         <BenefitsHybrid />
         <ConnectExisting onActionClick={onAgentClick} />
         <MigrationEvolution onActionClick={onContactClick} />
@@ -93,14 +67,6 @@ export default function HybridInfra({
           onDocClick={onDocClick} 
         />
       </main>
-
-      <Footer 
-        onLogoClick={onLogoClick} 
-        onMarketplaceClick={onMarketplaceClick}
-        onHybridClick={onHybridClick}
-        onPricingClick={onPricingClick}
-        onSecurityClick={onSecurityClick}
-      />
     </div>
   );
 }
