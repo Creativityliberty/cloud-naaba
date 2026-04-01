@@ -122,7 +122,7 @@ export default function Footer({
             >
               <div className="w-12 h-12 rounded-2xl bg-accent-primary flex items-center justify-center p-2 shadow-lg shadow-accent-primary/20">
                 <img 
-                  src="/logo-cloudnaaba.png" 
+                  src="/images/logo-cloudnaaba.png" 
                   alt="CloudNaaba" 
                   className="w-full h-full object-contain"
                 />
