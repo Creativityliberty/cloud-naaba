@@ -120,35 +120,53 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
     <section id="pricing" className="py-32 relative overflow-hidden scroll-mt-24">
       <div className="container mx-auto max-w-[1240px] px-6 relative z-10">
         
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
-          <div className="text-center md:text-left max-w-2xl">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
-            >
-              <Zap className="w-3 h-3 text-accent-primary" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-primary">Offres Souveraines</span>
-            </motion.div>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-black font-display tracking-tight leading-[1.1] text-gradient mb-6"
-            >
-              Des tarifs simples, <br />sans surprises.
-            </motion.h2>
-            <p className="text-text-secondary text-lg font-medium max-w-xl">
-              Choisissez la devise et la période qui vous conviennent. Facturation transparente à l’usage.
-            </p>
+        {/* Title Section */}
+        <div className="text-center md:text-left max-w-2xl mb-16">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-6"
+          >
+            <Zap className="w-3 h-3 text-accent-primary" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-accent-primary">Offres Souveraines</span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-6xl font-black font-display tracking-tight leading-[1.1] text-gradient mb-6"
+          >
+            Des tarifs simples, <br />sans surprises.
+          </motion.h2>
+          <p className="text-text-secondary text-lg font-medium max-w-xl">
+             Choisissez la devise et la période qui vous conviennent. Facturation transparente à l’usage.
+          </p>
+        </div>
+
+        {/* Category Selector + Controls */}
+        <div className="flex flex-col items-center gap-12 mb-24 px-4">
+          <div className="inline-flex flex-wrap justify-center gap-3 p-2 bg-white/[0.02] border border-white/[0.05] rounded-2xl">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCat(cat.id)}
+                className={`flex items-center gap-3 px-6 py-3 rounded-xl transition-all duration-300 ${
+                  activeCat === cat.id 
+                    ? 'bg-accent-primary text-white shadow-xl shadow-accent-primary/20' 
+                    : 'text-text-secondary hover:bg-white/5 hover:text-text-primary'
+                }`}
+              >
+                <cat.icon className="w-5 h-5" />
+                <span className="font-bold text-sm uppercase tracking-widest">{cat.label}</span>
+              </button>
+            ))}
           </div>
 
-          {/* Controls Group */}
-          <div className="flex flex-col gap-4">
+          {/* Controls Group - Moved lower as requested */}
+          <div className="flex flex-col sm:flex-row items-center gap-4">
             {/* Currency Toggle */}
-            <div className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl self-end">
+            <div className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl">
               {(['CFA', 'EUR', 'USD'] as Currency[]).map((cur) => (
                 <button 
                   key={cur}
@@ -166,7 +184,7 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
             </div>
 
             {/* Period Toggle */}
-            <div className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl self-end">
+            <div className="flex p-1 bg-white/[0.03] border border-white/10 rounded-xl">
               {(['hourly', 'monthly', 'yearly'] as Period[]).map((p) => (
                 <button 
                   key={p}
@@ -180,26 +198,6 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Category Selector */}
-        <div className="flex justify-center mb-16 px-4">
-          <div className="inline-flex flex-wrap justify-center gap-3 p-2 bg-white/[0.02] border border-white/[0.05] rounded-2xl">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCat(cat.id)}
-                className={`flex items-center gap-3 px-6 py-3 rounded-xl transition-all duration-300 ${
-                  activeCat === cat.id 
-                    ? 'bg-accent-primary text-white shadow-xl shadow-accent-primary/20' 
-                    : 'text-text-secondary hover:bg-white/5 hover:text-text-primary'
-                }`}
-              >
-                <cat.icon className="w-5 h-5" />
-                <span className="font-bold text-sm uppercase tracking-widest">{cat.label}</span>
-              </button>
-            ))}
           </div>
         </div>
 
