@@ -25,6 +25,10 @@ import ContactPage from './pages/ContactPage';
 import TermsPage from './pages/legal/TermsPage';
 import PrivacyPage from './pages/legal/PrivacyPage';
 import LegalNoticePage from './pages/legal/LegalNoticePage';
+import CompatibilityPage from './pages/CompatibilityPage';
+import FAQPage from './pages/FAQPage';
+import HelpPage from './pages/HelpPage';
+import SupportPage from './pages/SupportPage';
 import GlobalModal, { ModalType } from './components/GlobalModal';
 import { Chatbot, ChatbotTrigger } from './components/Chatbot';
 
@@ -136,6 +140,10 @@ export default function App() {
         <Route path="/conditions" element={<TermsPage />} />
         <Route path="/confidentialite" element={<PrivacyPage />} />
         <Route path="/mentions-legales" element={<LegalNoticePage />} />
+        <Route path="/compatibilite" element={<CompatibilityPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/aide" element={<HelpPage />} />
+        <Route path="/support" element={<SupportPage />} />
       </Routes>
 
       <Footer 
@@ -148,6 +156,10 @@ export default function App() {
         onConditionsClick={() => navigateTo('/conditions')}
         onPrivacyClick={() => navigateTo('/confidentialite')}
         onLegalNoticeClick={() => navigateTo('/mentions-legales')}
+        onFAQClick={() => navigateTo('/faq')}
+        onCompatibilityClick={() => navigateTo('/compatibilite')}
+        onHelpClick={() => navigateTo('/aide')}
+        onSupportClick={() => navigateTo('/support')}
         onLoginClick={handleAuth}
         onSignupClick={handleAuth}
       />

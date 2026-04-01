@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <section className="space-y-6 text-text-secondary">
         <h2 className="text-2xl font-bold text-text-primary">1. Collecte des données personnelles</h2>
         <p>
-          CloudNaaba accorde une importance capitale à la protection de vos données personnelles. Dans le cadre de l'utilisation de la plateforme, nous collectons des données relatives à votre identité (nom, email) lors de votre inscription via notre provider d'authentification Keycloak.
+          CloudNaaba accorde une importance capitale à la protection de vos données personnelles. Dans le cadre de l'utilisation de la plateforme, nous collectons des données relatives à votre identité (nom, email) lors de votre inscription via notre système d'authentification sécurisé.
         </p>
 
         <h2 className="text-2xl font-bold text-text-primary">2. Finalités du traitement</h2>
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
 
         <h2 className="text-2xl font-bold text-text-primary">4. Sécurité des données</h2>
         <p>
-          Toutes les données sont stockées sur des serveurs sécurisés et font l'objet d'un chiffrement. L'utilisation de Keycloak garantit une authentification robuste et sécurisée.
+          Toutes les données sont stockées sur des serveurs sécurisés et font l'objet d'un chiffrement. Notre infrastructure garantit une authentification robuste et sécurisée répondant aux plus hauts standards.
         </p>
 
         <h2 className="text-2xl font-bold text-text-primary">5. Vos droits (RGPD)</h2>

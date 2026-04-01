@@ -80,6 +80,10 @@ export default function Footer({
   onConditionsClick,
   onPrivacyClick,
   onLegalNoticeClick,
+  onFAQClick,
+  onCompatibilityClick,
+  onHelpClick,
+  onSupportClick,
   onLoginClick,
   onSignupClick
 }: { 
@@ -92,6 +96,10 @@ export default function Footer({
   onConditionsClick?: () => void;
   onPrivacyClick?: () => void;
   onLegalNoticeClick?: () => void;
+  onFAQClick?: () => void;
+  onCompatibilityClick?: () => void;
+  onHelpClick?: () => void;
+  onSupportClick?: () => void;
   onLoginClick?: () => void;
   onSignupClick?: () => void;
 }) {
@@ -167,18 +175,18 @@ export default function Footer({
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Plateforme</h4>
               <ul className="space-y-4">
-                <FooterLink href="/infrastructure-hybride">Fonctionnement</FooterLink>
+                <FooterLink onClick={onHybridClick} href="/infrastructure-hybride">Fonctionnement</FooterLink>
                 <FooterLink onClick={onSecurityClick} href="/securite">Sécurité</FooterLink>
-                <FooterLink href="#compatibility">Compatibilité</FooterLink>
-                <FooterLink href="#faq-section">FAQ</FooterLink>
+                <FooterLink onClick={onCompatibilityClick} href="/compatibilite">Compatibilité</FooterLink>
+                <FooterLink onClick={onFAQClick} href="/faq">FAQ</FooterLink>
               </ul>
             </div>
             <div>
               <h4 className="text-text-primary font-bold mb-8 uppercase tracking-[0.2em] text-xs">Support</h4>
               <ul className="space-y-4">
                 <FooterLink onClick={onContactClick} href="/contact">Contact</FooterLink>
-                <FooterLink href="#aide">Aide</FooterLink>
-                <FooterLink href="#support">Support</FooterLink>
+                <FooterLink onClick={onHelpClick} href="/aide">Aide</FooterLink>
+                <FooterLink onClick={onSupportClick} href="/support">Support</FooterLink>
               </ul>
             </div>
             <div>
