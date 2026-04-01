@@ -248,20 +248,31 @@ export default function GlobeVisual() {
       });
     };
 
-    const onMouseDown = (e: MouseEvent) => { 
+    const getPointerPos = (e: MouseEvent | TouchEvent) => {
+      if ('touches' in e) {
+        if (e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        if ('changedTouches' in e && e.changedTouches.length > 0) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+      }
+      return { x: (e as MouseEvent).clientX, y: (e as MouseEvent).clientY };
+    };
+
+    const onPointerDown = (e: MouseEvent | TouchEvent) => { 
       isDragging = true; 
-      previousMousePosition = { x: e.clientX, y: e.clientY }; 
+      const pos = getPointerPos(e);
+      previousMousePosition = pos; 
     };
     
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: MouseEvent | TouchEvent) => {
+      const pos = getPointerPos(e);
       const rect = containerRef.current!.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      
+      mouse.x = ((pos.x - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((pos.y - rect.top) / rect.height) * 2 + 1;
       
       if (isDragging) {
-        targetRotation.y += (e.clientX - previousMousePosition.x) * 0.005;
-        targetRotation.x += (e.clientY - previousMousePosition.y) * 0.005;
-        previousMousePosition = { x: e.clientX, y: e.clientY };
+        targetRotation.y += (pos.x - previousMousePosition.x) * 0.005;
+        targetRotation.x += (pos.y - previousMousePosition.y) * 0.005;
+        previousMousePosition = pos;
       }
       
       raycaster.setFromCamera(mouse, camera);
@@ -269,7 +280,7 @@ export default function GlobeVisual() {
       
       if (intersects.length > 0) {
         setHoveredCity(intersects[0].object.userData.name);
-        setLabelPos({ x: e.clientX, y: e.clientY });
+        setLabelPos(pos);
         containerRef.current!.style.cursor = 'pointer';
       } else {
         setHoveredCity(null);
@@ -277,7 +288,7 @@ export default function GlobeVisual() {
       }
     };
     
-    const onMouseUp = () => isDragging = false;
+    const onPointerUp = () => isDragging = false;
 
     const animate = (time: number) => {
       if (!globeGroup) return;
@@ -310,14 +321,20 @@ export default function GlobeVisual() {
     animate(0);
 
     const container = containerRef.current;
-    container?.addEventListener('mousedown', onMouseDown);
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('mouseup', onMouseUp);
+    container?.addEventListener('mousedown', onPointerDown);
+    container?.addEventListener('touchstart', onPointerDown, { passive: false });
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('touchmove', onPointerMove, { passive: false });
+    window.addEventListener('mouseup', onPointerUp);
+    window.addEventListener('touchend', onPointerUp);
 
     return () => {
-      container?.removeEventListener('mousedown', onMouseDown);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', onMouseUp);
+      container?.removeEventListener('mousedown', onPointerDown);
+      container?.removeEventListener('touchstart', onPointerDown);
+      window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('touchmove', onPointerMove);
+      window.removeEventListener('mouseup', onPointerUp);
+      window.removeEventListener('touchend', onPointerUp);
       renderer.dispose();
     };
   }, []);
@@ -330,7 +347,7 @@ export default function GlobeVisual() {
       <div 
         ref={containerRef} 
         className="relative w-full h-full z-10"
-        style={{ cursor: 'grab' }}
+        style={{ cursor: 'grab', touchAction: 'none' }}
       />
 
       {/* Holographic Label */}
