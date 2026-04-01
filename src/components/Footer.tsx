@@ -112,12 +112,11 @@ export default function Footer({
               onClick={onLogoClick}
               className="flex items-center gap-3 mb-8 group cursor-pointer"
             >
-              <div className="w-10 h-10 rounded-xl bg-accent-primary flex items-center justify-center shadow-lg shadow-accent-primary/20 group-hover:scale-110 transition-transform duration-500 overflow-hidden">
+              <div className="w-12 h-12 rounded-2xl bg-accent-primary flex items-center justify-center p-2 shadow-lg shadow-accent-primary/20">
                 <img 
-                  src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
+                  src="/logo-cloudnaaba.png" 
                   alt="CloudNaaba" 
-                  className="w-full h-full object-contain p-2"
-                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <span className="text-2xl font-black text-text-primary tracking-tighter">

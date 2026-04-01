@@ -203,10 +203,9 @@ function InfraMapVisual() {
         <div className="relative group">
           <div className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] bg-accent-primary flex flex-col items-center justify-center shadow-[0_0_60px_rgba(124,58,237,0.4)] border-4 border-white/10 relative z-10 transition-transform duration-500 group-hover:scale-105">
             <img 
-              src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
+              src="/logo-cloudnaaba.png" 
               alt="CloudNaaba Core" 
               className="w-12 h-12 md:w-20 md:h-20 object-contain mb-3"
-              referrerPolicy="no-referrer"
             />
             <div className="text-center">
               <span className="block text-white font-black text-[10px] uppercase tracking-[0.2em]">CloudNaaba</span>

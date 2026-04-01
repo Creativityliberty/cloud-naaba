@@ -68,10 +68,10 @@ export default function Header({
           onClick={onLogoClick}
           className="flex items-center gap-2 md:gap-3 group relative shrink-0"
         >
-          <div className={`rounded-xl md:rounded-2xl transition-all duration-500 bg-accent-primary flex items-center justify-center border-2 border-accent-primary/20 shadow-[0_0_20px_rgba(124,58,237,0.3)] ${
-            isScrolled ? 'w-8 h-8 md:w-9 h-9' : 'w-10 h-10 md:w-11 h-11'
+          <div className={`rounded-xl md:rounded-2xl transition-all duration-500 bg-accent-primary flex items-center justify-center border border-accent-primary/20 shadow-[0_0_20px_rgba(124,58,237,0.3)] ${
+            isScrolled ? 'w-8 h-8 md:w-9 h-9 p-1.5' : 'w-10 h-10 md:w-11 h-11 p-2'
           }`}>
-            <Cloud className="text-white w-5 h-5 md:w-6 h-6" />
+            <img src="/logo-cloudnaaba.png" alt="CloudNaaba Logo" className="w-full h-full object-contain" />
           </div>
           <span className={`font-black tracking-tighter text-text-primary transition-all duration-500 hover:text-accent-primary hidden xs:block ${
             isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'
