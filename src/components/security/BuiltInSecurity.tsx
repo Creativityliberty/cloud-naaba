@@ -92,7 +92,7 @@ export default function BuiltInSecurity() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="max-w-4xl mx-auto text-center border-t border-white/5 pt-24"
         >
-          <div className="bg-layered p-12 rounded-[3rem] border border-white/5 relative overflow-hidden group">
+          <div className="bg-bg-elevated/50 p-12 rounded-[3rem] border border-white/5 relative overflow-hidden group">
             <div className="absolute inset-0 bg-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             <p className="relative z-10 text-2xl md:text-3xl font-medium text-text-primary leading-tight mb-10 max-w-3xl mx-auto">
               La sécurité ne s'improvise pas à la dernière minute. <br />

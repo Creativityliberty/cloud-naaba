@@ -55,7 +55,7 @@ export default function AdvancedSecurity({ onExpertClick }: AdvancedSecurityProp
           className="max-w-4xl mx-auto relative group"
         >
           {/* Subtle outer glow on hover */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-accent-primary/0 via-accent-primary/10 pos to-accent-primary/0 rounded-[3rem] blur-xl opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-500" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-accent-primary/0 via-accent-primary/10 to-accent-primary/0 rounded-[3rem] blur-xl opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-500" />
           
           <div className="relative p-12 md:p-16 rounded-[2.5rem] bg-[#0a0a0a] border border-white/10 hover:border-accent-primary/30 transition-all duration-700 overflow-hidden shadow-2xl">
             
