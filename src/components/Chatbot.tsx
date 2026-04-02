@@ -187,9 +187,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
                 <div className="relative">
                   <div className="w-10 h-10 rounded-2xl bg-accent-primary/20 flex items-center justify-center border border-accent-primary/30 overflow-hidden">
                     <img 
-                      src="/images/bot/naaba_assist_avatar.png" 
+                      src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" 
                       alt="Naaba Assist" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain p-1"
                     />
                   </div>
                   <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 border-2 border-[#0A0A0F] rounded-full" />
@@ -223,9 +223,9 @@ export const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
                   {m.role === 'model' && (
                     <div className="w-8 h-8 rounded-lg bg-accent-primary/10 border border-accent-primary/20 flex items-center justify-center shrink-0 mr-2.5 mt-1 overflow-hidden">
                       <img 
-                        src="/images/bot/naaba_assist_avatar.png" 
+                        src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" 
                         alt="Avatar" 
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain p-1"
                       />
                     </div>
                   )}
