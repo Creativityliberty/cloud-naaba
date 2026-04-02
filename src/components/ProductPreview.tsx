@@ -27,14 +27,11 @@ export default function ProductPreview() {
             whileInView={{ scale: 1, opacity: 1 }}
             className="relative z-20 w-48 h-48 md:w-64 md:h-64 rounded-full bg-violet-600/10 border border-violet-500/30 flex flex-col items-center justify-center shadow-[0_0_60px_-10px_rgba(139,92,246,0.3)]"
           >
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-violet-600 flex items-center justify-center mb-4 p-4">
-              <img 
-                src="https://cdn.simpleicons.org/cloudways/FFFFFF" 
-                alt="CloudNaaba" 
-                className="w-full h-full object-contain" 
-                referrerPolicy="no-referrer"
-              />
-            </div>
+            <img 
+              src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" 
+              alt="CloudNaaba" 
+              className="w-24 h-24 md:w-32 md:h-32 object-contain mb-1" 
+            />
             <span className="text-white font-bold text-lg md:text-xl">CloudNaaba Engine</span>
             <span className="text-violet-400/60 text-xs font-mono mt-2">v2.4.0 Actif</span>
           </motion.div>
