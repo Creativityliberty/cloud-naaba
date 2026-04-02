@@ -68,7 +68,7 @@ export default function Header({
           onClick={onLogoClick}
           className="flex items-center group relative shrink-0"
         >
-          <img src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" alt="CloudNaaba Logo" className={`${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-14'} w-auto object-contain transition-all duration-500`} />
+          <img src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" alt="CloudNaaba Logo" className={`${isScrolled ? 'h-11 md:h-12' : 'h-14 md:h-20'} w-auto object-contain transition-all duration-500`} />
         </button>
 
         {/* Desktop Nav Links - Breakpoint adjusted to 'xl' for more space */}
@@ -165,7 +165,7 @@ export default function Header({
             >
                <div className="flex justify-between items-center mb-12">
                  <div className="flex items-center">
-                    <img src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" alt="CloudNaaba" className="h-10 w-auto object-contain" />
+                    <img src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" alt="CloudNaaba" className="h-16 w-auto object-contain" />
                  </div>
                  <button onClick={() => setMobileMenuOpen(false)} className="p-3 rounded-2xl bg-white/5 text-text-secondary hover:text-white border border-white/5">
                    <X className="w-6 h-6" />

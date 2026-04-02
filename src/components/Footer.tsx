@@ -121,9 +121,9 @@ export default function Footer({
               className="flex items-center mb-8 group cursor-pointer"
             >
               <img 
-                src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" 
+                src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" 
                 alt="CloudNaaba" 
-                className="h-10 md:h-12 w-auto object-contain"
+                className="h-14 md:h-24 w-auto object-contain"
               />
             </div>
             <p className="text-text-secondary text-lg leading-relaxed mb-10 max-w-[350px] font-medium">

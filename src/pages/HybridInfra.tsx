@@ -203,9 +203,9 @@ function InfraMapVisual() {
         <div className="relative group">
           <div className="flex flex-col items-center justify-center relative z-10">
             <img 
-              src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" 
+              src="https://cdn.phototourl.com/free/2026-04-02-88a2cc07-a1db-480e-8088-117af6ee5ca9.png" 
               alt="CloudNaaba Core" 
-              className="h-16 md:h-24 w-auto object-contain mb-3"
+              className="h-24 md:h-36 w-auto object-contain mb-3"
             />
           </div>
           
