@@ -66,18 +66,9 @@ export default function Header({
         {/* Brand/Logo */}
         <button 
           onClick={onLogoClick}
-          className="flex items-center gap-2 md:gap-3 group relative shrink-0"
+          className="flex items-center group relative shrink-0"
         >
-          <div className={`rounded-xl md:rounded-2xl transition-all duration-500 bg-accent-primary flex items-center justify-center border border-accent-primary/20 shadow-[0_0_20px_rgba(124,58,237,0.3)] ${
-            isScrolled ? 'w-8 h-8 md:w-9 h-9 p-1.5' : 'w-10 h-10 md:w-11 h-11 p-2'
-          }`}>
-            <img src="/images/logo-cloudnaaba.png" alt="CloudNaaba Logo" className="w-full h-full object-contain" />
-          </div>
-          <span className={`font-black tracking-tighter text-text-primary transition-all duration-500 hover:text-accent-primary hidden xs:block ${
-            isScrolled ? 'text-base md:text-lg' : 'text-xl md:text-2xl'
-          }`}>
-            Cloud<span className="text-accent-primary group-hover:text-text-primary transition-colors">Naaba</span>
-          </span>
+          <img src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" alt="CloudNaaba Logo" className={`${isScrolled ? 'h-8 md:h-10' : 'h-10 md:h-14'} w-auto object-contain transition-all duration-500`} />
         </button>
 
         {/* Desktop Nav Links - Breakpoint adjusted to 'xl' for more space */}
@@ -173,11 +164,8 @@ export default function Header({
               className="fixed right-0 top-0 bottom-0 w-full sm:w-[350px] bg-bg-elevated/98 backdrop-blur-3xl z-50 xl:hidden p-8 border-l border-white/10 shadow-2xl flex flex-col"
             >
                <div className="flex justify-between items-center mb-12">
-                 <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-accent-primary flex items-center justify-center">
-                      <Cloud className="text-white w-5 h-5" />
-                    </div>
-                    <span className="font-black text-lg text-text-primary">CloudNaaba</span>
+                 <div className="flex items-center">
+                    <img src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" alt="CloudNaaba" className="h-10 w-auto object-contain" />
                  </div>
                  <button onClick={() => setMobileMenuOpen(false)} className="p-3 rounded-2xl bg-white/5 text-text-secondary hover:text-white border border-white/5">
                    <X className="w-6 h-6" />

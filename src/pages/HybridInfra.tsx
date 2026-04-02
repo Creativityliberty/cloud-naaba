@@ -201,16 +201,12 @@ function InfraMapVisual() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
       >
         <div className="relative group">
-          <div className="w-32 h-32 md:w-44 md:h-44 rounded-[2.5rem] bg-accent-primary flex flex-col items-center justify-center shadow-[0_0_60px_rgba(124,58,237,0.4)] border-4 border-white/10 relative z-10 transition-transform duration-500 group-hover:scale-105">
+          <div className="flex flex-col items-center justify-center relative z-10">
             <img 
-              src="/images/logo-cloudnaaba.png" 
+              src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" 
               alt="CloudNaaba Core" 
-              className="w-12 h-12 md:w-20 md:h-20 object-contain mb-3"
+              className="h-16 md:h-24 w-auto object-contain mb-3"
             />
-            <div className="text-center">
-              <span className="block text-white font-black text-[10px] uppercase tracking-[0.2em]">CloudNaaba</span>
-              <span className="block text-white/60 font-bold text-[8px] uppercase tracking-widest mt-1">Unified Control Layer</span>
-            </div>
           </div>
           
           {/* Animated Glow Rings */}

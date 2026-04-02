@@ -118,18 +118,13 @@ export default function Footer({
           <div className="lg:col-span-4">
             <div 
               onClick={onLogoClick}
-              className="flex items-center gap-3 mb-8 group cursor-pointer"
+              className="flex items-center mb-8 group cursor-pointer"
             >
-              <div className="w-12 h-12 rounded-2xl bg-accent-primary flex items-center justify-center p-2 shadow-lg shadow-accent-primary/20">
-                <img 
-                  src="/images/logo-cloudnaaba.png" 
-                  alt="CloudNaaba" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <span className="text-2xl font-black text-text-primary tracking-tighter">
-                CloudNaaba
-              </span>
+              <img 
+                src="https://cdn.phototourl.com/free/2026-04-02-e8505ddc-bb80-4865-b48f-44c00e47e19c.png" 
+                alt="CloudNaaba" 
+                className="h-10 md:h-12 w-auto object-contain"
+              />
             </div>
             <p className="text-text-secondary text-lg leading-relaxed mb-10 max-w-[350px] font-medium">
               Déployez vos applications avec plus de simplicité, de sécurité et de maîtrise. Le futur de l'infrastructure souveraine.
