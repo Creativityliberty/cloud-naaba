@@ -89,15 +89,21 @@ const MOCK_PRODUCTS: Product[] = [
   }
 ];
 
+const API_URL = 'https://api-gateway.dev.cloudnaaba.fr/v1/products';
+
 export const productService = {
   async getProducts(): Promise<Product[]> {
-    // Dans le futur, remplacez par : 
-    // const response = await fetch(`${API_URL}/products`);
-    // const json = await response.json();
-    // return json.data;
-    
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(MOCK_PRODUCTS), 500);
-    });
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const json: PricingResponse = await response.json();
+      return json.data;
+    } catch (error) {
+      console.error("Failed to fetch products from real API, using local fallback:", error);
+      // Fallback au cas où l'API est indisponible en dev
+      return MOCK_PRODUCTS;
+    }
   }
 };
