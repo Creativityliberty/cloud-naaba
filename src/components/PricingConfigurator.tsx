@@ -6,14 +6,14 @@ type Currency = 'CFA' | 'EUR' | 'USD';
 type Period = 'hourly' | 'monthly' | 'yearly';
 
 const CONVERSION_RATES = {
-  EUR: 1,
-  CFA: 655.957,
-  USD: 1.08
+  EUR: 1 / 655.957,
+  CFA: 1,
+  USD: 1 / 600
 };
 
 const PERIOD_MULTIPLIERS = {
-  hourly: 1 / 720,
-  monthly: 1,
+  hourly: 1,
+  monthly: 1, // We'll handle 720 in the calculation
   yearly: 12 * 0.9 // 10% discount for yearly
 };
 
@@ -24,24 +24,34 @@ export default function PricingConfigurator() {
   const [currency, setCurrency] = useState<Currency>('CFA');
   const [period, setPeriod] = useState<Period>('monthly');
 
-  // Base monthly cost in EUR
-  const cpuPriceEUR = 4.5; // per vCPU
-  const ramPriceEUR = 2.0; // per GB
-  const storagePriceEUR = 0.12; // per GB NVMe
+  // Base HOURLY cost in XOF (derived from freestyle 2 XOF/h for a basic unit)
+  // Let's assume:
+  // 1 vCPU = 1.0 XOF/h
+  // 1 GB RAM = 0.5 XOF/h
+  // 10 GB Storage = 0.1 XOF/h
+  const cpuPriceXOF = 1.0; 
+  const ramPriceXOF = 0.5;
+  const storagePriceXOF = 0.01; // per GB
 
-  const totalMonthlyEUR = useMemo(() => {
-    return (cpu * cpuPriceEUR) + (ram * ramPriceEUR) + (storage * storagePriceEUR);
+  const totalHourlyXOF = useMemo(() => {
+    return (cpu * cpuPriceXOF) + (ram * ramPriceXOF) + (storage * storagePriceXOF);
   }, [cpu, ram, storage]);
 
-  const formatPrice = (priceEUR: number) => {
-    const converted = priceEUR * CONVERSION_RATES[currency] * PERIOD_MULTIPLIERS[period];
+  const formatPrice = (priceXOF: number) => {
+    let basePrice = priceXOF;
+    if (period === 'monthly' || period === 'yearly') {
+        basePrice = priceXOF * 720; // 720 hours in a month
+    }
+    
+    const converted = basePrice * CONVERSION_RATES[currency] * PERIOD_MULTIPLIERS[period];
     
     if (currency === 'CFA') {
-      return new Intl.NumberFormat('fr-FR').format(Math.round(converted)) + ' F CFA';
+      return new Intl.NumberFormat('fr-FR').format(Math.round(converted)) + ' F';
     }
     return new Intl.NumberFormat('fr-FR', {
       style: 'currency',
       currency: currency,
+      minimumFractionDigits: currency === 'CFA' ? 0 : 2,
     }).format(converted);
   };
 
@@ -178,13 +188,13 @@ export default function PricingConfigurator() {
                   <h3 className="text-text-secondary text-sm font-black uppercase tracking-[0.2em]">Total Estimé</h3>
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={`${currency}-${period}-${totalMonthlyEUR}`}
+                      key={`${currency}-${period}-${totalHourlyXOF}`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       className="text-5xl font-black text-text-primary"
                     >
-                      {formatPrice(totalMonthlyEUR)} <span className="text-lg text-text-secondary font-bold opacity-60">{getPeriodLabel()}</span>
+                      {formatPrice(totalHourlyXOF)} <span className="text-lg text-text-secondary font-bold opacity-60">{getPeriodLabel()}</span>
                     </motion.div>
                   </AnimatePresence>
                   

@@ -1,18 +1,20 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, Cpu, Database, HardDrive, Zap, Globe, Brain, ShieldCheck, Coins, Euro, DollarSign, Calendar } from 'lucide-react';
+import { productService } from '../services/productService';
+import { Product } from '../types/product';
 
 type Currency = 'CFA' | 'EUR' | 'USD';
 type Period = 'hourly' | 'monthly' | 'yearly';
 
 const CONVERSION_RATES = {
-  EUR: 1,
-  CFA: 655.957,
-  USD: 1.08
+  EUR: 1 / 655.957, // Base is XOF now
+  CFA: 1,
+  USD: 1 / 600 // Approximation
 };
 
 const PERIOD_MULTIPLIERS = {
-  hourly: 1 / 720,
+  hourly: 1,
   monthly: 1,
   yearly: 12 * 0.9 // 10% discount for yearly
 };
@@ -23,81 +25,129 @@ const categories = [
   { id: 'enterprise', label: 'Entreprise', icon: ShieldCheck },
 ];
 
-const plansByCat = {
-  web: [
-    {
-      name: "Starter",
-      description: "Idéal pour petits projets, portfolio ou tests API.",
-      priceEUR: 1.5,
-      specs: { cpu: "0.5 vCPU", ram: "0.5 Go", storage: "10 Go" },
-      features: ["Certificat SSL offert", "Mise à jour Git", "Backups hebdo"],
-      cta: "Lancer Starter",
-      highlight: false,
-    },
-    {
-      name: "Standard",
-      description: "Pour startups et PME en croissance.",
-      priceEUR: 11.5,
-      specs: { cpu: "1 vCPU", ram: "2 Go", storage: "50 Go" },
-      features: ["Performance garantie", "Support 24/7", "Auto-scaling basic", "SLA 99.9%"],
-      cta: "Choisir Standard",
-      highlight: true,
-      badge: "Populaire",
-    },
-    {
-      name: "Premium",
-      description: "Applications critiques à fort trafic.",
-      priceEUR: 38.0,
-      specs: { cpu: "4 vCPU", ram: "8 Go", storage: "150 Go" },
-      features: ["Ressources isolées", "Account Manager dédié", "SLA 99.99%", "WAF inclus"],
-      cta: "Passer Premium",
-      highlight: false,
-    }
-  ],
-  ai: [
-    {
-      name: "Model Host",
-      description: "Hébergez vos modèles LLM (Ollama, etc.).",
-      priceEUR: 68.5,
-      specs: { cpu: "8 vCPU", ram: "16 Go", storage: "200 Go" },
-      features: ["Optimisé Inférence", "VPU Acceleration", "Multi-modèles", "API Privée"],
-      cta: "Déployer IA",
-      highlight: true,
-    },
-    {
-      name: "Big Data Lab",
-      description: "Analyse massive et traitement parallele.",
-      priceEUR: 145.0,
-      specs: { cpu: "16 vCPU", ram: "64 Go", storage: "1 To" },
-      features: ["Cluster Spark prêt", "Espace Disque Massive", "Bande passante 1Gbps", "Backup Temps Réel"],
-      cta: "Lancer Lab",
-      highlight: false,
-    }
-  ],
-  enterprise: [
-    {
-      name: "Infrastructure Privée",
-      description: "Contrôle total sur votre propre hardware.",
-      priceEUR: 0,
-      isCustom: true,
-      specs: { cpu: "Sur mesure", ram: "Sur mesure", storage: "Sur mesure" },
-      features: ["Gouvernance totale", "Conformité Règlementaire", "Audit sécurité annuel", "Hybridation Multi-Cloud"],
-      cta: "Contacter Sales",
-      highlight: false,
-    }
-  ]
-};
-
 export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string) => void }) {
   const [activeCat, setActiveCat] = useState('web');
   const [currency, setCurrency] = useState<Currency>('CFA');
   const [period, setPeriod] = useState<Period>('monthly');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    productService.getProducts().then(data => {
+      setProducts(data);
+      setLoading(false);
+    });
+  }, []);
+
+  const plansByCat = useMemo(() => {
+    // Helper to find product by slug
+    const getProd = (slug: string) => products.find(p => p.slug === slug);
+
+    return {
+      web: [
+        {
+          name: "Starter",
+          description: "Idéal pour petits projets, portfolio ou tests API.",
+          priceXOF: getProd('starter')?.prices[0]?.unit_amount ?? 2500,
+          specs: { 
+            cpu: getProd('starter')?.included_cpu ? `${getProd('starter')?.included_cpu} vCPU` : "0.5 vCPU", 
+            ram: getProd('starter')?.included_ram_gb ? `${getProd('starter')?.included_ram_gb} Go` : "0.5 Go", 
+            storage: getProd('starter')?.included_storage_gb ? `${getProd('starter')?.included_storage_gb} Go` : "10 Go" 
+          },
+          features: ["Certificat SSL offert", "Mise à jour Git", "Backups hebdo"],
+          cta: "Lancer Starter",
+          highlight: false,
+        },
+        {
+          name: "Pro",
+          description: "Pour startups et PME en croissance.",
+          priceXOF: getProd('pro')?.prices[0]?.unit_amount ?? 15000,
+          specs: { 
+            cpu: getProd('pro')?.included_cpu ? `${getProd('pro')?.included_cpu} vCPU` : "2 vCPU", 
+            ram: getProd('pro')?.included_ram_gb ? `${getProd('pro')?.included_ram_gb} Go` : "8 Go", 
+            storage: getProd('pro')?.included_storage_gb ? `${getProd('pro')?.included_storage_gb} Go` : "50 Go" 
+          },
+          features: ["Performance garantie", "Support 24/7", "Auto-scaling basic", "SLA 99.9%"],
+          cta: "Choisir Pro",
+          highlight: true,
+          badge: "Populaire",
+        },
+        {
+          name: "Freestyle",
+          description: "Applications critiques, payez à l'heure.",
+          priceXOF: getProd('freestyle')?.prices[0]?.unit_amount ?? 2.5,
+          isHourly: true,
+          specs: { cpu: "À la carte", ram: "À la carte", storage: "À la carte" },
+          features: ["Ressources isolées", "Account Manager dédié", "SLA 99.99%", "WAF inclus"],
+          cta: "Passer Freestyle",
+          highlight: false,
+        }
+      ],
+      ai: [
+        {
+          name: "Model Host",
+          description: "Hébergez vos modèles LLM (Ollama, etc.).",
+          priceXOF: 50000, // Hardcoded for now until backend provides AI products
+          specs: { cpu: "8 vCPU", ram: "16 Go", storage: "200 Go" },
+          features: ["Optimisé Inférence", "VPU Acceleration", "Multi-modèles", "API Privée"],
+          cta: "Déployer IA",
+          highlight: true,
+        },
+        {
+          name: "Big Data Lab",
+          description: "Analyse massive et traitement parallele.",
+          priceXOF: 100000,
+          specs: { cpu: "16 vCPU", ram: "64 Go", storage: "1 To" },
+          features: ["Cluster Spark prêt", "Espace Disque Massive", "Bande passante 1Gbps", "Backup Temps Réel"],
+          cta: "Lancer Lab",
+          highlight: false,
+        }
+      ],
+      enterprise: [
+        {
+          name: "Enterprise Pack",
+          description: "Dedicated resources and isolation for mission-critical apps",
+          priceXOF: getProd('enterprise')?.prices[0]?.unit_amount ?? 100000,
+          specs: { 
+            cpu: getProd('enterprise')?.included_cpu ? `${getProd('enterprise')?.included_cpu} vCPU` : "8 vCPU", 
+            ram: getProd('enterprise')?.included_ram_gb ? `${getProd('enterprise')?.included_ram_gb} Go` : "32 Go", 
+            storage: getProd('enterprise')?.included_storage_gb ? `${getProd('enterprise')?.included_storage_gb} Go` : "500 Go" 
+          },
+          features: ["Gouvernance totale", "Conformité Règlementaire", "Audit sécurité annuel", "Hybridation Multi-Cloud"],
+          cta: "Choisir Enterprise",
+          highlight: false,
+        },
+        {
+          name: "Infrastructure Privée",
+          description: "Contrôle total sur votre propre hardware.",
+          priceXOF: 0,
+          isCustom: true,
+          specs: { cpu: "Sur mesure", ram: "Sur mesure", storage: "Sur mesure" },
+          features: ["Cloud Privé dédié", "Isolation Physique", "Support VIP 24/7", "Custom SLA"],
+          cta: "Contacter Sales",
+          highlight: false,
+        }
+      ]
+    };
+  }, [products]);
 
   const currentPlans = plansByCat[activeCat as keyof typeof plansByCat];
 
-  const formatPrice = (priceEUR: number) => {
-    if (priceEUR === 0) return "Sur devis";
-    const converted = priceEUR * CONVERSION_RATES[currency] * PERIOD_MULTIPLIERS[period];
+  const formatPrice = (priceXOF: number, isPlanHourly?: boolean) => {
+    if (priceXOF === 0) return "Sur devis";
+    
+    // Si c'est un prix horaire (Freestyle), on ne multiplie pas par la période si l'utilisateur regarde le "mensuel"
+    // Ou alors on adapte. Ici, on va rester simple : 
+    // Si isPlanHourly est vrai et que la sélection est 'monthly', on multiplie par 720.
+    
+    let basePrice = priceXOF;
+    if (isPlanHourly && (period === 'monthly' || period === 'yearly')) {
+        basePrice = priceXOF * 720;
+    } else if (!isPlanHourly && period === 'hourly') {
+        basePrice = priceXOF / 720;
+    }
+
+    const converted = basePrice * CONVERSION_RATES[currency] * (isPlanHourly && period === 'hourly' ? 1 : PERIOD_MULTIPLIERS[period]);
     
     if (currency === 'CFA') {
        return new Intl.NumberFormat('fr-FR').format(Math.round(converted)) + ' F';
@@ -105,10 +155,12 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
     return new Intl.NumberFormat('fr-FR', {
        style: 'currency',
        currency: currency,
+       minimumFractionDigits: currency === 'CFA' ? 0 : 2,
     }).format(converted);
   };
 
-  const getPeriodLabel = () => {
+  const getPeriodLabel = (isPlanHourly?: boolean) => {
+    if (isPlanHourly && period === 'hourly') return '/ h';
     switch(period) {
       case 'hourly': return '/ h';
       case 'monthly': return '/ mois';
@@ -257,18 +309,18 @@ export default function Pricing({ onPlanSelect }: { onPlanSelect?: (plan: string
                   <div className="mb-10">
                     <AnimatePresence mode="wait">
                       <motion.div 
-                        key={`${currency}-${period}-${plan.priceEUR}`}
+                        key={`${currency}-${period}-${plan.priceXOF}-${plan.name}`}
                         initial={{ opacity: 0, x: -5 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 5 }}
                         className="flex items-end gap-2"
                       >
                          <span className="text-4xl font-black text-text-primary tracking-tight">
-                           {formatPrice(plan.priceEUR ?? 0)}
+                           {formatPrice(plan.priceXOF ?? 0, (plan as any).isHourly)}
                          </span>
                          {!plan.isCustom && (
                            <span className="text-text-secondary text-[10px] uppercase font-black tracking-[0.2em] mb-2 opacity-60">
-                             {getPeriodLabel()}
+                             {getPeriodLabel((plan as any).isHourly)}
                            </span>
                          )}
                       </motion.div>
